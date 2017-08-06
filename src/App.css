@@ -1,0 +1,42 @@
+html, body, #root{
+  height:100%;
+}
+
+.flex-container {
+  display:flex;
+  height:100%;
+}
+
+.sidebar{
+  flex:1;
+  border-right: 1px solid gray;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.main{
+  flex:6;
+  flex-flow: column wrap;
+}
+
+.header{
+  flex:1;
+  height:8%;
+  border-bottom: 1px solid gray;
+}
+
+.body{
+  flex:1;
+  height:92%;
+}
+
+.appList{
+  flex:6;
+  flex-grow: 1;
+  list-style: none;
+  border-top:1px solid gray;
+}
+
+.profile{
+  border-top:1px solid gray;
+}
