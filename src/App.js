@@ -6,7 +6,9 @@ class App extends Component {
     return (
       <div className="flex-container">
         <div className="sidebar">
-          <h2>Brewing App</h2>
+          <div className="title">
+            <h2>Brewing App</h2>
+          </div>
           <ul className="appList">
             <li>Inventory</li>
             <li>Timer</li>
