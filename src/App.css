@@ -1,5 +1,5 @@
 html, body, #root{
-  height:100%;
+  min-height:100vh;
 }
 
 p, h1, h2, h3, h4, h5, h6{
@@ -8,51 +8,46 @@ p, h1, h2, h3, h4, h5, h6{
 
 .flex-container {
   display:flex;
-  height:100%;
+  flex-direction: column;
+  height:100vh;
 }
 
-.sidebar{
-  flex:1;
-  border-right: 1px solid gray;
-  display: flex;
-  flex-flow: column wrap;
-}
-
-.title{
-  height:60px;
-  border-bottom: 1px solid gray;
-}
-
-.main{
-  flex:6;
-  flex-flow: column wrap;
+.header, .nav{
+  flex:0 0 10vh;
 }
 
 .header{
-  flex:1;
-  height:60px;
-  border-bottom: 1px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.body{
-  flex:1;
+.main{
+  flex-grow:1;
+  border-top:1px solid gray;
+  border-bottom:1px solid gray;
 }
 
-.appList{
-  flex-grow: 1;
+.nav ul{
+  display: flex;
   list-style: none;
   padding:0;
+  margin:0;
+  height:100%;
 }
 
-.appList li{
-  padding:10px 0;
+.nav ul li{
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  flex:1;
+  justify-content: center;
 }
 
-.appList li:hover{
-  background-color: gray;
+.nav ul li:first-child{
+  border-right:1px solid gray;
 }
 
-.profile{
-  height:60px;
-  border-top:1px solid gray;
+@media (min-width: 768px){
+
 }

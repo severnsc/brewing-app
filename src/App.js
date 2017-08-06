@@ -5,25 +5,18 @@ class App extends Component {
   render() {
     return (
       <div className="flex-container">
-        <div className="sidebar">
-          <div className="title">
-            <h2>Brewing App</h2>
-          </div>
-          <ul className="appList">
-            <li>Inventory</li>
-            <li>Timer</li>
+        <header className="header">
+          <h2>App Name</h2>
+        </header>
+        <main className="main">
+          <h2>App</h2>
+        </main>
+        <nav className="nav">
+          <ul>
+            <li><p>Inventory</p></li>
+            <li><p>Timer</p></li>
           </ul>
-          <div className="profile">
-            <h2>Current User</h2>
-          </div>
-        </div>
-        <div className="main">
-          <div className="header">
-            <h2>App Name</h2>
-          </div>
-          <div className="body">
-          </div>
-        </div>
+        </nav>
       </div>
     );
   }
