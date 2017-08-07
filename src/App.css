@@ -30,6 +30,10 @@ p, h1, h2, h3, h4, h5, h6{
   left: 0;
 }
 
+.logo h2{
+  margin-left:5px;
+}
+
 .main{
   flex-grow:1;
 }
@@ -40,6 +44,8 @@ p, h1, h2, h3, h4, h5, h6{
   height: 10vh;
   width: 100%;
   border-top: 1px solid gray;
+  background-color: #222222;
+  color:#999;
 }
 
 .nav ul{
@@ -71,6 +77,22 @@ p, h1, h2, h3, h4, h5, h6{
     flex-direction: row;
   }
 
+  .logo{
+    position: inherit;
+    flex: 1;
+    align-self: stretch;
+    background-color: #222222;
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+
+  .appName{
+    flex:8;
+    display: flex;
+    justify-content: center;
+  }
+
   .main{
     border-bottom:none;
     flex:8;
@@ -94,10 +116,14 @@ p, h1, h2, h3, h4, h5, h6{
   .nav ul li{
     align-self: flex-start;
     display: initial;
-    flex:0;
+    align-self: stretch;
+    border-right:none;
+    padding:10px 0 10px 5px;
+    flex-grow:0;
   }
 
-  .nav ul li{
-    border-right:none;
+  .nav ul li:hover{
+    background-color: rgba(0,0,0,.5);
+    color:white;
   }
 }

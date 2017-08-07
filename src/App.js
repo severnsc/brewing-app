@@ -6,8 +6,12 @@ class App extends Component {
     return (
       <div className="body">
         <header className="header">
-          <h2 className="logo">Logo</h2>
-          <h2>App Name</h2>
+          <div className="logo">
+            <h2>Logo</h2>
+          </div>
+          <div className="appName">
+            <h2>App Name</h2>
+          </div>
         </header>
         <div className="flex-container">
           <main className="main">
