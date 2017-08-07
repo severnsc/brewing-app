@@ -6,6 +6,11 @@ p, h1, h2, h3, h4, h5, h6{
   margin:0;
 }
 
+.body{
+  display: flex;
+  flex-direction: column;
+}
+
 .flex-container {
   display:flex;
   flex-direction: column;
@@ -20,11 +25,11 @@ p, h1, h2, h3, h4, h5, h6{
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom:1px solid gray;
 }
 
 .main{
   flex-grow:1;
-  border-top:1px solid gray;
   border-bottom:1px solid gray;
 }
 
@@ -49,5 +54,32 @@ p, h1, h2, h3, h4, h5, h6{
 }
 
 @media (min-width: 768px){
+  .flex-container{
+    flex-direction: row;
+  }
 
+  .main{
+    border-bottom:none;
+    flex:8;
+  }
+
+  .nav{
+    order:-1;
+    flex:1;
+  }
+
+  .nav ul{
+    flex-direction: column;
+    border-right:1px solid gray;
+  }
+
+  .nav ul li{
+    align-self: flex-start;
+    display: initial;
+    flex:0;
+  }
+
+  .nav ul li:first-child{
+    border-right:none;
+  }
 }
