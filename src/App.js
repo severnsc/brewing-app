@@ -6,6 +6,7 @@ class App extends Component {
     return (
       <div className="body">
         <header className="header">
+          <h2 className="logo">Logo</h2>
           <h2>App Name</h2>
         </header>
         <div className="flex-container">
