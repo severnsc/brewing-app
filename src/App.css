@@ -17,11 +17,8 @@ p, h1, h2, h3, h4, h5, h6{
   height:100vh;
 }
 
-.header, .nav{
-  flex:0 0 10vh;
-}
-
 .header{
+  flex:0 0 10vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +27,14 @@ p, h1, h2, h3, h4, h5, h6{
 
 .main{
   flex-grow:1;
-  border-bottom:1px solid gray;
+}
+
+.nav{
+  position:fixed;
+  bottom:0;
+  height: 10vh;
+  width: 100%;
+  border-top: 1px solid gray;
 }
 
 .nav ul{
@@ -64,6 +68,11 @@ p, h1, h2, h3, h4, h5, h6{
   }
 
   .nav{
+    position: inherit;
+    bottom: initial;
+    height: 100%;
+    width: initial;
+    border-top:none;
     order:-1;
     flex:1;
   }
