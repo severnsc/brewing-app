@@ -58,8 +58,12 @@ p, h1, h2, h3, h4, h5, h6{
   justify-content: center;
 }
 
-.nav ul li:first-child{
+.nav ul li{
   border-right:1px solid gray;
+}
+
+.nav ul li:last-child{
+  border-right:none;
 }
 
 @media (min-width: 768px){
@@ -93,7 +97,7 @@ p, h1, h2, h3, h4, h5, h6{
     flex:0;
   }
 
-  .nav ul li:first-child{
+  .nav ul li{
     border-right:none;
   }
 }

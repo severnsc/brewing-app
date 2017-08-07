@@ -17,6 +17,7 @@ class App extends Component {
             <ul>
               <li><p>Inventory</p></li>
               <li><p>Timer</p></li>
+              <li><p>Current User</p></li>
             </ul>
           </nav>
         </div>
