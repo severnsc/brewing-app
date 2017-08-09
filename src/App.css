@@ -80,7 +80,7 @@ p, h1, h2, h3, h4, h5, h6{
   left:0;
 }
 
-.nav ul{
+.navItems{
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -92,6 +92,13 @@ p, h1, h2, h3, h4, h5, h6{
 .nav ul li{
   display: flex;
   padding: 10px 0 0 10px;
+}
+
+.subItems{
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin-left:20px;
 }
 
 @media (min-width: 768px){

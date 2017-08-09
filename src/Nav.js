@@ -9,8 +9,13 @@ class Nav extends Component{
 
     return(
       <nav className={navClass}>
-        <ul>
+        <ul className="navItems">
           <li><p>Inventory</p></li>
+          <ul className="subItems">
+            <li>Malt</li>
+            <li>Hops</li>
+            <li>Yeast</li>
+          </ul>
           <li><p>Timer</p></li>
           <li><p>Current User</p></li>
         </ul>
