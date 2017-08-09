@@ -42,18 +42,25 @@ p, h1, h2, h3, h4, h5, h6{
   align-items: center;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .main.open{
   transform: translate(90%);
 }
 
+.componentRow{
+  display: flex;
+  align-self: stretch;
+}
+
 .componentContainer{
   display: flex;
   border: 1px solid #eaeaea;
   align-items: center;
-  height: 50vh;
   background-color: white;
+  flex:1;
+  margin:10px 0;
 }
 
 .nav{
@@ -62,7 +69,6 @@ p, h1, h2, h3, h4, h5, h6{
   left:-90%;
   height:110vh;
   width: 90%;
-  border-top: 1px solid gray;
   background-color: #222222;
   color:#999;
   transition: left .3s ease-in-out;
@@ -118,8 +124,12 @@ p, h1, h2, h3, h4, h5, h6{
   }
 
   .main{
-    border-bottom:none;
     flex:8;
+    flex-flow: row wrap;
+  }
+
+  .componentContainer{
+    margin:10px;
   }
 
   .navIcon{
@@ -145,7 +155,6 @@ p, h1, h2, h3, h4, h5, h6{
     align-self: stretch;
     width: initial;
     height: 90vh;
-    border-top:none;
     order:-1;
     flex:1;
     max-width: 160px;
