@@ -42,7 +42,7 @@ class Page extends Component{
         </header>
         <div className="flex-container">
           <Main isOpen={this.state.sidebarOpen} onClick={this.menuCollapse} />
-          <Nav isOpen={this.state.sidebarOpen} />
+          <Nav isOpen={this.state.sidebarOpen} onClick={this.menuCollapse} />
         </div>
       </div>
     );

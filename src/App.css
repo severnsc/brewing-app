@@ -70,8 +70,12 @@ p, h1, h2, h3, h4, h5, h6{
   height:110vh;
   width: 90%;
   background-color: #222222;
-  color:#999;
   transition: left .3s ease-in-out;
+}
+
+.nav a{
+  color:#999;
+  text-decoration: none;
 }
 
 .navIcon{

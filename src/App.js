@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import { BrowserRouter } from 'react-router-dom';
 import Page from './Components/Page.js';
 
 class App extends Component {
@@ -12,4 +12,16 @@ class App extends Component {
 
 }
 
-export default App;
+class Body extends Component{
+
+  render(){
+    return(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    )
+  }
+
+}
+
+export default Body;

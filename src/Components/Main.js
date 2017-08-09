@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import '../App.css';
 import Timer from './Timer.js';
+import Home from './Home.js';
 
 class Main extends Component{
 
@@ -11,7 +13,10 @@ class Main extends Component{
       return(
         <main className={mainClass} onClick={this.props.onClick}>
             <div className="componentContainer">
-              <Timer time={5400000} />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/timer" component={Timer} />
+              </Switch>
             </div>
         </main>
       )
