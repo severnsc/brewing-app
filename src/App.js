@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Nav from './Nav.js';
-import Main from './Main.js'
+import Nav from './Components/Nav.js';
+import Main from './Components/Main.js'
 
 class App extends Component {
 
