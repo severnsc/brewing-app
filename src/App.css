@@ -9,6 +9,7 @@ p, h1, h2, h3, h4, h5, h6{
 .body{
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .flex-container {
@@ -18,6 +19,7 @@ p, h1, h2, h3, h4, h5, h6{
 }
 
 .header{
+  transition-duration: 300ms;
   flex:0 0 10vh;
   display: flex;
   align-items: center;
@@ -25,66 +27,65 @@ p, h1, h2, h3, h4, h5, h6{
   border-bottom:1px solid gray;
 }
 
-.logo{
-  position: absolute;
-  left: 0;
+.header.open{
+  transform: translate(90%);
 }
 
-.logo h2{
-  margin-left:5px;
+.topElement{
+  display: none;
 }
 
 .main{
   flex-grow:1;
+  align-self: stretch;
+  transition-duration: 300ms;
+}
+
+.main.open{
+  transform: translate(90%);
 }
 
 .nav{
-  position:fixed;
-  bottom:0;
-  height: 10vh;
-  width: 100%;
+  position:absolute;
+  top:0;
+  left:-90%;
+  height:110vh;
+  width: 90%;
   border-top: 1px solid gray;
   background-color: #222222;
   color:#999;
+  transition: left .3s ease-in-out;
+}
+
+.navIcon{
+  position: absolute;
+  left: 0;
+  color: black;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+.nav.open{
+  left:0;
 }
 
 .nav ul{
   display: flex;
+  flex-direction: column;
   list-style: none;
-  padding:0;
-  margin:0;
+  padding: 0;
   height:100%;
+  margin:0;
 }
 
 .nav ul li{
-  align-self: stretch;
   display: flex;
-  align-items: center;
-  flex:1;
-  justify-content: center;
-}
-
-.nav ul li{
-  border-right:1px solid gray;
-}
-
-.nav ul li:last-child{
-  border-right:none;
+  padding: 10px 0 0 10px;
 }
 
 @media (min-width: 768px){
   .flex-container{
     flex-direction: row;
-  }
-
-  .logo{
-    position: inherit;
-    flex: 1;
-    align-self: stretch;
-    background-color: #222222;
-    color: white;
-    display: flex;
-    align-items: center;
   }
 
   .appName{
@@ -93,31 +94,52 @@ p, h1, h2, h3, h4, h5, h6{
     justify-content: center;
   }
 
+  .topElement{
+    display: initial;
+  }
+
   .main{
     border-bottom:none;
     flex:8;
   }
 
+  .navIcon{
+    position: inherit;
+    display: flex;
+    align-self: stretch;
+    flex:1;
+    background-color: #222;
+    max-width:160px;
+  }
+
+  .navIcon h2{
+    align-self: center;
+  }
+
+  .navIcon a{
+    display: none;
+  }
+
   .nav{
     position: inherit;
     bottom: initial;
-    height: 100%;
+    align-self: stretch;
     width: initial;
+    height: 100vh;
     border-top:none;
     order:-1;
     flex:1;
+    max-width: 160px;
   }
 
   .nav ul{
     flex-direction: column;
-    border-right:1px solid gray;
   }
 
   .nav ul li{
     align-self: flex-start;
     display: initial;
     align-self: stretch;
-    border-right:none;
     padding:10px 0 10px 5px;
     flex-grow:0;
   }
