@@ -16,7 +16,7 @@ class Nav extends Component{
             <li>Hops</li>
             <li>Yeast</li>
           </ul>
-          {this.props.timerLink}
+          <li><p>Timer</p></li>
           <li><p>Current User</p></li>
         </ul>
       </nav>

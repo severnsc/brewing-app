@@ -41,8 +41,8 @@ class Page extends Component{
           </div>
         </header>
         <div className="flex-container">
-          <Main component={this.props.children} isOpen={this.state.sidebarOpen} onClick={this.menuCollapse} />
-          <Nav timerLink={this.props.timerLink} isOpen={this.state.sidebarOpen} />
+          <Main isOpen={this.state.sidebarOpen} onClick={this.menuCollapse} />
+          <Nav isOpen={this.state.sidebarOpen} />
         </div>
       </div>
     );
