@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
-import Nav from './Components/Nav.js';
-import Main from './Components/Main.js'
+import '../App.css';
+import Nav from './Nav.js';
+import Main from './Main.js'
 
-class App extends Component {
-
+class Page extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -42,12 +41,12 @@ class App extends Component {
           </div>
         </header>
         <div className="flex-container">
-          <Main isOpen={this.state.sidebarOpen} onClick={this.menuCollapse} />
-          <Nav isOpen={this.state.sidebarOpen} />
+          <Main component={this.props.children} isOpen={this.state.sidebarOpen} onClick={this.menuCollapse} />
+          <Nav timerLink={this.props.timerLink} isOpen={this.state.sidebarOpen} />
         </div>
       </div>
     );
   }
 }
 
-export default App;
+export default Page;
