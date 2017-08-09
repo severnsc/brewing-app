@@ -24,7 +24,6 @@ p, h1, h2, h3, h4, h5, h6{
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom:1px solid gray;
 }
 
 .header.open{
@@ -36,13 +35,25 @@ p, h1, h2, h3, h4, h5, h6{
 }
 
 .main{
+  background-color: #fbfbfb;
   flex-grow:1;
   align-self: stretch;
   transition-duration: 300ms;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .main.open{
   transform: translate(90%);
+}
+
+.componentContainer{
+  display: flex;
+  border: 1px solid #eaeaea;
+  align-items: center;
+  height: 50vh;
+  background-color: white;
 }
 
 .nav{
