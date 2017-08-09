@@ -15,7 +15,7 @@ p, h1, h2, h3, h4, h5, h6{
 .flex-container {
   display:flex;
   flex-direction: column;
-  height:100vh;
+  height:90vh;
 }
 
 .header{
@@ -59,7 +59,7 @@ p, h1, h2, h3, h4, h5, h6{
 
 .navIcon{
   position: absolute;
-  left: 0;
+  left: 5px;
   color: black;
   text-decoration: none;
   font-size: 1.5em;
@@ -96,6 +96,7 @@ p, h1, h2, h3, h4, h5, h6{
 
   .topElement{
     display: initial;
+    color:#999;
   }
 
   .main{
@@ -125,7 +126,7 @@ p, h1, h2, h3, h4, h5, h6{
     bottom: initial;
     align-self: stretch;
     width: initial;
-    height: 100vh;
+    height: 90vh;
     border-top:none;
     order:-1;
     flex:1;

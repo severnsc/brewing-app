@@ -11,10 +11,17 @@ class App extends Component {
       sidebarOpen: false,
     }
     this.handleTouch = this.handleTouch.bind(this)
+    this.menuCollapse = this.menuCollapse.bind(this)
   }
 
   handleTouch(){
     this.setState({sidebarOpen: !this.state.sidebarOpen})
+  }
+
+  menuCollapse(){
+    if(this.state.sidebarOpen){
+      this.setState({sidebarOpen: false})
+    }
   }
 
   render() {
@@ -35,7 +42,7 @@ class App extends Component {
           </div>
         </header>
         <div className="flex-container">
-          <Main isOpen={this.state.sidebarOpen} />
+          <Main isOpen={this.state.sidebarOpen} onClick={this.menuCollapse} />
           <Nav isOpen={this.state.sidebarOpen} />
         </div>
       </div>
