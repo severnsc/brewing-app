@@ -3,7 +3,7 @@ import '../App.css';
 import Nav from './Nav.js';
 import Main from './Main.js'
 
-class Page extends Component{
+class Wrapper extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -49,4 +49,4 @@ class Page extends Component{
   }
 }
 
-export default Page;
+export default Wrapper;

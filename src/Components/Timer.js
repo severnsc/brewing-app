@@ -6,12 +6,13 @@ class Timer extends Component{
   constructor(props){
     super(props);
     this.state = {
-      time: this.props.time,
+      time: null,
       minutes: 0,
       seconds: 0,
       intervalID: null,
     }
     this.calculateTime = this.calculateTime.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   startTimer(){
@@ -55,7 +56,15 @@ class Timer extends Component{
   }
 
   componentDidMount(){
-    this.calculateTime()
+    if(this.state.time !== null){
+      this.calculateTime()
+    }
+  }
+
+  handleSubmit(e){
+    e.preventDefault()
+    const ms = this.refs.minutes.value * 60000
+    this.setState({time: ms}, this.calculateTime)
   }
 
   render(){
@@ -72,14 +81,24 @@ class Timer extends Component{
       timerButtonText = "Reset"
     }
 
-    return(
-      <div className="timerContainer">
-        <h2 className="timeText">{this.state.minutes} : {this.state.seconds}</h2>
-        <button className={timerButtonClass} onClick={() => this.toggleTimer()}>{timerButtonText}</button>
-      </div>
-    )
+    if(this.state.time !== null){
+      return(
+        <div className="componentContainer">
+          <h2 className="timeText">{this.state.minutes} : {this.state.seconds}</h2>
+          <button className={timerButtonClass} onClick={() => this.toggleTimer()}>{timerButtonText}</button>
+        </div>
+      )
+    }else{
+      return(
+        <div className="componentContainer">
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" ref="minutes" /><span>minutes</span>
+            <input type="submit" value="Create Timer" />
+          </form>
+        </div>
+      )
+    } 
   }
-
 }
 
 export default Timer;

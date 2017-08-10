@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Page from './Components/Page.js';
+import Wrapper from './Components/Wrapper.js';
 
 class App extends Component {
 
   render(){
     return(
-      <Page />
+      <Wrapper />
     )
   }
 
