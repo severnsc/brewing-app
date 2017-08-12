@@ -13,6 +13,7 @@ class Timer extends Component{
       seconds: 0,
       intervalID: null,
       alerts:[],
+      errorText: "",
     }
     this.calculateTime = this.calculateTime.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -77,9 +78,28 @@ class Timer extends Component{
   }
 
   createAlert(minutes, seconds, desc){
-    const alert = {minutes: minutes, seconds: seconds, description: desc}
-    this.state.alerts.push(alert)
-    this.setState({alerts: this.state.alerts})
+    if(isNaN(parseInt(minutes))){
+      this.setState({errorText: "Alert minutes must be an integer"})
+    }else if(parseInt(minutes) > parseInt(this.state.minutes)){
+      this.setState({errorText: "Alert minutes cannot be greater than timer's minutes"})
+    }else if(parseInt(minutes) < 0){
+      this.setState({errorText: "Alert minutes cannot be negative"})
+    }else if(isNaN(parseInt(seconds))){
+      this.setState({errorText: "Alert seconds must be an integer"})
+    }else if(parseInt(seconds) > 59){
+      this.setState({errorText: "Alert seconds cannot be larger than 59"})
+    }else if(parseInt(seconds) < 0){
+      this.setState({errorText: "Alert seconds cannot be negative"})
+    }else if((minutes * 60000) + (seconds * 1000) > this.state.time){
+      this.setState({errorText: "Alert time trigger cannot be larger than the total timer duration"})
+    }else{
+      const alert = {minutes: minutes, seconds: seconds, description: desc}
+      this.state.alerts.push(alert)
+      this.setState({
+        alerts: this.state.alerts,
+        errorText: ""
+      })
+    }
   }
 
   render(){
@@ -110,6 +130,7 @@ class Timer extends Component{
             <button className={timerButtonClass} onClick={() => this.resetTimer()}>Reset</button>
           </div>
           <div className="componentContainer">
+            {this.state.errorText}
             <Alert createAlert={this.createAlert} />
             {alertComponents}
           </div>
