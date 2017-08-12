@@ -90,7 +90,7 @@ class Timer extends Component{
 
     let alertComponents = this.state.alerts.map((a) => {
       return(
-        <div>
+        <div key={a.description}>
           <span>{a.minutes} : {a.seconds}</span>
           <span>{a.description}</span>
         </div>
