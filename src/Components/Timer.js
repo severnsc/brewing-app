@@ -14,10 +14,14 @@ class Timer extends Component{
       intervalID: null,
       alerts:[],
       errorText: "",
+      editing: null,
+      editingIndex: null,
     }
     this.calculateTime = this.calculateTime.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.createAlert = this.createAlert.bind(this)
+    this.updateAlert = this.updateAlert.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   startTimer(){
@@ -107,6 +111,45 @@ class Timer extends Component{
     this.setState({alerts: this.state.alerts})
   }
 
+  editAlert(alert, index){
+    this.setState({
+      editing: alert,
+      editingIndex: index
+    })
+  }
+
+  updateAlert(e){
+    e.preventDefault()
+    if(isNaN(parseInt(this.state.editing.minutes, 10))){
+      this.setState({errorText: "Alert minutes must be an integer"})
+    }else if(parseInt(this.state.editing.minutes, 10) > parseInt(this.state.minutes, 10)){
+      this.setState({errorText: "Alert minutes cannot be greater than timer's minutes"})
+    }else if(parseInt(this.state.editing.minutes, 10) < 0){
+      this.setState({errorText: "Alert minutes cannot be negative"})
+    }else if(isNaN(parseInt(this.state.editing.seconds, 10))){
+      this.setState({errorText: "Alert seconds must be an integer"})
+    }else if(parseInt(this.state.editing.seconds, 10) > 59){
+      this.setState({errorText: "Alert seconds cannot be larger than 59"})
+    }else if(parseInt(this.state.editing.seconds, 10) < 0){
+      this.setState({errorText: "Alert seconds cannot be negative"})
+    }else if((parseInt(this.state.editing.minutes, 10) * 60000) + (parseInt(this.state.editing.seconds, 10) * 1000) > this.state.time){
+      this.setState({errorText: "Alert time trigger cannot be larger than the total timer duration"})
+    }else{
+      this.setState({
+        alerts: this.state.alerts.splice(this.state.editingIndex, 1, this.state.editing),
+        errorText: "",
+        editing: null
+      })
+    }
+  }
+
+  handleChange(e){
+    const propertyName = e.target.name
+    const editing = this.state.editing
+    editing[propertyName] = e.target.value
+    this.setState({editing: editing})
+  }
+
   render(){
 
     let timerButtonClass = this.state.intervalID ? "stop" : "start"
@@ -114,13 +157,29 @@ class Timer extends Component{
     let timerButtonText = "Start"
 
     let alertComponents = this.state.alerts.map((a, index) => {
-      return(
-        <div key={index}>
-          <span>{a.minutes} : {a.seconds}</span>
-          <span>{a.description}</span>
-          <button onClick={() => this.deleteAlert(index)}>Delete</button>
-        </div>
-      )
+      if(this.state.editing === null){
+        return(
+          <div key={index}>
+            <span>{a.minutes} : {a.seconds}</span>
+            <span>{a.description}</span>
+            <button onClick={() => this.deleteAlert(index)}>Delete</button>
+            <button onClick={(index) => this.editAlert(a, index)}>Edit</button>
+          </div>
+        )
+      }else{
+        return(
+          <div key={index}>
+            {this.state.errorText}
+            <form onSubmit={this.updateAlert}>
+              <input type="text" name="minutes" value={this.state.editing.minutes} onChange={this.handleChange} />
+              :
+              <input type="text" name="seconds" value={this.state.editing.seconds} onChange={this.handleChange} />
+              <input type="text" name="description" value={this.state.editing.description} onChange={this.handleChange} />
+              <input type="submit" value="Update" />
+            </form>
+          </div>
+        )
+      }
     })
     
     if(this.state.intervalID){
