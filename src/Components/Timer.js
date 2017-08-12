@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
+import Alert from './Alert.js';
 
 class Timer extends Component{
 
@@ -89,6 +90,7 @@ class Timer extends Component{
           <h2 className="timeText">{this.state.minutes} : {this.state.seconds}</h2>
           <button className={timerButtonClass} onClick={() => this.toggleTimer()}>{timerButtonText}</button>
           <button className={timerButtonClass} onClick={() => this.resetTimer()}>Reset</button>
+          <Alert />
         </div>
       )
     }else{
