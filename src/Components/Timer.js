@@ -6,6 +6,7 @@ class Timer extends Component{
   constructor(props){
     super(props);
     this.state = {
+      initialTime: null,
       time: null,
       minutes: 0,
       seconds: 0,
@@ -28,12 +29,14 @@ class Timer extends Component{
     if(this.state.intervalID){
       this.stopTimer()
     }else{
-      if(this.state.time < 0){
-        this.setState({time: this.props.time}, this.calculateTime)
-      }else{
+      if(this.state.time > 0){
         this.startTimer()
       }
     }
+  }
+
+  resetTimer(){
+    this.setState({time: this.state.initialTime}, this.calculateTime)
   }
 
   timerEnd(){
@@ -64,7 +67,10 @@ class Timer extends Component{
   handleSubmit(e){
     e.preventDefault()
     const ms = this.refs.minutes.value * 60000
-    this.setState({time: ms}, this.calculateTime)
+    this.setState({
+      time: ms,
+      initialTime: ms,
+    }, this.calculateTime)
   }
 
   render(){
@@ -77,15 +83,12 @@ class Timer extends Component{
       timerButtonText = "Stop"
     }
 
-    if(this.state.time < 0){
-      timerButtonText = "Reset"
-    }
-
     if(this.state.time !== null){
       return(
         <div className="componentContainer">
           <h2 className="timeText">{this.state.minutes} : {this.state.seconds}</h2>
           <button className={timerButtonClass} onClick={() => this.toggleTimer()}>{timerButtonText}</button>
+          <button className={timerButtonClass} onClick={() => this.resetTimer()}>Reset</button>
         </div>
       )
     }else{
