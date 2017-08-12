@@ -13,6 +13,7 @@ class Timer extends Component{
       seconds: 0,
       intervalID: null,
       alerts:[],
+      triggeredAlerts: [],
       errorText: "",
       editing: null,
       editingIndex: null,
@@ -22,15 +23,31 @@ class Timer extends Component{
     this.createAlert = this.createAlert.bind(this)
     this.updateAlert = this.updateAlert.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.triggerAlert = this.triggerAlert.bind(this)
   }
 
   startTimer(){
-    this.setState({intervalID: setInterval(this.calculateTime, 1000)});
+    let alerts = this.state.alerts
+    alerts.forEach((a) => {
+      a.timeoutID = setTimeout(this.triggerAlert, a.timeToWait)
+    })
+    this.setState({
+      intervalID: setInterval(this.calculateTime, 1000),
+      alerts: alerts
+    });
   }
 
   stopTimer(){
     clearInterval(this.state.intervalID);
-    this.setState({intervalID: null});
+    let alerts = this.state.alerts
+    alerts.forEach((a) => {
+      clearTimeout(a.timeoutID)
+      a.timeoutID = null
+    })
+    this.setState({
+      intervalID: null,
+      alerts: alerts
+    });
   }
 
   toggleTimer(){
@@ -44,6 +61,16 @@ class Timer extends Component{
   }
 
   resetTimer(){
+    let triggeredAlerts = this.state.triggeredAlerts
+    console.log(typeof triggeredAlerts)
+    let alerts = triggeredAlerts.concat(this.state.alerts)
+    alerts.forEach((a) => {
+      if(a.timeoutID !== null){
+        clearTimeout(a.timeoutID)
+      }
+      a.timeToWait = a.originalTimeToWait
+      a.timeoutID = setTimeout(this.triggerAlert, a.timeToWait)
+    })
     this.setState({time: this.state.initialTime}, this.calculateTime)
   }
 
@@ -59,10 +86,15 @@ class Timer extends Component{
     if(seconds < 10){
       seconds = "0" + seconds;
     }
+    let alerts = this.state.alerts
+    alerts.forEach((a) => {
+      a.timeToWait = a.timeToWait - 1000
+    })
     this.setState({
       minutes: minutes,
       seconds: seconds,
       time: this.state.time - 1000,
+      alerts: alerts
     }, this.timerEnd())
   }
 
@@ -81,6 +113,16 @@ class Timer extends Component{
     }, this.calculateTime)
   }
 
+  triggerAlert(){
+    let alerts = this.state.alerts
+    const triggeredAlert = alerts.shift()
+    clearTimeout(triggeredAlert.timeoutID)
+    this.setState({ 
+      alerts: alerts,
+      triggeredAlerts: this.state.triggeredAlerts.push(triggeredAlert)
+    })
+  }
+
   createAlert(minutes, seconds, desc){
     if(isNaN(parseInt(minutes, 10))){
       this.setState({errorText: "Alert minutes must be an integer"})
@@ -97,10 +139,27 @@ class Timer extends Component{
     }else if((parseInt(minutes, 10) * 60000) + (parseInt(seconds, 10) * 1000) > this.state.time){
       this.setState({errorText: "Alert time trigger cannot be larger than the total timer duration"})
     }else{
-      const alert = {minutes: minutes, seconds: seconds, description: desc}
-      this.state.alerts.push(alert)
+      const totalMs = (parseInt(minutes, 10) * 60000) + (parseInt(seconds, 10) * 1000)
+      const timeToWait = this.state.time - totalMs
+      let alert = {
+        minutes: minutes, 
+        seconds: seconds, 
+        description: desc, 
+        timeToWait: timeToWait,
+        originalTimeToWait: timeToWait
+      }
+      let alerts = this.state.alerts
+      //When timer is running, start the alert countdown
+      if(this.state.intervalID){
+        const timeoutID = setTimeout(this.triggerAlert, timeToWait)
+        alert.timeoutID = timeoutID
+      }
+      alerts.push(alert)
+      alerts = alerts.sort((a) => {
+        return a.timeToWait
+      })
       this.setState({
-        alerts: this.state.alerts,
+        alerts: alerts,
         errorText: ""
       })
     }
