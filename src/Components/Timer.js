@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Alert from './Alert.js';
+let alerts = [];
 
 class Timer extends Component{
 
@@ -74,6 +75,11 @@ class Timer extends Component{
     }, this.calculateTime)
   }
 
+  createAlert(minutes, seconds, desc){
+    const alert = {minutes: minutes, seconds: seconds, description: desc}
+    alerts.push(alert)
+  }
+
   render(){
 
     let timerButtonClass = this.state.intervalID ? "stop" : "start"
@@ -90,7 +96,7 @@ class Timer extends Component{
           <h2 className="timeText">{this.state.minutes} : {this.state.seconds}</h2>
           <button className={timerButtonClass} onClick={() => this.toggleTimer()}>{timerButtonText}</button>
           <button className={timerButtonClass} onClick={() => this.resetTimer()}>Reset</button>
-          <Alert />
+          <Alert onSubmit={this.createAlert} />
         </div>
       )
     }else{
