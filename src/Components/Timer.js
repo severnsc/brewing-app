@@ -78,19 +78,19 @@ class Timer extends Component{
   }
 
   createAlert(minutes, seconds, desc){
-    if(isNaN(parseInt(minutes))){
+    if(isNaN(parseInt(minutes, 10))){
       this.setState({errorText: "Alert minutes must be an integer"})
-    }else if(parseInt(minutes) > parseInt(this.state.minutes)){
+    }else if(parseInt(minutes, 10) > parseInt(this.state.minutes, 10)){
       this.setState({errorText: "Alert minutes cannot be greater than timer's minutes"})
-    }else if(parseInt(minutes) < 0){
+    }else if(parseInt(minutes, 10) < 0){
       this.setState({errorText: "Alert minutes cannot be negative"})
-    }else if(isNaN(parseInt(seconds))){
+    }else if(isNaN(parseInt(seconds, 10))){
       this.setState({errorText: "Alert seconds must be an integer"})
-    }else if(parseInt(seconds) > 59){
+    }else if(parseInt(seconds, 10) > 59){
       this.setState({errorText: "Alert seconds cannot be larger than 59"})
-    }else if(parseInt(seconds) < 0){
+    }else if(parseInt(seconds, 10) < 0){
       this.setState({errorText: "Alert seconds cannot be negative"})
-    }else if((minutes * 60000) + (seconds * 1000) > this.state.time){
+    }else if((parseInt(minutes, 10) * 60000) + (parseInt(seconds, 10) * 1000) > this.state.time){
       this.setState({errorText: "Alert time trigger cannot be larger than the total timer duration"})
     }else{
       const alert = {minutes: minutes, seconds: seconds, description: desc}
@@ -102,17 +102,23 @@ class Timer extends Component{
     }
   }
 
+  deleteAlert(index){
+    this.state.alerts.splice(index, 1)
+    this.setState({alerts: this.state.alerts})
+  }
+
   render(){
 
     let timerButtonClass = this.state.intervalID ? "stop" : "start"
 
     let timerButtonText = "Start"
 
-    let alertComponents = this.state.alerts.map((a) => {
+    let alertComponents = this.state.alerts.map((a, index) => {
       return(
-        <div key={a.description}>
+        <div key={index}>
           <span>{a.minutes} : {a.seconds}</span>
           <span>{a.description}</span>
+          <button onClick={() => this.deleteAlert(index)}>Delete</button>
         </div>
       )
     })
