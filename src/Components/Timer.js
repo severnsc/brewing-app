@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Alert from './Alert.js';
-let alerts = [];
 
 class Timer extends Component{
 
@@ -13,9 +12,11 @@ class Timer extends Component{
       minutes: 0,
       seconds: 0,
       intervalID: null,
+      alerts:[],
     }
     this.calculateTime = this.calculateTime.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.createAlert = this.createAlert.bind(this)
   }
 
   startTimer(){
@@ -77,7 +78,8 @@ class Timer extends Component{
 
   createAlert(minutes, seconds, desc){
     const alert = {minutes: minutes, seconds: seconds, description: desc}
-    alerts.push(alert)
+    this.state.alerts.push(alert)
+    this.setState({alerts: this.state.alerts})
   }
 
   render(){
@@ -85,6 +87,15 @@ class Timer extends Component{
     let timerButtonClass = this.state.intervalID ? "stop" : "start"
 
     let timerButtonText = "Start"
+
+    let alertComponents = this.state.alerts.map((a) => {
+      return(
+        <div>
+          <span>{a.minutes} : {a.seconds}</span>
+          <span>{a.description}</span>
+        </div>
+      )
+    })
     
     if(this.state.intervalID){
       timerButtonText = "Stop"
@@ -92,11 +103,16 @@ class Timer extends Component{
 
     if(this.state.time !== null){
       return(
-        <div className="componentContainer">
-          <h2 className="timeText">{this.state.minutes} : {this.state.seconds}</h2>
-          <button className={timerButtonClass} onClick={() => this.toggleTimer()}>{timerButtonText}</button>
-          <button className={timerButtonClass} onClick={() => this.resetTimer()}>Reset</button>
-          <Alert onSubmit={this.createAlert} />
+        <div>
+          <div className="componentContainer">
+            <h2 className="timeText">{this.state.minutes} : {this.state.seconds}</h2>
+            <button className={timerButtonClass} onClick={() => this.toggleTimer()}>{timerButtonText}</button>
+            <button className={timerButtonClass} onClick={() => this.resetTimer()}>Reset</button>
+          </div>
+          <div className="componentContainer">
+            <Alert createAlert={this.createAlert} />
+            {alertComponents}
+          </div>
         </div>
       )
     }else{

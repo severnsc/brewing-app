@@ -16,7 +16,7 @@ class Alert extends Component{
 
   handleSubmit(e){
     e.preventDefault()
-    this.props.onSubmit(this.state.minutes, this.state.seconds, this.state.description)
+    this.props.createAlert(this.state.minutes, this.state.seconds, this.state.description)
     this.setState({
       minutes:"00",
       seconds:"00",
