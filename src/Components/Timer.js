@@ -50,12 +50,14 @@ class Timer extends Component{
   resetTimer(){
     let triggeredAlerts = this.state.triggeredAlerts
     let alerts = triggeredAlerts.concat(this.state.alerts)
+    triggeredAlerts = []
     alerts.forEach((a) => {
       a.timeToWait = a.originalTimeToWait
     })
     this.setState({
       time: this.state.initialTime,
-      alerts: alerts
+      alerts: alerts,
+      triggeredAlerts: triggeredAlerts
     }, this.calculateTime)
   }
 
@@ -77,8 +79,10 @@ class Timer extends Component{
       a.timeToWait = a.timeToWait - 1000
       if(a.timeToWait === 0){
         triggeredAlerts.push(a)
-        alerts.shift()
       }
+    })
+    alerts = alerts.filter((a) => {
+      return a.timeToWait > 0
     })
     this.setState({
       minutes: minutes,
@@ -89,9 +93,21 @@ class Timer extends Component{
     }, this.timerEnd())
   }
 
+  initializeTimer(){
+    const minutes = Math.floor(this.state.time / 60000);
+    let seconds = (this.state.time % 60000) / 1000;
+    if(seconds < 10){
+      seconds = "0" + seconds;
+    }
+    this.setState({
+      minutes: minutes,
+      seconds: seconds
+    })
+  }
+
   componentDidMount(){
     if(this.state.time !== null){
-      this.calculateTime()
+      this.initializeTimer()
     }
   }
 
