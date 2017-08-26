@@ -31,8 +31,9 @@ class Timer extends Component{
     alerts.forEach((a) => {
       a.timeoutID = setTimeout(this.triggerAlert, a.timeToWait)
     })
+    let intervalID = setInterval(this.calculateTime, 1000)
     this.setState({
-      intervalID: setInterval(this.calculateTime, 1000),
+      intervalID: intervalID,
       alerts: alerts
     });
   }
@@ -62,7 +63,6 @@ class Timer extends Component{
 
   resetTimer(){
     let triggeredAlerts = this.state.triggeredAlerts
-    console.log(typeof triggeredAlerts)
     let alerts = triggeredAlerts.concat(this.state.alerts)
     alerts.forEach((a) => {
       if(a.timeoutID !== null){
@@ -71,7 +71,10 @@ class Timer extends Component{
       a.timeToWait = a.originalTimeToWait
       a.timeoutID = setTimeout(this.triggerAlert, a.timeToWait)
     })
-    this.setState({time: this.state.initialTime}, this.calculateTime)
+    this.setState({
+      time: this.state.initialTime,
+      alerts: alerts
+    }, this.calculateTime)
   }
 
   timerEnd(){
