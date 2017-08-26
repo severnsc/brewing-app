@@ -23,31 +23,17 @@ class Timer extends Component{
     this.createAlert = this.createAlert.bind(this)
     this.updateAlert = this.updateAlert.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.triggerAlert = this.triggerAlert.bind(this)
   }
 
   startTimer(){
-    let alerts = this.state.alerts
-    alerts.forEach((a) => {
-      a.timeoutID = setTimeout(this.triggerAlert, a.timeToWait)
-    })
     let intervalID = setInterval(this.calculateTime, 1000)
-    this.setState({
-      intervalID: intervalID,
-      alerts: alerts
-    });
+    this.setState({intervalID: intervalID});
   }
 
   stopTimer(){
     clearInterval(this.state.intervalID);
-    let alerts = this.state.alerts
-    alerts.forEach((a) => {
-      clearTimeout(a.timeoutID)
-      a.timeoutID = null
-    })
     this.setState({
       intervalID: null,
-      alerts: alerts
     });
   }
 
@@ -65,11 +51,7 @@ class Timer extends Component{
     let triggeredAlerts = this.state.triggeredAlerts
     let alerts = triggeredAlerts.concat(this.state.alerts)
     alerts.forEach((a) => {
-      if(a.timeoutID !== null){
-        clearTimeout(a.timeoutID)
-      }
       a.timeToWait = a.originalTimeToWait
-      a.timeoutID = setTimeout(this.triggerAlert, a.timeToWait)
     })
     this.setState({
       time: this.state.initialTime,
@@ -84,6 +66,7 @@ class Timer extends Component{
   }
 
   calculateTime(){
+    const triggeredAlerts = this.state.triggeredAlerts
     const minutes = Math.floor(this.state.time / 60000);
     let seconds = (this.state.time % 60000) / 1000;
     if(seconds < 10){
@@ -92,12 +75,17 @@ class Timer extends Component{
     let alerts = this.state.alerts
     alerts.forEach((a) => {
       a.timeToWait = a.timeToWait - 1000
+      if(a.timeToWait === 0){
+        triggeredAlerts.push(a)
+        alerts.shift()
+      }
     })
     this.setState({
       minutes: minutes,
       seconds: seconds,
       time: this.state.time - 1000,
-      alerts: alerts
+      alerts: alerts,
+      triggeredAlerts: triggeredAlerts
     }, this.timerEnd())
   }
 
@@ -114,16 +102,6 @@ class Timer extends Component{
       time: ms,
       initialTime: ms,
     }, this.calculateTime)
-  }
-
-  triggerAlert(){
-    let alerts = this.state.alerts
-    const triggeredAlert = alerts.shift()
-    clearTimeout(triggeredAlert.timeoutID)
-    this.setState({ 
-      alerts: alerts,
-      triggeredAlerts: this.state.triggeredAlerts.push(triggeredAlert)
-    })
   }
 
   createAlert(minutes, seconds, desc){
@@ -152,11 +130,6 @@ class Timer extends Component{
         originalTimeToWait: timeToWait
       }
       let alerts = this.state.alerts
-      //When timer is running, start the alert countdown
-      if(this.state.intervalID){
-        const timeoutID = setTimeout(this.triggerAlert, timeToWait)
-        alert.timeoutID = timeoutID
-      }
       alerts.push(alert)
       alerts.sort((a, b) => {
         if(a.timeToWait < b.timeToWait){
