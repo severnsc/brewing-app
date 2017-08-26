@@ -155,8 +155,14 @@ class Timer extends Component{
         alert.timeoutID = timeoutID
       }
       alerts.push(alert)
-      alerts = alerts.sort((a) => {
-        return a.timeToWait
+      alerts.sort((a, b) => {
+        if(a.timeToWait < b.timeToWait){
+          return -1
+        }
+        if(a.timeToWait > b.timeToWait){
+          return 1
+        }
+        return 0
       })
       this.setState({
         alerts: alerts,
