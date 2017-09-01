@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import '../App.css';
 import Alert from './Alert.js';
 
+const toTime = (minutes, seconds) => {
+  return `${minutes}:${seconds}`
+}
+
 class Timer extends Component{
 
   constructor(props){
@@ -49,11 +53,8 @@ class Timer extends Component{
 
   resetTimer(){
     let triggeredAlerts = this.state.triggeredAlerts
-    let alerts = triggeredAlerts.concat(this.state.alerts)
+    const alerts = triggeredAlerts.concat(this.state.alerts)
     triggeredAlerts = []
-    alerts.forEach((a) => {
-      a.timeToWait = a.originalTimeToWait
-    })
     this.setState({
       time: this.state.initialTime,
       alerts: alerts,
@@ -68,22 +69,18 @@ class Timer extends Component{
   }
 
   calculateTime(){
-    const triggeredAlerts = this.state.triggeredAlerts
+    let triggeredAlerts = this.state.triggeredAlerts
     const minutes = Math.floor(this.state.time / 60000);
     let seconds = (this.state.time % 60000) / 1000;
     if(seconds < 10){
       seconds = "0" + seconds;
     }
     let alerts = this.state.alerts
-    alerts.forEach((a) => {
-      a.timeToWait = a.timeToWait - 1000
-      if(a.timeToWait === 0){
-        triggeredAlerts.push(a)
-      }
+    const alertsToPush = alerts.filter((a) => {
+      return toTime(a.minutes, a.seconds) === toTime(minutes, seconds)
     })
-    alerts = alerts.filter((a) => {
-      return a.timeToWait > 0
-    })
+    alerts.splice(0, alertsToPush.length)
+    triggeredAlerts = triggeredAlerts.concat(alertsToPush)
     this.setState({
       minutes: minutes,
       seconds: seconds,
@@ -134,24 +131,26 @@ class Timer extends Component{
     }else if(parseInt(seconds, 10) < 0){
       this.setState({errorText: "Alert seconds cannot be negative"})
     }else if((parseInt(minutes, 10) * 60000) + (parseInt(seconds, 10) * 1000) > this.state.time){
-      this.setState({errorText: "Alert time trigger cannot be larger than the total timer duration"})
+      this.setState({errorText: "Alert time cannot be larger than the total timer duration"})
     }else{
-      const totalMs = (parseInt(minutes, 10) * 60000) + (parseInt(seconds, 10) * 1000)
-      const timeToWait = this.state.time - totalMs
       let alert = {
         minutes: minutes, 
         seconds: seconds, 
-        description: desc, 
-        timeToWait: timeToWait,
-        originalTimeToWait: timeToWait
+        description: desc
       }
       let alerts = this.state.alerts
       alerts.push(alert)
       alerts.sort((a, b) => {
-        if(a.timeToWait < b.timeToWait){
+        if(a.minutes < b.minutes){
           return -1
         }
-        if(a.timeToWait > b.timeToWait){
+        if(a.minutes > b.minutes){
+          return 1
+        }
+        if(a.seconds < b.seconds){
+          return -1
+        }
+        if(a.seconds > b.seconds){
           return 1
         }
         return 0
