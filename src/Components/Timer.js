@@ -134,24 +134,21 @@ class Timer extends Component{
       this.setState({errorText: "Alert time cannot be larger than the total timer duration"})
     }else{
       let alert = {
-        minutes: minutes, 
-        seconds: seconds, 
+        minutes: parseInt(minutes), 
+        seconds: parseInt(seconds), 
         description: desc
       }
       let alerts = this.state.alerts
       alerts.push(alert)
       alerts.sort((a, b) => {
-        if(a.minutes < b.minutes){
-          return -1
+        const totalSeconds = (minutes, seconds) => {
+          return (minutes * 60) + seconds
         }
-        if(a.minutes > b.minutes){
+        if(totalSeconds(a.minutes, a.seconds) < totalSeconds(b.minutes, b.seconds)){
           return 1
         }
-        if(a.seconds < b.seconds){
+        if(totalSeconds(a.minutes, a.seconds) > totalSeconds(b.minutes, b.seconds)){
           return -1
-        }
-        if(a.seconds > b.seconds){
-          return 1
         }
         return 0
       })
