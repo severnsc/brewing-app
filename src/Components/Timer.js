@@ -134,8 +134,8 @@ class Timer extends Component{
       this.setState({errorText: "Alert time cannot be larger than the total timer duration"})
     }else{
       let alert = {
-        minutes: parseInt(minutes), 
-        seconds: parseInt(seconds), 
+        minutes: parseInt(minutes, 10), 
+        seconds: parseInt(seconds, 10), 
         description: desc
       }
       let alerts = this.state.alerts
@@ -188,8 +188,22 @@ class Timer extends Component{
     }else if((parseInt(this.state.editing.minutes, 10) * 60000) + (parseInt(this.state.editing.seconds, 10) * 1000) > this.state.time){
       this.setState({errorText: "Alert time trigger cannot be larger than the total timer duration"})
     }else{
+      let alerts = this.state.alerts
+      alerts.splice(this.state.editingIndex, 1, this.state.editing)
+      alerts.sort((a, b) => {
+        const totalSeconds = (minutes, seconds) => {
+          return (minutes * 60) + seconds
+        }
+        if(totalSeconds(a.minutes, a.seconds) < totalSeconds(b.minutes, b.seconds)){
+          return 1
+        }
+        if(totalSeconds(a.minutes, a.seconds) > totalSeconds(b.minutes, b.seconds)){
+          return -1
+        }
+        return 0
+      })
       this.setState({
-        alerts: this.state.alerts.splice(this.state.editingIndex, 1, this.state.editing),
+        alerts: alerts,
         errorText: "",
         editing: null
       })
@@ -197,9 +211,13 @@ class Timer extends Component{
   }
 
   handleChange(e){
-    const propertyName = e.target.name
     const editing = this.state.editing
-    editing[propertyName] = e.target.value
+    const propertyName = e.target.name
+    if(propertyName === "description"){
+      editing[propertyName] = e.target.value      
+    }else{
+      editing[propertyName] = parseInt(e.target.value, 10)
+    }
     this.setState({editing: editing})
   }
 
@@ -210,13 +228,13 @@ class Timer extends Component{
     let timerButtonText = "Start"
 
     let alertComponents = this.state.alerts.map((a, index) => {
-      if(this.state.editing === null){
+      if(this.state.editing === null || index !== this.state.editingIndex){
         return(
           <div key={index}>
             <span>{a.minutes} : {a.seconds}</span>
             <span>{a.description}</span>
             <button onClick={() => this.deleteAlert(index)}>Delete</button>
-            <button onClick={(index) => this.editAlert(a, index)}>Edit</button>
+            <button onClick={() => this.editAlert(a, index)}>Edit</button>
           </div>
         )
       }else{
