@@ -275,9 +275,16 @@ class Timer extends Component{
     }else{
       return(
         <div className="componentContainer">
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" ref="minutes" /><span>minutes</span>
-            <input type="submit" value="Create Timer" />
+          <h1>Create a New Timer</h1>
+          <form onSubmit={this.handleSubmit} id="timerForm">
+            <div id="inputContainer">
+              <input type="text" ref="minutes" id="minutesInput" /><span id="minutes">minutes</span>
+            </div>
+            <div id="submitContainer">
+              <button type="submit" value="Create Timer" id="timerSubmit">
+                Create Timer
+              </button>
+            </div>
           </form>
         </div>
       )
