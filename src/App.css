@@ -157,6 +157,37 @@ p, h1, h2, h3, h4, h5, h6{
   color: white;
 }
 
+#timerContainer{
+  display: flex;
+}
+
+#timerContainer *{
+  margin-right:10px;
+}
+
+.timeText{
+  font-size:8em;
+}
+
+#timerButtonContainer button{
+  font-size: 2em;
+  padding: 0.25em 2em;
+}
+
+.start{
+  background-color: #05a905;
+  border-radius: 3px;
+  border: none;
+  color: white;
+}
+
+.reset{
+  border-radius: 3px;
+  border: none;
+  color: white;
+  background-color: #a7a6a6;
+}
+
 @media (min-width: 768px){
   .flex-container{
     flex-direction: row;

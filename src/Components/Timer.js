@@ -228,7 +228,7 @@ class Timer extends Component{
 
     let timerButtonClass = this.state.intervalID ? "stop" : "start"
 
-    let timerButtonText = "Start"
+    let timerButtonText = "START"
 
     let alertComponents = this.state.alerts.map((a, index) => {
       if(this.state.editing === null || index !== this.state.editingIndex){
@@ -257,16 +257,18 @@ class Timer extends Component{
     })
     
     if(this.state.intervalID){
-      timerButtonText = "Stop"
+      timerButtonText = "STOP"
     }
 
     if(this.state.time !== null){
       return(
         <div>
-          <div className="componentContainer">
+          <div className="componentContainer" id="timerContainer">
             <h2 className="timeText">{this.state.minutes} : {this.state.seconds}</h2>
-            <button className={timerButtonClass} onClick={() => this.toggleTimer()}>{timerButtonText}</button>
-            <button className={timerButtonClass} onClick={() => this.resetTimer()}>Reset</button>
+            <div id="timerButtonContainer">
+              <button className={timerButtonClass} onClick={() => this.toggleTimer()}>{timerButtonText}</button>
+              <button className="reset" onClick={() => this.resetTimer()}>RESET</button>
+            </div>
           </div>
           <div className="componentContainer">
             {this.state.errorText}
