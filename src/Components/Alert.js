@@ -30,14 +30,20 @@ class Alert extends Component{
 
   render(){
     return(
-      <form onSubmit={this.handleSubmit}>
-        <label>Time to trigger alert</label>
-        <input type="text" name="minutes" value={this.state.minutes} onChange={this.handleChange} />
-        :
-        <input type="text" name="seconds" value={this.state.seconds} onChange={this.handleChange} />
-        <label>Alert description</label>
-        <input type="text" name="description" value={this.state.description} onChange={this.handleChange} />
-        <input type="submit" value="Create Alert" />
+      <form onSubmit={this.handleSubmit} id="alertForm">
+        <div>
+          <label>Time to trigger alert</label>
+          <input id="alertMinutes" type="text" name="minutes" value={this.state.minutes} onChange={this.handleChange} />
+          :
+          <input type="text" name="seconds" value={this.state.seconds} onChange={this.handleChange} />
+        </div>
+        <div id="alertContainer">
+          <label>Alert description</label>
+          <input id="alertDescription" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
+        </div>
+        <div>
+          <input id="createAlertButton" type="submit" value="Create Alert" />
+        </div>
       </form>
     )
   }

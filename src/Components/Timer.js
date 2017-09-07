@@ -233,7 +233,7 @@ class Timer extends Component{
     let alertComponents = this.state.alerts.map((a, index) => {
       if(this.state.editing === null || index !== this.state.editingIndex){
         return(
-          <div key={index}>
+          <div key={index} className="alertRow">
             <span>{a.minutes} : {a.seconds}</span>
             <span>{a.description}</span>
             <button onClick={() => this.deleteAlert(index)}>Delete</button>
@@ -270,9 +270,11 @@ class Timer extends Component{
               <button className="reset" onClick={() => this.resetTimer()}>RESET</button>
             </div>
           </div>
-          <div className="componentContainer">
+          <div className="componentContainer" id="alertsContainer">
+            <h2>Alerts</h2>
             {this.state.errorText}
             <Alert createAlert={this.createAlert} />
+            <h3>Queued Alerts</h3>
             {alertComponents}
           </div>
         </div>

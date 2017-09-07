@@ -169,9 +169,14 @@ p, h1, h2, h3, h4, h5, h6{
   font-size:8em;
 }
 
+#timerButtonContainer{
+  display: flex;
+}
+
 #timerButtonContainer button{
   font-size: 2em;
   padding: 0.25em 2em;
+  margin:0 10px 10px 10px;
 }
 
 .start{
@@ -186,6 +191,45 @@ p, h1, h2, h3, h4, h5, h6{
   border: none;
   color: white;
   background-color: #a7a6a6;
+}
+
+#alertForm{
+  display: flex;
+  flex-flow: column;
+}
+
+#alertDescription{
+  flex-grow:2;
+}
+
+#alertContainer{
+  display: flex;
+}
+
+#alertsContainer{
+  margin-top: 25px;
+}
+
+.alertRow *{
+  margin-right: 10px;
+}
+
+#alertForm div label{
+  display: inline-block;
+  width:140px;
+  margin-right: 10px;
+}
+
+#alertForm div{
+  margin-bottom: 10px;
+}
+
+#alertMinutes{
+  text-align: right;
+}
+
+#createAlertButton{
+  margin-left:150px;
 }
 
 @media (min-width: 768px){
