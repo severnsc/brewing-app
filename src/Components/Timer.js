@@ -59,7 +59,7 @@ class Timer extends Component{
       time: this.state.initialTime,
       alerts: alerts,
       triggeredAlerts: triggeredAlerts
-    }, this.calculateTime)
+    }, this.initializeTimer)
   }
 
   timerEnd(){
@@ -114,7 +114,7 @@ class Timer extends Component{
     this.setState({
       time: ms,
       initialTime: ms,
-    }, this.calculateTime)
+    }, this.initializeTimer)
   }
 
   createAlert(minutes, seconds, desc){
@@ -138,11 +138,14 @@ class Timer extends Component{
         seconds: parseInt(seconds, 10), 
         description: desc
       }
+      if(alert.seconds < 10){
+        alert.seconds = "0" + alert.seconds
+      }
       let alerts = this.state.alerts
       alerts.push(alert)
       alerts.sort((a, b) => {
         const totalSeconds = (minutes, seconds) => {
-          return (minutes * 60) + seconds
+          return (minutes * 60) + parseInt(seconds, 10)
         }
         if(totalSeconds(a.minutes, a.seconds) < totalSeconds(b.minutes, b.seconds)){
           return 1
