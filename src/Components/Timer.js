@@ -195,7 +195,7 @@ class Timer extends Component{
       alerts.splice(this.state.editingIndex, 1, this.state.editing)
       alerts.sort((a, b) => {
         const totalSeconds = (minutes, seconds) => {
-          return (minutes * 60) + seconds
+          return (minutes * 60) + parseInt(seconds, 10)
         }
         if(totalSeconds(a.minutes, a.seconds) < totalSeconds(b.minutes, b.seconds)){
           return 1

@@ -186,6 +186,13 @@ p, h1, h2, h3, h4, h5, h6{
   color: white;
 }
 
+.stop{
+  background-color: red;
+  border-radius: 3px;
+  border: none;
+  color: white;
+}
+
 .reset{
   border-radius: 3px;
   border: none;
