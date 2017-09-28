@@ -29,42 +29,9 @@ class Timer extends Component{
     this.handleChange = this.handleChange.bind(this)
   }
 
-  startTimer(){
-    let intervalID = setInterval(this.calculateTime, 1000)
-    this.setState({intervalID: intervalID});
-  }
-
-  stopTimer(){
-    clearInterval(this.state.intervalID);
-    this.setState({
-      intervalID: null,
-    });
-  }
-
-  toggleTimer(){
-    if(this.state.intervalID){
-      this.stopTimer()
-    }else{
-      if(this.state.time > 0){
-        this.startTimer()
-      }
-    }
-  }
-
-  resetTimer(){
-    let triggeredAlerts = this.state.triggeredAlerts
-    const alerts = triggeredAlerts.concat(this.state.alerts)
-    triggeredAlerts = []
-    this.setState({
-      time: this.state.initialTime,
-      alerts: alerts,
-      triggeredAlerts: triggeredAlerts
-    }, this.initializeTimer)
-  }
-
-  timerEnd(){
-    if(this.state.time === 0){
-      this.stopTimer();
+  componentDidMount(){
+    if(this.state.time !== null){
+      this.initializeTimer()
     }
   }
 
@@ -92,33 +59,6 @@ class Timer extends Component{
       alerts: alerts,
       triggeredAlerts: triggeredAlerts
     }, this.timerEnd())
-  }
-
-  initializeTimer(){
-    const minutes = Math.floor(this.state.time / 60000);
-    let seconds = (this.state.time % 60000) / 1000;
-    if(seconds < 10){
-      seconds = "0" + seconds;
-    }
-    this.setState({
-      minutes: minutes,
-      seconds: seconds
-    })
-  }
-
-  componentDidMount(){
-    if(this.state.time !== null){
-      this.initializeTimer()
-    }
-  }
-
-  handleSubmit(e){
-    e.preventDefault()
-    const ms = this.refs.minutes.value * 60000
-    this.setState({
-      time: ms,
-      initialTime: ms,
-    }, this.initializeTimer)
   }
 
   createAlert(minutes, seconds, desc){
@@ -178,6 +118,77 @@ class Timer extends Component{
     })
   }
 
+  handleChange(e){
+    const editing = this.state.editing
+    const propertyName = e.target.name
+    if(propertyName === "description"){
+      editing[propertyName] = e.target.value      
+    }else{
+      editing[propertyName] = parseInt(e.target.value, 10)
+    }
+    this.setState({editing: editing})
+  }
+
+  handleSubmit(e){
+    e.preventDefault()
+    const ms = this.refs.minutes.value * 60000
+    this.setState({
+      time: ms,
+      initialTime: ms,
+    }, this.initializeTimer)
+  }
+
+  initializeTimer(){
+    const minutes = Math.floor(this.state.time / 60000);
+    let seconds = (this.state.time % 60000) / 1000;
+    if(seconds < 10){
+      seconds = "0" + seconds;
+    }
+    this.setState({
+      minutes: minutes,
+      seconds: seconds
+    })
+  }
+
+  resetTimer(){
+    let triggeredAlerts = this.state.triggeredAlerts
+    const alerts = triggeredAlerts.concat(this.state.alerts)
+    triggeredAlerts = []
+    this.setState({
+      time: this.state.initialTime,
+      alerts: alerts,
+      triggeredAlerts: triggeredAlerts
+    }, this.initializeTimer)
+  }
+
+  startTimer(){
+    let intervalID = setInterval(this.calculateTime, 1000)
+    this.setState({intervalID: intervalID});
+  }
+
+  stopTimer(){
+    clearInterval(this.state.intervalID);
+    this.setState({
+      intervalID: null,
+    });
+  }
+
+  timerEnd(){
+    if(this.state.time === 0){
+      this.stopTimer();
+    }
+  }
+
+  toggleTimer(){
+    if(this.state.intervalID){
+      this.stopTimer()
+    }else{
+      if(this.state.time > 0){
+        this.startTimer()
+      }
+    }
+  }
+
   updateAlert(e){
     e.preventDefault()
     if(isNaN(parseInt(this.state.editing.minutes, 10))){
@@ -215,17 +226,6 @@ class Timer extends Component{
         editing: null
       })
     }
-  }
-
-  handleChange(e){
-    const editing = this.state.editing
-    const propertyName = e.target.name
-    if(propertyName === "description"){
-      editing[propertyName] = e.target.value      
-    }else{
-      editing[propertyName] = parseInt(e.target.value, 10)
-    }
-    this.setState({editing: editing})
   }
 
   render(){
