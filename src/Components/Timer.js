@@ -69,9 +69,13 @@ class Timer extends Component{
   }
 
   calculateTime(){
+    let time = this.state.time
+    if(this.state.time === this.state.initialTime){
+      time = this.state.time - 1000
+    }
     let triggeredAlerts = this.state.triggeredAlerts
-    const minutes = Math.floor(this.state.time / 60000);
-    let seconds = (this.state.time % 60000) / 1000;
+    const minutes = Math.floor(time / 60000);
+    let seconds = (time % 60000) / 1000;
     if(seconds < 10){
       seconds = "0" + seconds;
     }
@@ -84,7 +88,7 @@ class Timer extends Component{
     this.setState({
       minutes: minutes,
       seconds: seconds,
-      time: this.state.time - 1000,
+      time: time - 1000,
       alerts: alerts,
       triggeredAlerts: triggeredAlerts
     }, this.timerEnd())
@@ -271,7 +275,7 @@ class Timer extends Component{
             </div>
           </div>
           <div className="componentContainer" id="alertsContainer">
-            <h2>Alerts</h2>
+            <h2>Create an Alert</h2>
             {this.state.errorText}
             <Alert createAlert={this.createAlert} />
             <h3>Queued Alerts</h3>
