@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import '../App.css';
 import Alert from './Alert.js';
 import TimerForm from './TimerForm.js';
-import TimerContainer from './TimerContainer.js'
+import TimerContainer from './TimerContainer.js';
+import AlertsContainer from './AlertsContainer.js';
 
 const toTime = (minutes, seconds) => {
   return `${minutes}:${seconds}`
@@ -31,6 +32,7 @@ class Timer extends Component{
     this.handleChange = this.handleChange.bind(this)
     this.toggleTimer = this.toggleTimer.bind(this)
     this.resetTimer = this.resetTimer.bind(this)
+    this.createAlert = this.createAlert.bind(this)
   }
 
   componentDidMount(){
@@ -281,13 +283,11 @@ class Timer extends Component{
             toggleTimer={this.toggleTimer}
             resetTimer={this.resetTimer}
           />
-          <div className="componentContainer" id="alertsContainer">
-            <h2>Create an Alert</h2>
-            {this.state.errorText}
-            <Alert createAlert={this.createAlert} />
-            <h3>Queued Alerts</h3>
-            {alertComponents}
-          </div>
+          <AlertsContainer
+            errorText={this.state.errorText}
+            alertComponents={alertComponents}
+            createAlert={this.createAlert}
+          />
         </div>
       )
     }else{
