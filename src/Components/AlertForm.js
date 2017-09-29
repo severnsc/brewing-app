@@ -16,51 +16,27 @@ class AlertForm extends Component{
   }
 
   isMinutesInteger(minutes){
-    if(isNaN(minutes)){
-      return false
-    }else{
-      return true
-    }
+    return isNaN(minutes) ? false : true
   }
 
   isMinutesPositive(minutes){
-    if(minutes < 0){
-      return false
-    }else{
-      return true
-    }
+    return minutes < 0 ? false : true
   }
 
   isMinutesUnderMax(minutes){
-    if(minutes > this.props.maxMinutes){
-      return false
-    }else{
-      return true
-    }
+    return minutes > this.props.maxMinutes ? false : true
   }
 
   isSecondsInteger(seconds){
-    if(isNaN(seconds)){
-      return false
-    }else{
-      return true
-    }
+    return isNaN(seconds) ? false : true
   }
 
   isSecondsPositive(seconds){
-    if(seconds < 0){
-      return false
-    }else{
-      return true
-    }
+    return seconds < 0 ? false : true
   }
 
   isSecondsUnderMax(seconds){
-    if(seconds > 59){
-      return false
-    }else{
-      return true
-    }
+    return seconds > 59 ? false : true
   }
 
   isTimeUnderMax(minutes, seconds){
@@ -110,7 +86,6 @@ class AlertForm extends Component{
       this.props.createAlert(parseInt(this.state.minutes, 10), parseInt(this.state.seconds, 10), this.state.description)
       this.setState({errorText: ""})
     }
-    console.log(valid)
     this.setState({
       minutes:"00",
       seconds:"00",
