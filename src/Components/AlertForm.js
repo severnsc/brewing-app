@@ -17,43 +17,43 @@ class AlertForm extends Component{
 
   isMinutesInteger(minutes){
     if(isNaN(minutes)){
-      this.setState({errorText: "Alert minutes must be an integer"})
+      this.setState({errorText: "Alert minutes must be an integer"}, () => {return false})
     }
   }
 
   isMinutesPositive(minutes){
     if(minutes < 0){
-      this.setState({errorText: "Alert minutes cannot be negative"})
+      this.setState({errorText: "Alert minutes cannot be negative"}, () => {return false})
     }
   }
 
-  isMinutesTooLarge(minutes){
+  isMinutesUnderMax(minutes){
     if(minutes > this.props.maxMinutes){
-      this.setState({errorText: "Alert minutes cannot be greater than timer's minutes"})
+      this.setState({errorText: "Alert minutes cannot be greater than timer's minutes"}, () => {return false})
     }
   }
 
   isSecondsInteger(seconds){
     if(isNaN(seconds)){
-      this.setState({errorText: "Alert seconds must be an integer"})
+      this.setState({errorText: "Alert seconds must be an integer"}, () => {return false})
     }
   }
 
   isSecondsPositive(seconds){
     if(seconds < 0){
-      this.setState({errorText: "Alert seconds cannot be negative"})
+      this.setState({errorText: "Alert seconds cannot be negative"}, () => {return false})
     }
   }
 
-  isSecondsTooLarge(seconds){
+  isSecondsUnderMax(seconds){
     if(seconds > 59){
-      this.setState({errorText: "Alert seconds cannot be larger than 59"})
+      this.setState({errorText: "Alert seconds cannot be larger than 59"}, () => {return false})
     }
   }
 
-  isTimeTooLarge(minutes, seconds){
+  isTimeUnderMax(minutes, seconds){
     if((minutes * 60000) + (seconds * 1000) > this.props.maxTime){
-      this.setState({errorText: "Alert time cannot be larger than the total timer duration"})
+      this.setState({errorText: "Alert time cannot be larger than the total timer duration"}, () => {return false})
     }
   }
 
@@ -62,15 +62,18 @@ class AlertForm extends Component{
   }
 
   handleSubmit(e){
+    let valid = true
     e.preventDefault()
-    this.isMinutesInteger(parseInt(this.state.minutes, 10))
-    this.isMinutesPositive(parseInt(this.state.minutes, 10))
-    this.isMinutesTooLarge(parseInt(this.state.minutes, 10))
-    this.isSecondsInteger(parseInt(this.state.seconds, 10))
-    this.isSecondsPositive(parseInt(this.state.seconds, 10))
-    this.isSecondsTooLarge(parseInt(this.state.seconds, 10))
-    this.isTimeTooLarge(parseInt(this.state.minutes, 10), parseInt(this.state.seconds, 10))
-    this.props.createAlert(parseInt(this.state.minutes, 10), parseInt(this.state.seconds, 10), this.state.description)
+    valid = this.isMinutesInteger(parseInt(this.state.minutes, 10))
+    valid = this.isMinutesPositive(parseInt(this.state.minutes, 10))
+    valid = this.isMinutesUnderMax(parseInt(this.state.minutes, 10))
+    valid = this.isSecondsInteger(parseInt(this.state.seconds, 10))
+    valid = this.isSecondsPositive(parseInt(this.state.seconds, 10))
+    valid = this.isSecondsUnderMax(parseInt(this.state.seconds, 10))
+    valid = this.isTimeUnderMax(parseInt(this.state.minutes, 10), parseInt(this.state.seconds, 10))
+    if(valid){
+      this.props.createAlert(parseInt(this.state.minutes, 10), parseInt(this.state.seconds, 10), this.state.description)
+    }
     this.setState({
       minutes:"00",
       seconds:"00",
