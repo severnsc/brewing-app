@@ -24,7 +24,7 @@ class Timer extends Component{
       editingIndex: null,
     }
     this.calculateTime = this.calculateTime.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.timerFormSubmit = this.timerFormSubmit.bind(this)
     this.createAlert = this.createAlert.bind(this)
     this.updateAlert = this.updateAlert.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -130,7 +130,7 @@ class Timer extends Component{
     this.setState({editing: editing})
   }
 
-  handleSubmit(minutes){
+  timerFormSubmit(minutes){
     return (e) => {
       e.preventDefault()
       const ms = minutes * 60000
@@ -288,7 +288,7 @@ class Timer extends Component{
       )
     }else{
       return(
-        <TimerForm handleSubmit={this.handleSubmit} />
+        <TimerForm handleSubmit={this.timerFormSubmit} />
       )
     } 
   }
