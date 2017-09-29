@@ -8,7 +8,11 @@ class AlertsContainer extends Component{
       <div className="componentContainer" id="alertsContainer">
         <h2>Create an Alert</h2>
         {this.props.errorText}
-        <AlertForm createAlert={this.props.createAlert} />
+        <AlertForm 
+          createAlert={this.props.createAlert} 
+          maxMinutes={this.props.timerMinutes}
+          maxTime={this.props.timerTime}
+        />
         <h3>Queued Alerts</h3>
         {this.props.alertComponents}
       </div>

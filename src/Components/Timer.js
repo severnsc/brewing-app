@@ -67,48 +67,32 @@ class Timer extends Component{
   }
 
   createAlert(minutes, seconds, desc){
-    if(isNaN(parseInt(minutes, 10))){
-      this.setState({errorText: "Alert minutes must be an integer"})
-    }else if(parseInt(minutes, 10) > parseInt(this.state.minutes, 10)){
-      this.setState({errorText: "Alert minutes cannot be greater than timer's minutes"})
-    }else if(parseInt(minutes, 10) < 0){
-      this.setState({errorText: "Alert minutes cannot be negative"})
-    }else if(isNaN(parseInt(seconds, 10))){
-      this.setState({errorText: "Alert seconds must be an integer"})
-    }else if(parseInt(seconds, 10) > 59){
-      this.setState({errorText: "Alert seconds cannot be larger than 59"})
-    }else if(parseInt(seconds, 10) < 0){
-      this.setState({errorText: "Alert seconds cannot be negative"})
-    }else if((parseInt(minutes, 10) * 60000) + (parseInt(seconds, 10) * 1000) > this.state.time){
-      this.setState({errorText: "Alert time cannot be larger than the total timer duration"})
-    }else{
-      let alert = {
-        minutes: parseInt(minutes, 10), 
-        seconds: parseInt(seconds, 10), 
-        description: desc
-      }
-      if(alert.seconds < 10){
-        alert.seconds = "0" + alert.seconds
-      }
-      let alerts = this.state.alerts
-      alerts.push(alert)
-      alerts.sort((a, b) => {
-        const totalSeconds = (minutes, seconds) => {
-          return (minutes * 60) + parseInt(seconds, 10)
-        }
-        if(totalSeconds(a.minutes, a.seconds) < totalSeconds(b.minutes, b.seconds)){
-          return 1
-        }
-        if(totalSeconds(a.minutes, a.seconds) > totalSeconds(b.minutes, b.seconds)){
-          return -1
-        }
-        return 0
-      })
-      this.setState({
-        alerts: alerts,
-        errorText: ""
-      })
+    let alert = {
+      minutes: minutes, 
+      seconds: seconds, 
+      description: desc
     }
+    if(alert.seconds < 10){
+      alert.seconds = "0" + alert.seconds
+    }
+    let alerts = this.state.alerts
+    alerts.push(alert)
+    alerts.sort((a, b) => {
+      const totalSeconds = (minutes, seconds) => {
+        return (minutes * 60) + parseInt(seconds, 10)
+      }
+      if(totalSeconds(a.minutes, a.seconds) < totalSeconds(b.minutes, b.seconds)){
+        return 1
+      }
+      if(totalSeconds(a.minutes, a.seconds) > totalSeconds(b.minutes, b.seconds)){
+        return -1
+      }
+      return 0
+    })
+    this.setState({
+      alerts: alerts,
+      errorText: ""
+    })
   }
 
   deleteAlert(index){
@@ -286,6 +270,8 @@ class Timer extends Component{
             errorText={this.state.errorText}
             alertComponents={alertComponents}
             createAlert={this.createAlert}
+            timerMinutes={parseInt(this.state.minutes, 10)}
+            timerTime={parseInt(this.state.time, 10)}
           />
         </div>
       )
