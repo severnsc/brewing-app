@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 
-class Alert extends Component{
+class AlertForm extends Component{
 
   constructor(props){
     super(props);
@@ -50,4 +50,4 @@ class Alert extends Component{
 
 }
 
-export default Alert;
+export default AlertForm;

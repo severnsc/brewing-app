@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../App.css';
-import Alert from './Alert.js';
 import TimerForm from './TimerForm.js';
 import TimerContainer from './TimerContainer.js';
 import AlertsContainer from './AlertsContainer.js';
