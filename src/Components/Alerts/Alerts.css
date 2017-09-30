@@ -1,0 +1,39 @@
+#alertContainer{
+  display: flex;
+}
+
+#alertsContainer{
+  margin-top: 25px;
+}
+
+#alertDescription{
+  flex-grow:2;
+}
+
+#alertForm{
+  display: flex;
+  flex-flow: column;
+}
+
+#alertForm div{
+  margin-bottom: 10px;
+}
+
+#alertForm div label{
+  display: inline-block;
+  width:140px;
+  margin-right: 10px;
+}
+
+#alertMinutes{
+  text-align: right;
+}
+
+.alertRow *{
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+#createAlertButton{
+  margin-left:150px;
+}

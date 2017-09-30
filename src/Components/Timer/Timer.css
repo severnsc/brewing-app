@@ -1,0 +1,84 @@
+#inputContainer{
+  display: flex;
+}
+
+#minutes{
+  margin-left:5px;
+  font: 2em arial;
+}
+
+#minutesInput{
+  height: 1em;
+  font: 2em arial;
+  text-align: end;
+  max-width: 200px;
+}
+
+.start{
+  background-color: #05a905;
+  border-radius: 3px;
+  border: none;
+  color: white;
+}
+
+.stop{
+  background-color: red;
+  border-radius: 3px;
+  border: none;
+  color: white;
+}
+
+.reset{
+  border-radius: 3px;
+  border: none;
+  color: white;
+  background-color: #a7a6a6;
+}
+
+#submitContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#timerButtonContainer{
+  display: flex;
+}
+
+#timerButtonContainer button{
+  font-size: 2em;
+  padding: 0.25em 2em;
+  margin:0 10px 10px 10px;
+}
+
+#timerContainer{
+  display: flex;
+}
+
+#timerContainer *{
+  margin-right:10px;
+}
+
+#timerForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+#timerSubmit{
+  flex-grow:1;
+  height: 3em;
+  font: 1em arial;
+  background-color: #05a905;
+  border-radius: 3px;
+  border: none;
+  color: white;
+}
+
+.timeText{
+  font-size:8em;
+}

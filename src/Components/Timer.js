@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import '../App.css';
-import TimerForm from './TimerForm.js';
-import TimerContainer from './TimerContainer.js';
-import AlertsContainer from './AlertsContainer.js';
-import AlertRow from './AlertRow.js';
-import AlertEditForm from './AlertEditForm.js';
-
-const toTime = (minutes, seconds) => {
-  return `${minutes}:${seconds}`
-}
-
-const totalSeconds = (minutes, seconds) => {
-  return (minutes * 60) + seconds
-}
+import TimerForm from './Timer/TimerForm.js';
+import TimerContainer from './Timer/TimerContainer.js';
+import AlertsContainer from './Alerts/AlertsContainer.js';
+import AlertRow from './Alerts/AlertRow.js';
+import AlertEditForm from './Alerts/AlertEditForm.js';
+import {toTime, totalSeconds} from '../lib/Time.js';
 
 class Timer extends Component{
 
@@ -34,7 +27,6 @@ class Timer extends Component{
     this.timerFormSubmit = this.timerFormSubmit.bind(this)
     this.createAlert = this.createAlert.bind(this)
     this.updateAlert = this.updateAlert.bind(this)
-    this.handleChange = this.handleChange.bind(this)
     this.toggleTimer = this.toggleTimer.bind(this)
     this.resetTimer = this.resetTimer.bind(this)
     this.createAlert = this.createAlert.bind(this)
@@ -114,17 +106,6 @@ class Timer extends Component{
       editing: alert,
       editingIndex: index
     })
-  }
-
-  handleChange(e){
-    const editing = this.state.editing
-    const propertyName = e.target.name
-    if(propertyName === "description"){
-      editing[propertyName] = e.target.value      
-    }else{
-      editing[propertyName] = parseInt(e.target.value, 10)
-    }
-    this.setState({editing: editing})
   }
 
   timerFormSubmit(minutes){
@@ -248,7 +229,6 @@ class Timer extends Component{
             minutes={this.state.editing.minutes}
             seconds={this.state.editing.seconds}
             description={this.state.editing.description}
-            handleChange={this.handleChange}
             maxTime={parseInt(this.state.time, 10)}
             maxMinutes={parseInt(this.state.minutes, 10)}
           />

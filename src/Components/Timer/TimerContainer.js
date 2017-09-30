@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import '../App.css';
+import './Timer.css';
+import '../../App.css';
 
 class TimerContainer extends Component{
   render(){

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AlertForm from './AlertForm.js'
-import '../App.css';
+import '../../App.css';
+import './Alerts.css';
 
 class AlertsContainer extends Component{
   render(){
