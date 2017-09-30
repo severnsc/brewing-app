@@ -9,5 +9,7 @@ export const totalSeconds = (minutes, seconds) => {
 export const formatSeconds = (seconds) => {
   if(seconds < 10){
     return "0" + seconds
+  }else{
+    return seconds
   }
 }
