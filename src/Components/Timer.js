@@ -3,9 +3,15 @@ import '../App.css';
 import TimerForm from './TimerForm.js';
 import TimerContainer from './TimerContainer.js';
 import AlertsContainer from './AlertsContainer.js';
+import AlertRow from './AlertRow.js';
+import AlertEditForm from './AlertEditForm.js';
 
 const toTime = (minutes, seconds) => {
   return `${minutes}:${seconds}`
+}
+
+const totalSeconds = (minutes, seconds) => {
+  return (minutes * 60) + seconds
 }
 
 class Timer extends Component{
@@ -32,6 +38,9 @@ class Timer extends Component{
     this.toggleTimer = this.toggleTimer.bind(this)
     this.resetTimer = this.resetTimer.bind(this)
     this.createAlert = this.createAlert.bind(this)
+    this.deleteAlert = this.deleteAlert.bind(this)
+    this.editAlert = this.editAlert.bind(this)
+    this.updateAlert = this.updateAlert.bind(this)
   }
 
   componentDidMount(){
@@ -180,43 +189,53 @@ class Timer extends Component{
     }
   }
 
-  updateAlert(e){
-    e.preventDefault()
-    if(isNaN(parseInt(this.state.editing.minutes, 10))){
-      this.setState({errorText: "Alert minutes must be an integer"})
-    }else if(parseInt(this.state.editing.minutes, 10) > parseInt(this.state.minutes, 10)){
-      this.setState({errorText: "Alert minutes cannot be greater than timer's minutes"})
-    }else if(parseInt(this.state.editing.minutes, 10) < 0){
-      this.setState({errorText: "Alert minutes cannot be negative"})
-    }else if(isNaN(parseInt(this.state.editing.seconds, 10))){
-      this.setState({errorText: "Alert seconds must be an integer"})
-    }else if(parseInt(this.state.editing.seconds, 10) > 59){
-      this.setState({errorText: "Alert seconds cannot be larger than 59"})
-    }else if(parseInt(this.state.editing.seconds, 10) < 0){
-      this.setState({errorText: "Alert seconds cannot be negative"})
-    }else if((parseInt(this.state.editing.minutes, 10) * 60000) + (parseInt(this.state.editing.seconds, 10) * 1000) > this.state.time){
-      this.setState({errorText: "Alert time trigger cannot be larger than the total timer duration"})
-    }else{
-      let alerts = this.state.alerts
-      alerts.splice(this.state.editingIndex, 1, this.state.editing)
-      alerts.sort((a, b) => {
-        const totalSeconds = (minutes, seconds) => {
-          return (minutes * 60) + parseInt(seconds, 10)
-        }
-        if(totalSeconds(a.minutes, a.seconds) < totalSeconds(b.minutes, b.seconds)){
-          return 1
-        }
-        if(totalSeconds(a.minutes, a.seconds) > totalSeconds(b.minutes, b.seconds)){
-          return -1
-        }
-        return 0
-      })
-      this.setState({
-        alerts: alerts,
-        errorText: "",
-        editing: null
-      })
+  sortAlerts(alerts){
+    return alerts.sort((a, b) => {
+      if(totalSeconds(a.minutes, parseInt(a.seconds, 10)) < totalSeconds(b.minutes, parseInt(b.seconds, 10))){
+        return 1
+      }
+      if(totalSeconds(a.minutes, parseInt(a.seconds, 10)) > totalSeconds(b.minutes, parseInt(b.seconds, 10))){
+        return -1
+      }
+      return 0
+    })
+  }
+
+  updateAlert(minutes, seconds, desc){
+    let alert = {
+      minutes: minutes, 
+      seconds: seconds, 
+      description: desc
     }
+    if(alert.seconds < 10){
+      alert.seconds = "0" + alert.seconds
+    }
+    let alerts = this.state.alerts
+    alerts.splice(this.state.editingIndex, 1, alert)
+    alerts = this.sortAlerts(alerts)
+    this.setState({
+      alerts: alerts,
+      errorText: "",
+      editing: null
+    })
+  }
+
+  createAlert(minutes, seconds, desc){
+    let alert = {
+      minutes: minutes, 
+      seconds: seconds, 
+      description: desc
+    }
+    if(alert.seconds < 10){
+      alert.seconds = "0" + alert.seconds
+    }
+    let alerts = this.state.alerts
+    alerts.push(alert)
+    alerts = this.sortAlerts(alerts)
+    this.setState({
+      alerts: alerts,
+      errorText: ""
+    })
   }
 
   render(){
@@ -228,25 +247,29 @@ class Timer extends Component{
     let alertComponents = this.state.alerts.map((a, index) => {
       if(this.state.editing === null || index !== this.state.editingIndex){
         return(
-          <div key={index} className="alertRow">
-            <span>{a.minutes} : {a.seconds}</span>
-            <span>{a.description}</span>
-            <button onClick={() => this.deleteAlert(index)}>Delete</button>
-            <button onClick={() => this.editAlert(a, index)}>Edit</button>
-          </div>
+          <AlertRow 
+            index={index}
+            minutes={a.minutes}
+            seconds={a.seconds}
+            description={a.description}
+            alert={a}
+            deleteAlert={this.deleteAlert}
+            editAlert={this.editAlert}
+          />
         )
       }else{
         return(
-          <div key={index}>
-            {this.state.errorText}
-            <form onSubmit={this.updateAlert}>
-              <input type="text" name="minutes" value={this.state.editing.minutes} onChange={this.handleChange} />
-              :
-              <input type="text" name="seconds" value={this.state.editing.seconds} onChange={this.handleChange} />
-              <input type="text" name="description" value={this.state.editing.description} onChange={this.handleChange} />
-              <input type="submit" value="Update" />
-            </form>
-          </div>
+          <AlertEditForm 
+            index={index}
+            errorText={this.state.errorText}
+            updateAlert={this.updateAlert}
+            minutes={this.state.editing.minutes}
+            seconds={this.state.editing.seconds}
+            description={this.state.editing.description}
+            handleChange={this.handleChange}
+            maxTime={parseInt(this.state.time, 10)}
+            maxMinutes={parseInt(this.state.minutes, 10)}
+          />
         )
       }
     })

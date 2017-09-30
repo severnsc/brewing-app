@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import * as alertlib from '../lib/Alert.js';
 import '../App.css';
 
-class AlertForm extends Component{
+class AlertEditForm extends Component{
 
   constructor(props){
     super(props);
     this.state = {
-      minutes: "00",
-      seconds: "00",
-      description: "",
+      minutes: this.props.minutes,
+      seconds: this.props.seconds,
+      description: this.props.description,
       errorText: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -53,38 +53,26 @@ class AlertForm extends Component{
       errorText = "Alert time cannot be larger than the total timer duration"
     }
     if(valid){
-      this.props.createAlert(parseInt(this.state.minutes, 10), parseInt(this.state.seconds, 10), this.state.description)
+      this.props.updateAlert(parseInt(this.state.minutes, 10), parseInt(this.state.seconds, 10), this.state.description)
       errorText = ""
     }
-    this.setState({
-      minutes:"00",
-      seconds:"00",
-      description: "",
-      errorText: errorText
-    })
   }
 
   render(){
     return(
-      <form onSubmit={this.handleSubmit} id="alertForm">
-        {this.state.errorText}
-        <div>
-          <label>Time to trigger alert</label>
-          <input id="alertMinutes" type="text" name="minutes" value={this.state.minutes} onChange={this.handleChange} />
+      <div key={this.props.index}>
+        {this.props.errorText}
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" name="minutes" value={this.state.minutes} onChange={this.handleChange} />
           :
           <input type="text" name="seconds" value={this.state.seconds} onChange={this.handleChange} />
-        </div>
-        <div id="alertContainer">
-          <label>Alert description</label>
-          <input id="alertDescription" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
-        </div>
-        <div>
-          <input id="createAlertButton" type="submit" value="Create Alert" />
-        </div>
-      </form>
+          <input type="text" name="description" value={this.state.description} onChange={this.handleChange} />
+          <input type="submit" value="Update" />
+        </form>
+      </div>
     )
   }
 
 }
 
-export default AlertForm;
+export default AlertEditForm;
