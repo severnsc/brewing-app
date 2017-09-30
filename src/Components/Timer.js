@@ -6,7 +6,7 @@ import AlertsContainer from './Alerts/AlertsContainer.js';
 import AlertRow from './Alerts/AlertRow.js';
 import AlertEditForm from './Alerts/AlertEditForm.js';
 import {toTime, totalSeconds, formatSeconds} from '../lib/Time.js';
-import * as helpers from '../lib/Helpers.js';
+import '../lib/Helpers.js';
 
 class Timer extends Component{
 
@@ -66,7 +66,7 @@ class Timer extends Component{
 
     //Remove the firedAlerts from the alerts queue
     alerts = alerts.filter((a) => {
-      return helpers.excludes(firedAlerts, a)
+      return firedAlerts.excludes(a)
     })
 
     //Don't alter state directly

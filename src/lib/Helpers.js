@@ -1,5 +1,5 @@
-export const excludes = (array, search) => {
-  if(array.includes(search)){
+Array.prototype.excludes = function(search) {
+  if(this.includes(search)){
     return false
   }else{
     return true
