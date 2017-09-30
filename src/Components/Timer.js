@@ -161,6 +161,18 @@ class Timer extends Component{
     }, this.initializeTimer)
   }
 
+  sortAlerts(alerts){
+    return alerts.sort((a, b) => {
+      if(totalSeconds(a.minutes, parseInt(a.seconds, 10)) < totalSeconds(b.minutes, parseInt(b.seconds, 10))){
+        return 1
+      }
+      if(totalSeconds(a.minutes, parseInt(a.seconds, 10)) > totalSeconds(b.minutes, parseInt(b.seconds, 10))){
+        return -1
+      }
+      return 0
+    })
+  }
+
   startTimer(){
     let intervalID = setInterval(this.calculateTime, 1000)
     this.setState({intervalID: intervalID});
@@ -189,18 +201,6 @@ class Timer extends Component{
     }
   }
 
-  sortAlerts(alerts){
-    return alerts.sort((a, b) => {
-      if(totalSeconds(a.minutes, parseInt(a.seconds, 10)) < totalSeconds(b.minutes, parseInt(b.seconds, 10))){
-        return 1
-      }
-      if(totalSeconds(a.minutes, parseInt(a.seconds, 10)) > totalSeconds(b.minutes, parseInt(b.seconds, 10))){
-        return -1
-      }
-      return 0
-    })
-  }
-
   updateAlert(minutes, seconds, desc){
     let alert = {
       minutes: minutes, 
@@ -217,24 +217,6 @@ class Timer extends Component{
       alerts: alerts,
       errorText: "",
       editing: null
-    })
-  }
-
-  createAlert(minutes, seconds, desc){
-    let alert = {
-      minutes: minutes, 
-      seconds: seconds, 
-      description: desc
-    }
-    if(alert.seconds < 10){
-      alert.seconds = "0" + alert.seconds
-    }
-    let alerts = this.state.alerts
-    alerts.push(alert)
-    alerts = this.sortAlerts(alerts)
-    this.setState({
-      alerts: alerts,
-      errorText: ""
     })
   }
 
