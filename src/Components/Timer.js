@@ -74,18 +74,7 @@ class Timer extends Component{
     alert.seconds = formatSeconds(alert.seconds)
     let alerts = this.state.alerts
     alerts.push(alert)
-    alerts.sort((a, b) => {
-      const totalSeconds = (minutes, seconds) => {
-        return (minutes * 60) + parseInt(seconds, 10)
-      }
-      if(totalSeconds(a.minutes, a.seconds) < totalSeconds(b.minutes, b.seconds)){
-        return 1
-      }
-      if(totalSeconds(a.minutes, a.seconds) > totalSeconds(b.minutes, b.seconds)){
-        return -1
-      }
-      return 0
-    })
+    alerts = this.sortAlerts(alerts)
     this.setState({
       alerts: alerts,
       errorText: ""
@@ -93,8 +82,9 @@ class Timer extends Component{
   }
 
   deleteAlert(index){
-    this.state.alerts.splice(index, 1)
-    this.setState({alerts: this.state.alerts})
+    let alerts = this.state.alerts
+    alerts.splice(index, 1)
+    this.setState({alerts: alerts})
   }
 
   editAlert(alert, index){
@@ -182,9 +172,7 @@ class Timer extends Component{
       seconds: seconds, 
       description: desc
     }
-    if(alert.seconds < 10){
-      alert.seconds = "0" + alert.seconds
-    }
+    alert.seconds = formatSeconds(alert.seconds)
     let alerts = this.state.alerts
     alerts.splice(this.state.editingIndex, 1, alert)
     alerts = this.sortAlerts(alerts)
