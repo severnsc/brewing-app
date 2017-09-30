@@ -6,6 +6,7 @@ import AlertsContainer from './Alerts/AlertsContainer.js';
 import AlertRow from './Alerts/AlertRow.js';
 import AlertEditForm from './Alerts/AlertEditForm.js';
 import {toTime, totalSeconds, formatSeconds} from '../lib/Time.js';
+import * as helpers from '../lib/Helpers.js';
 
 class Timer extends Component{
 
@@ -42,20 +43,39 @@ class Timer extends Component{
   }
 
   calculateTime(){
+    //Don't alter state directly
     let time = this.state.time
+    
+    //This prevents the timer from lagging for 1 second when it first runs
     if(time === this.state.initialTime){
       time -= 1000
     }
+    
+    //Calculate the minutes and seconds of the timer
     const minutes = Math.floor(time / 60000);
     let seconds = (time % 60000) / 1000;
     seconds = formatSeconds(seconds)
+    
+    //Don't alter state directly
     let alerts = this.state.alerts
+    
+    //Get an array of alerts whose trigger times match the current time
     const firedAlerts = alerts.filter((a) => {
       return toTime(a.minutes, a.seconds) === toTime(minutes, seconds)
     })
-    alerts.splice(0, firedAlerts.length)
+
+    //Remove the firedAlerts from the alerts queue
+    alerts = alerts.filter((a) => {
+      return helpers.excludes(firedAlerts, a)
+    })
+
+    //Don't alter state directly
     let triggeredAlerts = this.state.triggeredAlerts
+    
+    //Add the alerts that just fired to the triggeredAlerts history
     triggeredAlerts = triggeredAlerts.concat(firedAlerts)
+
+    //Update the state, callback the timerEnd check
     this.setState({
       minutes: minutes,
       seconds: seconds,
