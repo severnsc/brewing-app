@@ -137,6 +137,7 @@ class Timer extends Component{
 
   resetTimer(){
     let triggeredAlerts = this.state.triggeredAlerts
+    //Don't need to sort because alerts that have been triggered should go to the front of the alerts queue
     const alerts = triggeredAlerts.concat(this.state.alerts)
     triggeredAlerts = []
     this.setState({
