@@ -5,7 +5,7 @@ import TimerContainer from './Timer/TimerContainer.js';
 import AlertsContainer from './Alerts/AlertsContainer.js';
 import AlertRow from './Alerts/AlertRow.js';
 import AlertEditForm from './Alerts/AlertEditForm.js';
-import {toTime, totalSeconds} from '../lib/Time.js';
+import {toTime, totalSeconds, formatSeconds} from '../lib/Time.js';
 
 class Timer extends Component{
 
@@ -43,21 +43,19 @@ class Timer extends Component{
 
   calculateTime(){
     let time = this.state.time
-    if(this.state.time === this.state.initialTime){
-      time = this.state.time - 1000
+    if(time === this.state.initialTime){
+      time -= 1000
     }
-    let triggeredAlerts = this.state.triggeredAlerts
     const minutes = Math.floor(time / 60000);
     let seconds = (time % 60000) / 1000;
-    if(seconds < 10){
-      seconds = "0" + seconds;
-    }
+    seconds = formatSeconds(seconds)
     let alerts = this.state.alerts
-    const alertsToPush = alerts.filter((a) => {
+    const firedAlerts = alerts.filter((a) => {
       return toTime(a.minutes, a.seconds) === toTime(minutes, seconds)
     })
-    alerts.splice(0, alertsToPush.length)
-    triggeredAlerts = triggeredAlerts.concat(alertsToPush)
+    alerts.splice(0, firedAlerts.length)
+    let triggeredAlerts = this.state.triggeredAlerts
+    triggeredAlerts = triggeredAlerts.concat(firedAlerts)
     this.setState({
       minutes: minutes,
       seconds: seconds,
@@ -73,9 +71,7 @@ class Timer extends Component{
       seconds: seconds, 
       description: desc
     }
-    if(alert.seconds < 10){
-      alert.seconds = "0" + alert.seconds
-    }
+    alert.seconds = formatSeconds(alert.seconds)
     let alerts = this.state.alerts
     alerts.push(alert)
     alerts.sort((a, b) => {
@@ -122,9 +118,7 @@ class Timer extends Component{
   initializeTimer(){
     const minutes = Math.floor(this.state.time / 60000);
     let seconds = (this.state.time % 60000) / 1000;
-    if(seconds < 10){
-      seconds = "0" + seconds;
-    }
+    seconds = formatSeconds(seconds)
     this.setState({
       minutes: minutes,
       seconds: seconds
