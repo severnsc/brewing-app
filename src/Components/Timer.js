@@ -208,7 +208,13 @@ class Timer extends Component{
 
     let timerButtonClass = this.state.intervalID ? "stop" : "start"
 
-    let timerButtonText = "START"
+    let timerButtonText
+
+    if(this.state.intervalID){
+      timerButtonText = "STOP"
+    }else{
+      timerButtonText = "START"
+    }
 
     let alertComponents = this.state.alerts.map((a, index) => {
       if(this.state.editing === null || index !== this.state.editingIndex){
@@ -238,10 +244,6 @@ class Timer extends Component{
         )
       }
     })
-    
-    if(this.state.intervalID){
-      timerButtonText = "STOP"
-    }
 
     if(this.state.time !== null){
       return(
