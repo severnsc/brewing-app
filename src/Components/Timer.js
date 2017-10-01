@@ -6,6 +6,7 @@ import AlertsContainer from './Alerts/AlertsContainer.js';
 import AlertRow from './Alerts/AlertRow.js';
 import AlertEditForm from './Alerts/AlertEditForm.js';
 import {toTime, totalSeconds, formatSeconds} from '../lib/Time.js';
+import {sendSMS} from '../lib/Twilio.js';
 import '../lib/Helpers.js';
 
 class Timer extends Component{
@@ -62,6 +63,11 @@ class Timer extends Component{
     //Get an array of alerts whose trigger times match the current time
     const firedAlerts = alerts.filter((a) => {
       return toTime(a.minutes, a.seconds) === toTime(minutes, seconds)
+    })
+
+    //Send SMS alerts for each firedAlert
+    firedAlerts.forEach((alert) => {
+      sendSMS(alert.description)
     })
 
     //Remove the firedAlerts from the alerts queue
