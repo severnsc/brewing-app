@@ -56,6 +56,7 @@ class AlertEditForm extends Component{
       this.props.updateAlert(parseInt(this.state.minutes, 10), parseInt(this.state.seconds, 10), this.state.description)
       errorText = ""
     }
+    this.setState({errorText: errorText})
   }
 
   render(){
