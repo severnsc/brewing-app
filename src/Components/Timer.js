@@ -68,7 +68,8 @@ class Timer extends Component{
     firedAlerts.forEach((alert) => {
       fetch('/messages', {
         method: 'POST',
-        body: alert.description
+        body: JSON.stringify({message: alert.description}),
+        headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         console.log(res)
       }).catch((err) => {
