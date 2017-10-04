@@ -1,30 +1,21 @@
-require('dotenv').config();
+require('dotenv').config()
+const twilio = require('twilio')
+const client = new twilio(process.env.SID, process.env.TOKEN)
 
-export const sendSMS = (message) => {
+const sendSMS = (message) => {
   
-  const formData = new FormData()
-
-  formData.append('body', encodeURIComponent(message))
-
-  formData.append('to', encodeURIComponent(process.env.TO_PHONE))
-
-  formData.append('from', encodeURIComponent(process.env.FROM_PHONE))
-
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + encodeURIComponent(process.env.SID + ':' + process.env.TOKEN)
-    },
-    body: formData
-  }
-
-  fetch(
-    'https://api.twilio.com/2010-04-01/Accounts/' + process.env.SID + '/Messages.json',
-    options
-  ).then((response) => {
-    //Parse JSON response
-    console.log(response.json())
+  client.api.messages.create({
+    body: message,
+    to: process.env.TO_PHONE,
+    from: process.env.FROM_PHONE
+  })
+  .then((mes) => {
+    console.log(mes.sid)
+  })
+  .catch((err) => {
+    console.log(err)
   })
 
 }
+
+module.exports = sendSMS
