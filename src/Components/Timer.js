@@ -6,7 +6,6 @@ import AlertsContainer from './Alerts/AlertsContainer.js';
 import AlertRow from './Alerts/AlertRow.js';
 import AlertEditForm from './Alerts/AlertEditForm.js';
 import {toTime, totalSeconds, formatSeconds} from '../lib/Time.js';
-import {sendSMS} from '../lib/Twilio.js';
 import '../lib/Helpers.js';
 
 class Timer extends Component{
@@ -67,7 +66,14 @@ class Timer extends Component{
 
     //Send SMS alerts for each firedAlert
     firedAlerts.forEach((alert) => {
-      sendSMS(alert.description)
+      fetch('/messages', {
+        method: 'POST',
+        body: alert.description
+      }).then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
     })
 
     //Remove the firedAlerts from the alerts queue
