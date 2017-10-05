@@ -1,4 +1,4 @@
-export const toTime = (minutes, seconds) => {
+export const toTimeString = (minutes, seconds) => {
   return `${minutes}:${seconds}`
 }
 
@@ -12,4 +12,12 @@ export const formatSeconds = (seconds) => {
   }else{
     return seconds
   }
+}
+
+export const calculateMinutesFromMs = (ms) => {
+  return Math.floor(ms / 60000)
+}
+
+export const calculateSecondsFromMs = (ms) => {
+  return (ms % 60000) / 1000;
 }

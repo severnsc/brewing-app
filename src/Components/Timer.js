@@ -5,7 +5,11 @@ import TimerContainer from './Timer/TimerContainer.js';
 import AlertsContainer from './Alerts/AlertsContainer.js';
 import AlertRow from './Alerts/AlertRow.js';
 import AlertEditForm from './Alerts/AlertEditForm.js';
-import {toTime, totalSeconds, formatSeconds} from '../lib/Time.js';
+import {toTimeString,
+        totalSeconds, 
+        formatSeconds, 
+        calculateMinutesFromMs, 
+        calculateSecondsFromMs} from '../lib/Time.js';
 import '../lib/Helpers.js';
 
 class Timer extends Component{
@@ -24,7 +28,9 @@ class Timer extends Component{
       editing: null,
       editingIndex: null,
     }
-    this.calculateTime = this.calculateTime.bind(this)
+    this.processAlerts = this.processAlerts.bind(this)
+    this.processIntervalOperations = this.processIntervalOperations.bind(this)
+    this.updateTimer = this.updateTimer.bind(this)
     this.timerFormSubmit = this.timerFormSubmit.bind(this)
     this.createAlert = this.createAlert.bind(this)
     this.updateAlert = this.updateAlert.bind(this)
@@ -40,62 +46,6 @@ class Timer extends Component{
     if(this.state.time !== null){
       this.initializeTimer()
     }
-  }
-
-  calculateTime(){
-    //Don't alter state directly
-    let time = this.state.time
-    
-    //This prevents the timer from lagging for 1 second when it first runs
-    if(time === this.state.initialTime){
-      time -= 1000
-    }
-    
-    //Calculate the minutes and seconds of the timer
-    const minutes = Math.floor(time / 60000);
-    let seconds = (time % 60000) / 1000;
-    seconds = formatSeconds(seconds)
-    
-    //Don't alter state directly
-    let alerts = this.state.alerts
-    
-    //Get an array of alerts whose trigger times match the current time
-    const firedAlerts = alerts.filter((a) => {
-      return toTime(a.minutes, a.seconds) === toTime(minutes, seconds)
-    })
-
-    //Send SMS alerts for each firedAlert
-    firedAlerts.forEach((alert) => {
-      fetch('/messages', {
-        method: 'POST',
-        body: JSON.stringify({message: alert.description}),
-        headers: {'Content-Type': 'application/json'}
-      }).then((res) => {
-        console.log(res)
-      }).catch((err) => {
-        console.log(err)
-      })
-    })
-
-    //Remove the firedAlerts from the alerts queue
-    alerts = alerts.filter((a) => {
-      return firedAlerts.excludes(a)
-    })
-
-    //Don't alter state directly
-    let triggeredAlerts = this.state.triggeredAlerts
-    
-    //Add the alerts that just fired to the triggeredAlerts history
-    triggeredAlerts = triggeredAlerts.concat(firedAlerts)
-
-    //Update the state, callback the timerEnd check
-    this.setState({
-      minutes: minutes,
-      seconds: seconds,
-      time: time - 1000,
-      alerts: alerts,
-      triggeredAlerts: triggeredAlerts
-    }, this.timerEnd())
   }
 
   createAlert(minutes, seconds, desc){
@@ -127,6 +77,65 @@ class Timer extends Component{
     })
   }
 
+  initializeTimer(){
+    const minutes = Math.floor(this.state.time / 60000);
+    let seconds = (this.state.time % 60000) / 1000;
+    seconds = formatSeconds(seconds)
+    this.setState({
+      minutes: minutes,
+      seconds: seconds
+    })
+  }
+
+  processAlerts(){
+    //Calculate the current minutes and seconds of the timer for the string comparison
+    const timerMinutes = calculateMinutesFromMs(this.state.time)
+    const timerSeconds = formatSeconds(calculateSecondsFromMs(this.state.time))
+    
+    //Don't alter state directly
+    let alerts = this.state.alerts
+    
+    //Get an array of alerts whose trigger times match the current time
+    const firedAlerts = alerts.filter((a) => {
+      return toTimeString(a.minutes, a.seconds) === toTimeString(timerMinutes, timerSeconds)
+    })
+
+    //Send SMS alerts for each firedAlert
+    firedAlerts.forEach((alert) => {
+      fetch('/messages', {
+        method: 'POST',
+        body: JSON.stringify({message: alert.description}),
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+    })
+
+    //Remove the firedAlerts from the alerts queue
+    alerts = alerts.filter((a) => {
+      return firedAlerts.excludes(a)
+    })
+
+    //Don't alter state directly
+    let triggeredAlerts = this.state.triggeredAlerts
+    
+    //Add the alerts that just fired to the triggeredAlerts history
+    triggeredAlerts = triggeredAlerts.concat(firedAlerts)
+
+    //Update the alerts and triggeredAlerts state
+    this.setState({
+      alerts: alerts,
+      triggeredAlerts: triggeredAlerts
+    })
+  }
+
+  processIntervalOperations(){
+    this.processAlerts()
+    this.updateTimer()
+  }
+
   timerFormSubmit(minutes){
     return (e) => {
       e.preventDefault()
@@ -136,16 +145,6 @@ class Timer extends Component{
         initialTime: ms,
       }, this.initializeTimer)
     }
-  }
-
-  initializeTimer(){
-    const minutes = Math.floor(this.state.time / 60000);
-    let seconds = (this.state.time % 60000) / 1000;
-    seconds = formatSeconds(seconds)
-    this.setState({
-      minutes: minutes,
-      seconds: seconds
-    })
   }
 
   resetTimer(){
@@ -173,8 +172,16 @@ class Timer extends Component{
   }
 
   startTimer(){
-    let intervalID = setInterval(this.calculateTime, 1000)
-    this.setState({intervalID: intervalID});
+    let time = this.state.time
+    //This prevents the timer from lagging for 1 second when it first runs
+    if(time === this.state.initialTime){
+      time -= 1000
+    }
+    let intervalID = setInterval(this.processIntervalOperations, 1000)
+    this.setState({
+      intervalID: intervalID,
+      time: time
+    });
   }
 
   stopTimer(){
@@ -215,6 +222,16 @@ class Timer extends Component{
       errorText: "",
       editing: null
     })
+  }
+
+  updateTimer(){
+    const minutes = calculateMinutesFromMs(this.state.time)
+    const seconds = formatSeconds(calculateSecondsFromMs(this.state.time))
+    this.setState({
+      time: this.state.time - 1000,
+      minutes: minutes,
+      seconds: seconds
+    }, this.timerEnd())
   }
 
   render(){
