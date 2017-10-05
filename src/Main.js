@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import '../App.css';
-import Timer from './Timer.js';
-import Home from './Home.js';
+import './App.css';
+import Timer from './Scenes/Timer/Timer.js';
+import Home from './Scenes/Home.js';
 
 class Main extends Component{
 

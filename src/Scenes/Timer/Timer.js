@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import '../App.css';
-import TimerForm from './Timer/TimerForm.js';
-import TimerContainer from './Timer/TimerContainer.js';
-import AlertsContainer from './Alerts/AlertsContainer.js';
-import AlertRow from './Alerts/AlertRow.js';
-import AlertEditForm from './Alerts/AlertEditForm.js';
+import '../../App.css';
+import TimerForm from './Components/TimerComponents/TimerForm.js';
+import TimerContainer from './Components/TimerComponents/TimerContainer.js';
+import AlertsContainer from './Components/AlertComponents/AlertsContainer/AlertsContainer.js';
+import AlertRow from './Components/AlertComponents/AlertRow.js';
+import AlertEditForm from './Components/AlertComponents/AlertEditForm.js';
 import {toTimeString,
         totalSeconds, 
         formatSeconds, 
         calculateMinutesFromMs, 
-        calculateSecondsFromMs} from '../lib/Time.js';
-import '../lib/Helpers.js';
+        calculateSecondsFromMs} from '../../utils/Time.js';
+import '../../utils/Helpers.js';
 
 class Timer extends Component{
 

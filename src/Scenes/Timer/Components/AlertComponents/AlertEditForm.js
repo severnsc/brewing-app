@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import * as alertlib from '../../lib/Alert.js';
-import '../../App.css';
+import * as alertlib from '../../../../utils/Alert.js';
+import '../../../../App.css';
 
 class AlertEditForm extends Component{
 
