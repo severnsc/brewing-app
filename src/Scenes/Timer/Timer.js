@@ -236,14 +236,20 @@ class Timer extends Component{
 
   render(){
 
-    let timerButtonClass = this.state.intervalID ? "stop" : "start"
-
     let timerButtonText
 
     if(this.state.intervalID){
       timerButtonText = "STOP"
     }else{
       timerButtonText = "START"
+    }
+
+    let backgroundColor
+
+    if(timerButtonText === "START"){
+      backgroundColor = "#05a905"
+    }else{
+      backgroundColor = "red"
     }
 
     let alertComponents = this.state.alerts.map((a, index) => {
@@ -281,10 +287,10 @@ class Timer extends Component{
           <TimerContainer
             minutes={this.state.minutes}
             seconds={this.state.seconds}
-            buttonClass={timerButtonClass}
             buttonText={timerButtonText}
             toggleTimer={this.toggleTimer}
             resetTimer={this.resetTimer}
+            backgroundColor={backgroundColor}
           />
           <AlertsContainer
             errorText={this.state.errorText}

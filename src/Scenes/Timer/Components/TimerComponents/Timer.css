@@ -14,27 +14,6 @@
   max-width: 200px;
 }
 
-.start{
-  background-color: #05a905;
-  border-radius: 3px;
-  border: none;
-  color: white;
-}
-
-.stop{
-  background-color: red;
-  border-radius: 3px;
-  border: none;
-  color: white;
-}
-
-.reset{
-  border-radius: 3px;
-  border: none;
-  color: white;
-  background-color: #a7a6a6;
-}
-
 #submitContainer{
   display: flex;
   align-items: center;
