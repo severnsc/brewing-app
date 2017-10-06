@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Button from '../../../../Components/Button/index.js'
+import './Timer.css'
 import '../../../../App.css';
 
 class TimerForm extends Component{
@@ -24,9 +26,7 @@ class TimerForm extends Component{
             <input type="text" value={this.state.minutes} id="minutesInput" onChange={this.handleChange} /><span id="minutes">minutes</span>
           </div>
           <div id="submitContainer">
-            <button type="submit" value="Create Timer" id="timerSubmit">
-              Create Timer
-            </button>
+            <Button buttonText="Create Timer" type="submit" id="timerSubmit" backgroundColor="#05a905" />
           </div>
         </form>
       </div>

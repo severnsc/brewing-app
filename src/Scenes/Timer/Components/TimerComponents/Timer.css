@@ -52,10 +52,6 @@
   flex-grow:1;
   height: 3em;
   font: 1em arial;
-  background-color: #05a905;
-  border-radius: 3px;
-  border: none;
-  color: white;
 }
 
 .timeText{

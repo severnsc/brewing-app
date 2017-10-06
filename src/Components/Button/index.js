@@ -10,7 +10,7 @@ class Button extends Component{
     }
 
     return(
-      <button style={buttonStyle} onClick={() => this.props.onClick()}>{this.props.buttonText}</button>
+      <button id={this.props.id} style={buttonStyle} onClick={this.props.onClick}>{this.props.buttonText}</button>
     )
   }
 
