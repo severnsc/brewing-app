@@ -17,10 +17,7 @@ class TimerScene extends Component{
   constructor(props){
     super(props);
     this.state = {
-      initialTime: null,
-      time: null,
       minutes: 0,
-      seconds: 0,
       intervalID: null,
       alerts:[],
       triggeredAlerts: [],
@@ -30,12 +27,9 @@ class TimerScene extends Component{
     }
     this.processAlerts = this.processAlerts.bind(this)
     this.processIntervalOperations = this.processIntervalOperations.bind(this)
-    this.updateTimer = this.updateTimer.bind(this)
     this.timerFormSubmit = this.timerFormSubmit.bind(this)
     this.createAlert = this.createAlert.bind(this)
     this.updateAlert = this.updateAlert.bind(this)
-    this.toggleTimer = this.toggleTimer.bind(this)
-    this.resetTimer = this.resetTimer.bind(this)
     this.createAlert = this.createAlert.bind(this)
     this.deleteAlert = this.deleteAlert.bind(this)
     this.editAlert = this.editAlert.bind(this)
@@ -74,16 +68,6 @@ class TimerScene extends Component{
     this.setState({
       editing: alert,
       editingIndex: index
-    })
-  }
-
-  initializeTimer(){
-    const minutes = Math.floor(this.state.time / 60000);
-    let seconds = (this.state.time % 60000) / 1000;
-    seconds = formatSeconds(seconds)
-    this.setState({
-      minutes: minutes,
-      seconds: seconds
     })
   }
 
@@ -133,30 +117,13 @@ class TimerScene extends Component{
 
   processIntervalOperations(){
     this.processAlerts()
-    this.updateTimer()
   }
 
   timerFormSubmit(minutes){
     return (e) => {
       e.preventDefault()
-      const ms = minutes * 60000
-      this.setState({
-        time: ms,
-        initialTime: ms,
-      }, this.initializeTimer)
+      this.setState({minutes: minutes})
     }
-  }
-
-  resetTimer(){
-    let triggeredAlerts = this.state.triggeredAlerts
-    //Don't need to sort because alerts that have been triggered should go to the front of the alerts queue
-    const alerts = triggeredAlerts.concat(this.state.alerts)
-    triggeredAlerts = []
-    this.setState({
-      time: this.state.initialTime,
-      alerts: alerts,
-      triggeredAlerts: triggeredAlerts
-    }, this.initializeTimer)
   }
 
   sortAlerts(alerts){
@@ -169,42 +136,6 @@ class TimerScene extends Component{
       }
       return 0
     })
-  }
-
-  startTimer(){
-    let time = this.state.time
-    //This prevents the timer from lagging for 1 second when it first runs
-    if(time === this.state.initialTime){
-      time -= 1000
-    }
-    let intervalID = setInterval(this.processIntervalOperations, 1000)
-    this.setState({
-      intervalID: intervalID,
-      time: time
-    });
-  }
-
-  stopTimer(){
-    clearInterval(this.state.intervalID);
-    this.setState({
-      intervalID: null,
-    });
-  }
-
-  timerEnd(){
-    if(this.state.time === 0){
-      this.stopTimer();
-    }
-  }
-
-  toggleTimer(){
-    if(this.state.intervalID){
-      this.stopTimer()
-    }else{
-      if(this.state.time > 0){
-        this.startTimer()
-      }
-    }
   }
 
   updateAlert(minutes, seconds, desc){
@@ -224,33 +155,7 @@ class TimerScene extends Component{
     })
   }
 
-  updateTimer(){
-    const minutes = calculateMinutesFromMs(this.state.time)
-    const seconds = formatSeconds(calculateSecondsFromMs(this.state.time))
-    this.setState({
-      time: this.state.time - 1000,
-      minutes: minutes,
-      seconds: seconds
-    }, this.timerEnd())
-  }
-
   render(){
-
-    let timerButtonText
-
-    if(this.state.intervalID){
-      timerButtonText = "STOP"
-    }else{
-      timerButtonText = "START"
-    }
-
-    let backgroundColor
-
-    if(timerButtonText === "START"){
-      backgroundColor = "#05a905"
-    }else{
-      backgroundColor = "red"
-    }
 
     let alertComponents = this.state.alerts.map((a, index) => {
       if(this.state.editing === null || index !== this.state.editingIndex){
@@ -286,11 +191,6 @@ class TimerScene extends Component{
         <div>
           <Timer
             minutes={this.state.minutes}
-            seconds={this.state.seconds}
-            buttonText={timerButtonText}
-            toggleTimer={this.toggleTimer}
-            resetTimer={this.resetTimer}
-            backgroundColor={backgroundColor}
           />
           <AlertsContainer
             errorText={this.state.errorText}
