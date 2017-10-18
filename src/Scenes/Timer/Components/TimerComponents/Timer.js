@@ -23,12 +23,12 @@ class Timer extends Component{
   }
 
   decrementTimer(){
-    if(this.state.seconds > 0){
-      let newSeconds = this.state.seconds - 1
-      this.setState({seconds: newSeconds})
+    if(this.state.minutes === 0 && this.state.seconds === 0){
+      this.stopTimer()
     }else{
-      if(this.state.minutes === 0 && this.state.seconds === 0){
-        this.stopTimer()
+      if(this.state.seconds > 0){
+        let newSeconds = this.state.seconds - 1
+        this.setState({seconds: newSeconds})
       }else{
         let newSeconds = 59
         let newMinutes = this.state.minutes - 1
