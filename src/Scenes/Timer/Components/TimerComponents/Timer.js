@@ -27,12 +27,16 @@ class Timer extends Component{
       let newSeconds = this.state.seconds - 1
       this.setState({seconds: newSeconds})
     }else{
-      let newSeconds = 59
-      let newMinutes = this.state.minutes - 1
-      this.setState({
-        seconds: newSeconds,
-        minutes: newMinutes
-      })
+      if(this.state.minutes === 0 && this.state.seconds === 0){
+        this.stopTimer()
+      }else{
+        let newSeconds = 59
+        let newMinutes = this.state.minutes - 1
+        this.setState({
+          seconds: newSeconds,
+          minutes: newMinutes
+        })
+      }
     }
   }
 
@@ -68,12 +72,6 @@ class Timer extends Component{
       if(this.state.minutes > 0 || this.state.seconds > 0){
         this.startTimer()
       }
-    }
-  }
-
-  timerEnd(){
-    if(this.state.minutes === 0 && this.state.seconds === 0){
-      this.stopTimer();
     }
   }
 
