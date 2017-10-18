@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import TimerForm from './Components/TimerComponents/TimerForm.js';
-import TimerContainer from './Components/TimerComponents/TimerContainer.js';
+import Timer from './Components/TimerComponents/Timer.js';
 import AlertsContainer from './Components/AlertComponents/AlertsContainer/AlertsContainer.js';
 import AlertRow from './Components/AlertComponents/AlertRow.js';
 import AlertEditForm from './Components/AlertComponents/AlertEditForm.js';
@@ -12,7 +12,7 @@ import {toTimeString,
         calculateSecondsFromMs} from '../../utils/Time.js';
 import '../../utils/Helpers.js';
 
-class Timer extends Component{
+class TimerScene extends Component{
 
   constructor(props){
     super(props);
@@ -284,7 +284,7 @@ class Timer extends Component{
     if(this.state.time !== null){
       return(
         <div>
-          <TimerContainer
+          <Timer
             minutes={this.state.minutes}
             seconds={this.state.seconds}
             buttonText={timerButtonText}
@@ -309,4 +309,4 @@ class Timer extends Component{
   }
 }
 
-export default Timer;
+export default TimerScene;

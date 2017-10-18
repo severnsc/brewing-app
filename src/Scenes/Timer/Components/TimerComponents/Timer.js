@@ -4,7 +4,7 @@ import Clock from '../../../../Components/Clock/index.js'
 import './Timer.css';
 import '../../../../App.css';
 
-class TimerContainer extends Component{
+class Timer extends Component{
   render(){
     return(
       <div className="componentContainer" id="timerContainer">
@@ -18,4 +18,4 @@ class TimerContainer extends Component{
   }
 }
 
-export default TimerContainer;
+export default Timer
