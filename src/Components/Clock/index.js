@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Time extends Component{
+class Clock extends Component{
 
   render(){
 
@@ -13,4 +13,4 @@ class Time extends Component{
 
 }
 
-export default Time
+export default Clock
