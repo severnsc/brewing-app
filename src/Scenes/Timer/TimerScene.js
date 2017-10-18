@@ -18,7 +18,6 @@ class TimerScene extends Component{
     super(props);
     this.state = {
       minutes: 0,
-      intervalID: null,
       alerts:[],
       triggeredAlerts: [],
       errorText: "",
@@ -29,17 +28,9 @@ class TimerScene extends Component{
     this.processIntervalOperations = this.processIntervalOperations.bind(this)
     this.timerFormSubmit = this.timerFormSubmit.bind(this)
     this.createAlert = this.createAlert.bind(this)
-    this.updateAlert = this.updateAlert.bind(this)
-    this.createAlert = this.createAlert.bind(this)
     this.deleteAlert = this.deleteAlert.bind(this)
     this.editAlert = this.editAlert.bind(this)
     this.updateAlert = this.updateAlert.bind(this)
-  }
-
-  componentDidMount(){
-    if(this.state.time !== null){
-      this.initializeTimer()
-    }
   }
 
   createAlert(minutes, seconds, desc){
