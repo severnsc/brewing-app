@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../../../../Components/Button/index.js'
 import Clock from '../../../../Components/Clock/index.js'
-import PropTypes from 'prop-types'
 import './Timer.css';
 import '../../../../App.css';
 
@@ -10,7 +9,7 @@ const startButtonGreen = "#05a905"
 class Timer extends Component{
 
   constructor(props){
-    super(props)
+    super(props);
     this.state = {
       intervalID: null,
       minutes: this.props.minutes,
@@ -20,6 +19,7 @@ class Timer extends Component{
     }
     this.toggleTimer = this.toggleTimer.bind(this)
     this.resetTimer = this.resetTimer.bind(this)
+    this.decrementTimer = this.decrementTimer.bind(this)
   }
 
   decrementTimer(){
