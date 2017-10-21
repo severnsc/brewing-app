@@ -3,21 +3,15 @@ import '../App.css';
 import Nav from './Nav.js';
 import Main from '../Main.js'
 
-class Wrapper extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      sidebarOpen: false,
-    }
-    this.handleTouch = this.handleTouch.bind(this)
-    this.menuCollapse = this.menuCollapse.bind(this)
+export default class Wrapper extends Component{
+
+  state = {sidebarOpen: false}
+
+  handleTouch = () => {
+    this.setState(prevState => ({sidebarOpen: !prevState.sidebarOpen}))
   }
 
-  handleTouch(){
-    this.setState({sidebarOpen: !this.state.sidebarOpen})
-  }
-
-  menuCollapse(){
+  menuCollapse = () => {
     if(this.state.sidebarOpen){
       this.setState({sidebarOpen: false})
     }
@@ -48,5 +42,3 @@ class Wrapper extends Component{
     );
   }
 }
-
-export default Wrapper;
