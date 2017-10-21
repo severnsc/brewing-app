@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.css'
 
-const Button = (props) => {
+function Button(props) {
     
     const buttonStyle = {
       backgroundColor: props.backgroundColor
