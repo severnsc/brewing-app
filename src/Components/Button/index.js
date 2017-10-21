@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import './style.css'
 
-class Button extends Component{
-
-  render(){
+const Button = (props) => {
     
     const buttonStyle = {
-      backgroundColor: this.props.backgroundColor
+      backgroundColor: props.backgroundColor
     }
 
     return(
-      <button id={this.props.id} style={buttonStyle} onClick={this.props.onClick}>{this.props.buttonText}</button>
+      <button id={props.id} style={buttonStyle} onClick={props.onClick}>{props.buttonText}</button>
     )
-  }
 
 }
 
