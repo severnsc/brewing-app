@@ -39,6 +39,7 @@ class Timer extends Component{
   }
 
   resetTimer(){
+    this.initialTime = new Date()
     this.setState({
       seconds: this.props.seconds,
       minutes: this.props.minutes
