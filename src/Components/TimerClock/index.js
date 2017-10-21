@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 TimerClock.PropTypes = {
-  minutes: PropTypes.number,
-  seconds: PropTypes.number
+  minutes: PropTypes.number.isRequired,
+  seconds: PropTypes.number.isRequired
 }
 
 TimerClock.defaultProps = {
