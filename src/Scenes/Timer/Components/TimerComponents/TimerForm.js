@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import Button from '../../../../Components/Button/index.js'
 import ErrorText from '../../../../Components/ErrorText/index.js'
+import PropTypes from 'prop-types'
 import './Timer.css'
 import '../../../../App.css';
 
-class TimerForm extends Component{
+export default class TimerForm extends Component{
+
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired
+  }
 
   state = {
     minutes: '',
@@ -47,5 +52,3 @@ class TimerForm extends Component{
     )
   }
 }
-
-export default TimerForm;
