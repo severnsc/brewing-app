@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 TimerClock.PropTypes = {
-  minutes: number,
-  seconds: number
+  minutes: PropTypes.number,
+  seconds: PropTypes.number
 }
 
-const TimerClock = (props) => {
+function TimerClock(props) {
 
     const style = {fontSize: "8em"}
 
