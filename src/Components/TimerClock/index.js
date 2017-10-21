@@ -6,6 +6,11 @@ TimerClock.PropTypes = {
   seconds: PropTypes.number
 }
 
+TimerClock.defaultProps = {
+  minutes: 0,
+  seconds: 0
+}
+
 function TimerClock(props) {
 
     const style = {fontSize: "8em"}

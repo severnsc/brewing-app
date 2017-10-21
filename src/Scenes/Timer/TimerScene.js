@@ -16,7 +16,7 @@ class TimerScene extends Component{
   timerFormSubmit(minutes){
     return (e) => {
       e.preventDefault()
-      this.setState({minutes: minutes})
+      this.setState({minutes: parseInt(minutes, 10)})
     }
   }
 

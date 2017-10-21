@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import Button from '../../../../Components/Button/index.js'
 import TimerClock from '../../../../Components/TimerClock/index.js'
+import PropTypes from 'prop-types'
 import './Timer.css';
 import '../../../../App.css';
 
 const startButtonGreen = "#05a905"
 
 class Timer extends Component{
+
+  static propTypes = {
+    minutes: PropTypes.number
+  }
+
+  static defaultProps = {
+    minutes: 0
+  }
 
   constructor(props){
     super(props);
