@@ -11,36 +11,35 @@ class Timer extends Component{
   constructor(props){
     super(props);
     this.state = {
-      intervalID: null,
       minutes: this.props.minutes,
       seconds: this.props.seconds,
       buttonText: "START",
-      backgroundColor: startButtonGreen
+      backgroundColor: startButtonGreen,
     }
+    this.timerDuration = (this.props.minutes * 60000) + (this.props.seconds * 1000)
+    this.intervalID = null
+    this.initialTime = null
     this.toggleTimer = this.toggleTimer.bind(this)
     this.resetTimer = this.resetTimer.bind(this)
     this.decrementTimer = this.decrementTimer.bind(this)
   }
 
   decrementTimer(){
-    if(this.state.minutes === 0 && this.state.seconds === 0){
+    const newTime = this.timerDuration - (new Date() - this.initialTime)
+    const newMinutes = Math.floor(newTime / 60000)
+    const newSeconds = Math.floor(newTime / 1000) % 60
+    if(newMinutes === 0 && newSeconds === 0){
       this.stopTimer()
     }else{
-      if(this.state.seconds > 0){
-        let newSeconds = this.state.seconds - 1
-        this.setState({seconds: newSeconds})
-      }else{
-        let newSeconds = 59
-        let newMinutes = this.state.minutes - 1
-        this.setState({
-          seconds: newSeconds,
-          minutes: newMinutes
-        })
-      }
+      this.setState({
+        minutes: newMinutes,
+        seconds: newSeconds
+      })
     }
   }
 
   resetTimer(){
+    this.initialTime = new Date()
     this.setState({
       seconds: this.props.seconds,
       minutes: this.props.minutes
@@ -48,25 +47,25 @@ class Timer extends Component{
   }
 
   startTimer(){
-    const intervalID = setInterval(this.decrementTimer, 1000)
+    this.initialTime = new Date()
+    this.intervalID = setInterval(this.decrementTimer, 1000)
     this.setState({
-      intervalID: intervalID,
       buttonText: "STOP",
-      backgroundColor: "red"
+      backgroundColor: "red",
     });
   }
 
   stopTimer(){
-    clearInterval(this.state.intervalID);
+    clearInterval(this.intervalID)
+    this.intervalID = null
     this.setState({
-      intervalID: null,
       buttonText: 'START',
       backgroundColor: startButtonGreen
     });
   }
 
   toggleTimer(){
-    if(this.state.intervalID){
+    if(this.intervalID){
       this.stopTimer()
     }else{
       if(this.state.minutes > 0 || this.state.seconds > 0){
