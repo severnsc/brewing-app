@@ -5,35 +5,32 @@ import PropTypes from 'prop-types'
 import './Timer.css';
 import '../../../../App.css';
 
-const startButtonGreen = "#05a905"
+export default class Timer extends Component{
 
-class Timer extends Component{
+  startButtonGreen = "#05a905"
 
   static propTypes = {
-    minutes: PropTypes.number
+    minutes: PropTypes.number,
+    seconds: PropTypes.number
   }
 
   static defaultProps = {
-    minutes: 0
+    minutes: 0,
+    seconds: 0
   }
 
-  constructor(props){
-    super(props);
-    this.state = {
-      minutes: this.props.minutes,
-      seconds: this.props.seconds,
-      buttonText: "START",
-      backgroundColor: startButtonGreen,
-    }
-    this.timerDuration = (this.props.minutes * 60000) + (this.props.seconds * 1000)
-    this.intervalID = null
-    this.initialTime = null
-    this.toggleTimer = this.toggleTimer.bind(this)
-    this.resetTimer = this.resetTimer.bind(this)
-    this.decrementTimer = this.decrementTimer.bind(this)
+  state = {
+    minutes: this.props.minutes,
+    seconds: this.props.seconds,
+    buttonText: "START",
+    backgroundColor: this.startButtonGreen
   }
 
-  decrementTimer(){
+  timerDuration = (this.props.minutes * 60000) + (this.props.seconds * 1000)
+  intervalID = null
+  initialTime = null
+
+  decrementTimer = () => {
     const newTime = this.timerDuration - (new Date() - this.initialTime)
     const newMinutes = Math.floor(newTime / 60000)
     const newSeconds = Math.floor(newTime / 1000) % 60
@@ -47,7 +44,7 @@ class Timer extends Component{
     }
   }
 
-  resetTimer(){
+  resetTimer = () => {
     this.initialTime = new Date()
     this.setState({
       seconds: this.props.seconds,
@@ -55,7 +52,7 @@ class Timer extends Component{
     })
   }
 
-  startTimer(){
+  startTimer = () => {
     this.initialTime = new Date()
     this.intervalID = setInterval(this.decrementTimer, 1000)
     this.setState({
@@ -64,16 +61,16 @@ class Timer extends Component{
     });
   }
 
-  stopTimer(){
+  stopTimer = () => {
     clearInterval(this.intervalID)
     this.intervalID = null
     this.setState({
       buttonText: 'START',
-      backgroundColor: startButtonGreen
+      backgroundColor: this.startButtonGreen
     });
   }
 
-  toggleTimer(){
+  toggleTimer = () => {
     if(this.intervalID){
       this.stopTimer()
     }else{
@@ -95,10 +92,3 @@ class Timer extends Component{
     )
   }
 }
-
-Timer.defaultProps = {
-  minutes: 0,
-  seconds: 0
-}
-
-export default Timer
