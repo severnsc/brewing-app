@@ -18,7 +18,9 @@ function Button(props) {
     }
 
     return(
-      <button id={props.id} style={buttonStyle} onClick={props.onClick}>{props.buttonText}</button>
+      <button className={props.className} id={props.id} style={buttonStyle} onClick={props.onClick}>
+        {props.buttonText}
+      </button>
     )
 
 }
