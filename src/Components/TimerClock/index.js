@@ -1,6 +1,12 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-const Clock = (props) => {
+TimerClock.PropTypes = {
+  minutes: number,
+  seconds: number
+}
+
+const TimerClock = (props) => {
 
     const style = {fontSize: "8em"}
 
@@ -16,4 +22,4 @@ const Clock = (props) => {
 
 }
 
-export default Clock
+export default TimerClock

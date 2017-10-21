@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../../../../Components/Button/index.js'
-import Clock from '../../../../Components/Clock/index.js'
+import TimerClock from '../../../../Components/TimerClock/index.js'
 import './Timer.css';
 import '../../../../App.css';
 
@@ -77,7 +77,7 @@ class Timer extends Component{
   render(){
     return(
       <div className="componentContainer" id="timerContainer">
-        <Clock minutes={this.state.minutes} seconds={this.state.seconds} />
+        <TimerClock minutes={this.state.minutes} seconds={this.state.seconds} />
         <div id="timerButtonContainer">
           <Button backgroundColor={this.state.backgroundColor} onClick={this.toggleTimer} buttonText={this.state.buttonText} />
           <Button backgroundColor="#a7a6a6" onClick={this.resetTimer} buttonText="RESET" />
