@@ -17,9 +17,9 @@ export default class Table extends Component {
   addRow = () => {
     const defaultValues = Object.keys(this.props.columnTypes).map(() => {return ""})
     const newRow = <TableRow key={this.state.addedRows.length + 1} editing cellTypes={Object.values(this.props.columnTypes)} cellValues={defaultValues} />
-    this.setState((prevState) => {
-      addedRows: prevState.addedRows.push(newRow)
-    })
+    this.setState((prevState) => ({
+          addedRows: prevState.addedRows.concat([newRow])
+        }))
   }
 
   render(){
