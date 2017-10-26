@@ -15,7 +15,8 @@ export default class Table extends Component {
   }
 
   addRow = () => {
-    const newRow = <TableRow key={this.state.addedRows.length + 1} editing cellTypes={Object.values(this.props.columnTypes)} />
+    const defaultValues = Object.keys(this.props.columnTypes).map(() => {return ""})
+    const newRow = <TableRow key={this.state.addedRows.length + 1} editing cellTypes={Object.values(this.props.columnTypes)} cellValues={defaultValues} />
     this.setState((prevState) => {
       addedRows: prevState.addedRows.push(newRow)
     })
@@ -31,7 +32,11 @@ export default class Table extends Component {
     }else{
       return(
         <div>
-          <TableRow readOnly cellValues={Object.keys(this.props.columnTypes)} />
+          <TableRow 
+            readOnly 
+            cellValues={Object.keys(this.props.columnTypes)}
+            cellTypes={Object.values(this.props.columnTypes)}
+          />
           {this.props.children}
           {this.state.addedRows}
           <Button

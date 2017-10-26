@@ -5,18 +5,21 @@ import Button from '../../Button/index.js'
 export default class TableRow extends Component{
 
   static propTypes = {
-    cellTypes: PropTypes.array,
-    cellValues: PropTypes.array
+    cellTypes: PropTypes.array.isRequired,
+    cellValues: PropTypes.array.isRequired
   }
 
   static defaultProps = {
-    cellValues: [],
     editing: false
   }
 
   state = {
     editing: this.props.editing,
     cellValues: this.props.cellValues
+  }
+
+  setDefaultCellValues = () => {
+    return this.props.cellTypes.map(() => {return ""})
   }
 
   handleChange = (e, index) => {
