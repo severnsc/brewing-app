@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
-function Nav(props) {
+const Nav = (props) => {
     
     let navClass = props.isOpen ? 'nav open' : 'nav'
 

@@ -5,12 +5,7 @@ import TimerScene from './Scenes/Timer/TimerScene.js';
 import Home from './Scenes/Home.js';
 import PropTypes from 'prop-types'
 
-Main.PropTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired
-}
-
-function Main(props) {
+const Main = (props) => {
 
   let mainClass = props.isOpen ? "main open" : "main"
 
@@ -22,6 +17,11 @@ function Main(props) {
       </Switch>
     </main>
   )
+}
+
+Main.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default Main;

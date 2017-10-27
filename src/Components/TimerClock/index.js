@@ -1,17 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-TimerClock.PropTypes = {
-  minutes: PropTypes.number.isRequired,
-  seconds: PropTypes.number.isRequired
-}
-
-TimerClock.defaultProps = {
-  minutes: 0,
-  seconds: 0
-}
-
-function TimerClock(props) {
+const TimerClock = (props) => {
 
     const style = {fontSize: "8em"}
 
@@ -25,6 +15,16 @@ function TimerClock(props) {
       <h2 style={style}>{props.minutes} : {seconds}</h2>
     )
 
+}
+
+TimerClock.propTypes = {
+  minutes: PropTypes.number.isRequired,
+  seconds: PropTypes.number.isRequired
+}
+
+TimerClock.defaultProps = {
+  minutes: 0,
+  seconds: 0
 }
 
 export default TimerClock

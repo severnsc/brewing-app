@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Wrapper from './Components/Wrapper.js';
 
-function App(props) {
+const App = (props) => {
   return(
     <Wrapper />
   )
 }
 
-function Body(props) {
+const Body = (props) => {
   return(
     <BrowserRouter>
       <App />
