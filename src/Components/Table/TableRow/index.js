@@ -86,12 +86,7 @@ export default class TableRow extends Component{
       return(
         <div className="tableRow">
           {cells}
-          <Button
-            className="round"
-            onClick={this.setEditing}
-            buttonText="edit"
-            backgroundColor="#a7a6a6"
-          />
+          {this.props.readOnly || <Button className="round" onClick={this.setEditing} buttonText="edit" backgroundColor="#a7a6a6" />}
         </div>
       )
 
