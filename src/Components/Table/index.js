@@ -10,7 +10,7 @@ export default class Table extends Component {
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string
-    }).isRequired) 
+    }).isRequired).isRequired 
   }
 
   static defaultProps = {
