@@ -6,6 +6,7 @@ import Button from '../../Components/Button/index.js'
 export default class Table extends Component {
 
   static propTypes = {
+    readOnly: PropTypes.bool,
     tableName: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -36,6 +37,11 @@ export default class Table extends Component {
     if(this.props.readOnly){
       return(
         <div>
+          <TableRow 
+            readOnly 
+            cellValues={this.props.columns.map((column) => {return column.name})}
+            cellTypes={this.props.columns.map((column) => {return column.type})}
+          />
           {this.props.children}
         </div>
       )
