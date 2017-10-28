@@ -45,7 +45,7 @@ export default class TimerForm extends Component{
             <input type="text" value={this.state.minutes} id="minutesInput" onChange={this.handleChange} /><span id="minutes">minutes</span>
           </div>
           <div id="submitContainer">
-            <Button buttonText="Create Timer" type="submit" id="timerSubmit" backgroundColor="#05a905" />
+            <Button onClick={() => {}} buttonText="Create Timer" type="submit" id="timerSubmit" backgroundColor="#05a905" />
           </div>
         </form>
       </div>
