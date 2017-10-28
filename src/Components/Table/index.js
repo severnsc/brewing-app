@@ -7,7 +7,17 @@ export default class Table extends Component {
 
   static propTypes = {
     tableName: PropTypes.string,
-    columnTypes: PropTypes.object.isRequired
+    columns: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string
+    }).isRequired) 
+  }
+
+  static defaultProps = {
+    columns: {
+      name: "",
+      type: "text"
+    }
   }
 
   state = {
@@ -15,8 +25,8 @@ export default class Table extends Component {
   }
 
   addRow = () => {
-    const defaultValues = Object.keys(this.props.columnTypes).map(() => {return ""})
-    const newRow = <TableRow key={this.state.addedRows.length + 1} editing cellTypes={Object.values(this.props.columnTypes)} cellValues={defaultValues} />
+    const defaultValues = this.props.columns.map(() => {return ""})
+    const newRow = <TableRow key={this.state.addedRows.length + 1} editing cellTypes={this.props.columns.map((column) => {return column.type})} cellValues={defaultValues} />
     this.setState((prevState) => ({
           addedRows: prevState.addedRows.concat([newRow])
         }))
@@ -34,8 +44,8 @@ export default class Table extends Component {
         <div>
           <TableRow 
             readOnly 
-            cellValues={Object.keys(this.props.columnTypes)}
-            cellTypes={Object.values(this.props.columnTypes)}
+            cellValues={this.props.columns.map((column) => {return column.name})}
+            cellTypes={this.props.columns.map((column) => {return column.type})}
           />
           {this.props.children}
           {this.state.addedRows}
