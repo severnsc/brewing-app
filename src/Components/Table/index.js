@@ -7,7 +7,6 @@ export default class Table extends Component {
 
   static propTypes = {
     readOnly: PropTypes.bool,
-    tableName: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string
