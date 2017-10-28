@@ -14,26 +14,25 @@ export default class Table extends Component {
   }
 
   state = {
-    addedRows: []
+    rows: Array.isArray(this.props.children) ? this.props.children : [this.props.children]
   }
 
   addRow = () => {
-    const newRow = <TableRow key={this.state.addedRows.length + 1} editing cells={this.props.columns.map((column) => {return {value: "", type: column.type || "text"}})} />
+    const newRow = <TableRow key={this.state.rows.length + 1} editing cells={this.props.columns.map((column) => {return {value: "", type: column.type || "text"}})} />
     this.setState((prevState) => ({
-          addedRows: [...prevState.addedRows, newRow]
+          rows: [...prevState.rows, newRow]
         }))
   }
 
   render(){
-    const { columns, readOnly, children } = this.props
+    const { columns, readOnly } = this.props
     return(
       <div>
         <TableRow 
           readOnly 
           cells={columns.map((col) => {return {value: col.name, type: col.type || "text"}})}
         />
-        {children}
-        {this.state.addedRows}
+        {this.state.rows}
         {readOnly || <Button className="round" buttonText="+" onClick={this.addRow} />}
       </div>
     )
