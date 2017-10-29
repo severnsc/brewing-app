@@ -1,10 +1,11 @@
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 
-const addTableRow = (tableName, tableRow) => {
+let nextTableRowId = 0
+const addTableRow = (tableRow) => {
   return {
     type: ADD_TABLE_ROW,
-    tableName,
-    tableRow
+    tableRow,
+    id: nextTableRowId++
   }
 }
 
@@ -13,12 +14,14 @@ const addTableRow = (tableName, tableRow) => {
 tableRow object:
 
 {
+  id: Integer,
+  tableName: String,
   editing: bool,
   readOnly: bool,
-  cells: {
+  cells: [{
     value: String or Number,
     type: String
-  }
+  }]
 }
 
 make Table map the tableRow state it's passed and create 
