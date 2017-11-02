@@ -1,5 +1,6 @@
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 const EDIT_TABLE_ROW = "EDIT_TABLE_ROW"
+const UPDATE_TABLE_CELL = "UPDATE_TABLE_CELL"
 
 let nextTableRowId = 0
 const addTableRow = (tableRow) => {
@@ -17,6 +18,13 @@ const editTableRow = (id) => {
   }
 }
 
+const updateTableCell = (cell) => {
+  return {
+    type: UPDATE_TABLE_CELL,
+    cell
+  }
+}
+
 /*
 
 tableRow object:
@@ -27,6 +35,8 @@ tableRow object:
   editing: bool,
   readOnly: bool,
   cells: [{
+    tableRowId: Integer,
+    index: Integer,
     value: String or Number,
     type: String
   }]
