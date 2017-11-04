@@ -3,7 +3,7 @@ const EDIT_TABLE_ROW = "EDIT_TABLE_ROW"
 const SAVE_TABLE_ROW = "SAVE_TABLE_ROW"
 
 let nextTableRowId = 0
-const addTableRow = (tableRow) => {
+export const addTableRow = (tableRow) => {
   return {
     type: ADD_TABLE_ROW,
     tableRow,
@@ -37,7 +37,6 @@ tableRow object:
   readOnly: bool,
   cells: [{
     tableRowId: Integer,
-    index: Integer,
     value: String or Number,
     type: String
   }]
