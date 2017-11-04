@@ -1,6 +1,6 @@
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 const EDIT_TABLE_ROW = "EDIT_TABLE_ROW"
-const UPDATE_TABLE_CELL = "UPDATE_TABLE_CELL"
+const SAVE_TABLE_ROW = "SAVE_TABLE_ROW"
 
 let nextTableRowId = 0
 const addTableRow = (tableRow) => {
@@ -11,10 +11,18 @@ const addTableRow = (tableRow) => {
   }
 }
 
+//Remove editing state from TableRow, use this passed down as prop
 const editTableRow = (id) => {
   return {
     type: EDIT_TABLE_ROW,
     id
+  }
+}
+
+const saveTableRow = (cells) => {
+  return {
+    type: SAVE_TABLE_ROW,
+    cells
   }
 }
 
