@@ -3,9 +3,12 @@ const tableRows = (state = [], action) => {
   switch(action.type){
     
     case 'ADD_TABLE_ROW':
+      const cells = action.tableRow.cells.map((cell) => {
+        return {...cell, tableRowId: action.id}
+      })
       return [
         ...state,
-        {...action.tableRow, id: action.id}
+        {...action.tableRow, id: action.id, cells}
       ]
 
     case 'EDIT_TABLE_ROW':
