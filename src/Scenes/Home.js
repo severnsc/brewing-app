@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-function Home(props) {
+const Home = (props) => {
   return(
     <h1>Brewing App</h1>
   )
