@@ -8,6 +8,7 @@ export default class TableRow extends Component{
     readOnly: PropTypes.bool,
     editing: PropTypes.bool,
     cells: PropTypes.arrayOf(PropTypes.shape({
+      tableRowId: PropTypes.number,
       value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
