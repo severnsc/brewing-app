@@ -25,18 +25,6 @@ export default class TableRow extends Component{
     cells: this.props.cells
   }
 
-  /*
-  
-    Redux implementation
-
-    handleChange = (e) => {
-      const cell = this.props.cells[e.target.index]
-      const newCell = {...cell, value: e.target.value}
-      updateTableCellAction(newCell)
-    }
-
-  */
-
   handleChange = (e, index) => {
     const cells = this.state.cells.map((cell, i) => {
       return i === index ? {...cell, value: e.target.value} : cell
@@ -64,7 +52,6 @@ export default class TableRow extends Component{
               key={index} 
               type={cell.type} 
               value={cell.value}
-              //Redux onChange={(e) => {this.handleChange}}
               onChange={(e) => {this.handleChange(e, index)}}
             />
           </div>

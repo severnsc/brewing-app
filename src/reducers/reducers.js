@@ -14,22 +14,6 @@ const tableRows = (state = [], action) => {
         ? {...tableRow, editing: true}
         : tableRow
       })
-
-    case 'UPDATE_TABLE_CELL':
-      return state.map((tableRow) => {
-        if(tableRow.id === action.cell.tableRowId){
-          {
-            ...tableRow,
-            cells: [
-              ...tableRow.cells.slice(0, action.cell.index),
-              action.cell,
-              ...tableRow.cells.slice(action.cell.index + 1)
-            ]
-          }
-        }else{
-          tableRow
-        }
-      })
     
     default:
       return state

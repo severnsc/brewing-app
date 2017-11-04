@@ -18,13 +18,6 @@ const editTableRow = (id) => {
   }
 }
 
-const updateTableCell = (cell) => {
-  return {
-    type: UPDATE_TABLE_CELL,
-    cell
-  }
-}
-
 /*
 
 tableRow object:
