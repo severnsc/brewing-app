@@ -7,6 +7,8 @@ export default class Table extends Component {
 
   static propTypes = {
     readOnly: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    addRow: PropTypes.func.isRequired,
     columns: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       type: PropTypes.string
@@ -18,10 +20,16 @@ export default class Table extends Component {
   }
 
   addRow = () => {
-    const newRow = <TableRow key={this.state.rows.length + 1} editing cells={this.props.columns.map((column) => {return {value: "", type: column.type || "text"}})} />
-    this.setState((prevState) => ({
-          rows: [...prevState.rows, newRow]
-        }))
+    const cells = this.columns.map((column) => {
+      return {value: "", type: column.type}
+    })
+    const newRow = {
+      tableName: this.props.name,
+      editing: true,
+      readOnly: false,
+      cells
+    }
+    this.props.addRow(newRow)
   }
 
   render(){
