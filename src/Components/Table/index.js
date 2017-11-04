@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import TableRow from './TableRow/index.js'
 import Button from '../../Components/Button/index.js'
 
-const Table = ({readOnly, name, addRow, columns, children}) => {
+const Table = ({readOnly, name, addRow, columns, children, setEditing, saveTableRow}) => {
 
   handleClick = () => {
     const cells = columns.map((column) => {

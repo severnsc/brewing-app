@@ -14,7 +14,9 @@ export default class TableRow extends Component{
         PropTypes.number
       ]).isRequired,
       type: PropTypes.string
-    })).isRequired
+    })).isRequired,
+    setEditing: PropTypes.func.isRequired,
+    saveTableRow: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -22,7 +24,6 @@ export default class TableRow extends Component{
   }
 
   state = {
-    editing: this.props.editing,
     cells: this.props.cells
   }
 
@@ -35,16 +36,12 @@ export default class TableRow extends Component{
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.setState({editing: false})
-  }
-
-  setEditing = () =>{
-    this.setState({editing: true})
+    this.props.saveTableRow(this.state.cells)
   }
 
   render(){
     
-    if(this.state.editing){
+    if(this.props.editing){
       
       const cells = this.state.cells.map((cell, index) => {
         return(
@@ -87,7 +84,7 @@ export default class TableRow extends Component{
       return(
         <div className="tableRow">
           {cells}
-          {this.props.readOnly || <Button className="round" onClick={this.setEditing} buttonText="edit" backgroundColor="#a7a6a6" />}
+          {this.props.readOnly || <Button className="round" onClick={this.props.setEditing} buttonText="edit" backgroundColor="#a7a6a6" />}
         </div>
       )
 

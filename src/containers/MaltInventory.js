@@ -1,5 +1,11 @@
 import { connect } from 'react-redux'
-import { addTableRow } from '../actions'
+
+import { 
+  addTableRow, 
+  editTableRow, 
+  saveTableRow 
+} from '../actions'
+
 import InventoryTable from '../Components/InventoryTable'
 
 const getMaltInventory = (tableRows) => {
@@ -18,6 +24,12 @@ const mapDispatchToProps = dispatch => {
   return {
     addRow: tableRow => {
       dispatch(addTableRow(tableRow))
+    },
+    setEditing: id => {
+      dispatch(editTableRow(id))
+    },
+    saveTableRow: cells => {
+      dispatch(saveTableRow(cells))
     }
   }
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import Table from '../Table'
 import PropTypes from 'prop-types'
 
-const InventoryTable = ({tableRows, addRow}) => {
+const InventoryTable = ({tableRows, addRow, setEditing, saveTableRow}) => {
 
   const columns = [
     {name: "Name", type: "text"},
@@ -10,7 +10,7 @@ const InventoryTable = ({tableRows, addRow}) => {
   ]
 
   const tableRowComponents = tableRows.map((tableRow) => {
-    return <TableRow cells={tableRow.cells} editing={tableRow.editing} />
+    return <TableRow saveTableRow={saveTableRow} setEditing={setEditing} cells={tableRow.cells} editing={tableRow.editing} />
   })
 
   return(
@@ -39,7 +39,9 @@ InventoryTable.propTypes = {
       type: PropTypes.string
     })).isRequired
   })),
-  addRow: PropTypes.func
+  addRow: PropTypes.func.isRequired,
+  setEditing: PropTypes.func.isRequired,
+  saveTableRow: PropTypes.func.isRequired
 }
 
 export default InventoryTable
