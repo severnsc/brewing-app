@@ -18,7 +18,7 @@ const tableRows = (state = [], action) => {
     case 'SAVE_TABLE_ROW':
       return state.map((tableRow) => {
         (tableRow.id === action.cells[0].tableRowId)
-        ? {...tableRow, cells: action.cells}
+        ? {...tableRow, cells: action.cells, editing: false}
         : tableRow
       })
     
