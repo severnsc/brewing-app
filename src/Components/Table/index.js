@@ -5,7 +5,7 @@ import Button from '../../Components/Button/index.js'
 
 const Table = ({readOnly, name, addRow, columns, children, setEditing, saveTableRow}) => {
 
-  handleClick = () => {
+  const handleClick = () => {
     const cells = columns.map((column) => {
       return {value: "", type: column.type}
     })
@@ -18,18 +18,16 @@ const Table = ({readOnly, name, addRow, columns, children, setEditing, saveTable
     addRow(newRow)
   }
 
-  render(){
-    return(
-      <div>
-        <TableRow 
-          readOnly 
-          cells={columns.map((col) => {return {value: col.name, type: col.type || "text"}})}
-        />
-        {children}
-        {readOnly || <Button className="round" buttonText="+" onClick={handleClick} />}
-      </div>
-    )
-  }
+  return(
+    <div>
+      <TableRow 
+        readOnly 
+        cells={columns.map((col) => {return {value: col.name, type: col.type || "text"}})}
+      />
+      {children}
+      {readOnly || <Button className="round" buttonText="+" onClick={handleClick} />}
+    </div>
+  )
 }
 
 Table.propTypes = {
