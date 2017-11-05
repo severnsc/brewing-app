@@ -15,8 +15,8 @@ export default class TableRow extends Component{
       ]).isRequired,
       type: PropTypes.string
     })).isRequired,
-    setEditing: PropTypes.func.isRequired,
-    saveTableRow: PropTypes.func.isRequired
+    setEditing: PropTypes.func,
+    saveTableRow: PropTypes.func
   }
 
   static defaultProps = {
@@ -84,7 +84,7 @@ export default class TableRow extends Component{
       return(
         <div className="tableRow">
           {cells}
-          {this.props.readOnly || <Button className="round" onClick={this.props.setEditing} buttonText="edit" backgroundColor="#a7a6a6" />}
+          {this.props.readOnly || <Button className="round" onClick={() => this.props.setEditing(this.props.id)} buttonText="edit" backgroundColor="#a7a6a6" />}
         </div>
       )
 
