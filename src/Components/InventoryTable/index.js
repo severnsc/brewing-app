@@ -1,5 +1,6 @@
 import React from 'react'
 import Table from '../Table'
+import TableRow from '../Table/TableRow/index'
 import PropTypes from 'prop-types'
 
 const InventoryTable = ({tableRows, addRow, setEditing, saveTableRow}) => {
@@ -9,8 +10,8 @@ const InventoryTable = ({tableRows, addRow, setEditing, saveTableRow}) => {
     {name: "Amount", type: "number"}
   ]
 
-  const tableRowComponents = tableRows.map((tableRow) => {
-    return <TableRow saveTableRow={saveTableRow} setEditing={setEditing} cells={tableRow.cells} editing={tableRow.editing} />
+  const tableRowComponents = tableRows.map((tableRow, index) => {
+    return <TableRow id={tableRow.id} key={index} saveTableRow={saveTableRow} setEditing={setEditing} cells={tableRow.cells} editing={tableRow.editing} />
   })
 
   return(
@@ -25,12 +26,12 @@ const InventoryTable = ({tableRows, addRow, setEditing, saveTableRow}) => {
 }
 
 InventoryTable.propTypes = {
-  tableRows: PropTypes.arrayOf(shape({
+  tableRows: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     tableName: PropTypes.string.isRequired,
     editing: PropTypes.bool.isRequired,
     readOnly: PropTypes.bool,
-    cells: PropTypes.arrayOf(shape({
+    cells: PropTypes.arrayOf(PropTypes.shape({
       tableRowId: PropTypes.number.isRequired,
       value: PropTypes.oneOfType([
         PropTypes.string,
