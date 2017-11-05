@@ -11,15 +11,14 @@ export const addTableRow = (tableRow) => {
   }
 }
 
-//Remove editing state from TableRow, use this passed down as prop
-const editTableRow = (id) => {
+export const editTableRow = (id) => {
   return {
     type: EDIT_TABLE_ROW,
     id
   }
 }
 
-const saveTableRow = (cells) => {
+export const saveTableRow = (cells) => {
   return {
     type: SAVE_TABLE_ROW,
     cells
