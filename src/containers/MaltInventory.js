@@ -4,7 +4,7 @@ import {
   addTableRow, 
   editTableRow, 
   saveTableRow 
-} from '../actions'
+} from '../actions/actions'
 
 import InventoryTable from '../Components/InventoryTable'
 
