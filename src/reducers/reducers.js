@@ -12,7 +12,7 @@ const tableRows = (state = [], action) => {
       ]
 
     case 'EDIT_TABLE_ROW':
-      return state.map((tablerow) => {
+      return state.map((tableRow) => {
         (tableRow.id === action.id)
         ? {...tableRow, editing: true}
         : tableRow
@@ -30,3 +30,5 @@ const tableRows = (state = [], action) => {
 
   }
 }
+
+export default tableRows
