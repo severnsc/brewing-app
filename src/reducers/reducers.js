@@ -13,14 +13,14 @@ const tableRows = (state = [], action) => {
 
     case 'EDIT_TABLE_ROW':
       return state.map((tableRow) => {
-        (tableRow.id === action.id)
+        return (tableRow.id === action.id)
         ? {...tableRow, editing: true}
         : tableRow
       })
 
     case 'SAVE_TABLE_ROW':
       return state.map((tableRow) => {
-        (tableRow.id === action.cells[0].tableRowId)
+        return (tableRow.id === action.cells[0].tableRowId)
         ? {...tableRow, cells: action.cells, editing: false}
         : tableRow
       })
