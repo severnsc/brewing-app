@@ -2,21 +2,19 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Button from '../../Button/index.js'
 
-export default class TableRow extends Component{
+export default class EditableTableRow extends Component{
 
   static propTypes = {
-    readOnly: PropTypes.bool,
     editing: PropTypes.bool,
     cells: PropTypes.arrayOf(PropTypes.shape({
-      tableRowId: PropTypes.number,
       value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
       ]).isRequired,
-      type: PropTypes.string
+      type: PropTypes.string.isRequired
     })).isRequired,
-    setEditing: PropTypes.func,
-    saveTableRow: PropTypes.func
+    setEditing: PropTypes.func.isRequired,
+    saveTableRow: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -64,7 +62,7 @@ export default class TableRow extends Component{
               onClick={() => {}}
               className="round"
               type="submit"
-              buttonText="save"
+              buttonText="&#10004;"
               backgroundColor="#05a905"
             />
           </form>
@@ -84,7 +82,7 @@ export default class TableRow extends Component{
       return(
         <div className="tableRow">
           {cells}
-          {this.props.readOnly || <Button className="round" onClick={() => this.props.setEditing(this.props.id)} buttonText="edit" backgroundColor="#a7a6a6" />}
+          <Button className="round" onClick={() => this.props.setEditing(this.props.id)} buttonText=" &#9998;" backgroundColor="#a7a6a6" />
         </div>
       )
 
