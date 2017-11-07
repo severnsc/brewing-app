@@ -6,6 +6,8 @@ import {
   saveTableRow 
 } from '../actions/actions'
 
+import EditableTable from '../Components/EditableTable/index'
+
 const getMaltInventory = (tableRows, tableName) => {
   return tableRows.filter((tableRow) => {
     return tableRow.tableName === tableName
@@ -37,6 +39,6 @@ const mapDispatchToProps = dispatch => {
 const InventoryTable = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Table)
+)(EditableTable)
 
 export default InventoryTable
