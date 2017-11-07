@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import EditableTableHeader from './EditableTableHeader/index'
 import EditableTableRow from './EditableTableRow/index'
 import Button from '../../Components/Button/index'
 
@@ -20,10 +21,10 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
   return(
     <div>
       <EditableTableHeader
-        cells={columns.map((col) => {return {value: col.name, type: col.type || "text"}})}
+        columnNames={columns.map((col) => {return col.value} )}
       />
       {tableRows.map( tableRow => 
-        {return <EditableTableRow cells={tableRow.cells} editing={tableRow.editing} />}
+        {return <EditableTableRow cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
       )}
       <Button className="round" buttonText="&#43;" onClick={handleClick} />
     </div>
