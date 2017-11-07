@@ -6,17 +6,17 @@ import {
   saveTableRow 
 } from '../actions/actions'
 
-import InventoryTable from '../Components/InventoryTable'
-
-const getMaltInventory = (tableRows) => {
+const getMaltInventory = (tableRows, tableName) => {
   return tableRows.filter((tableRow) => {
-    return tableRow.tableName === "maltInventory"
+    return tableRow.tableName === tableName
   })
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return{
-    tableRows: getMaltInventory(state.tableRows)
+    tableRows: getMaltInventory(state.tableRows, ownProps.tableName),
+    columns: ownProps.columns,
+    name: ownProps.name
   }
 }
 
