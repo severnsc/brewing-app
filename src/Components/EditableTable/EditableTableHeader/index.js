@@ -11,4 +11,8 @@ const EditableTableHeader = ({columnNames}) => {
 
 }
 
+EditableTableHeader.propTypes = {
+  columnNames: PropTypes.arrayOf(PropTypes.string).isRequired
+}
+
 export default EditableTableHeader
