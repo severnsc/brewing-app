@@ -5,6 +5,7 @@ import Button from '../../Button/index.js'
 export default class EditableTableRow extends Component{
 
   static propTypes = {
+    id: PropTypes.number.isRequired,
     editing: PropTypes.bool,
     cells: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.oneOfType([
