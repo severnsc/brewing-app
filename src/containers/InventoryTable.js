@@ -14,7 +14,7 @@ const getMaltInventory = (tableRows, tableName) => {
 
 const mapStateToProps = (state, ownProps) => {
   return{
-    tableRows: getMaltInventory(state.tableRows, ownProps.tableName),
+    tableRows: getMaltInventory(state.tableRows, ownProps.name),
     columns: ownProps.columns,
     name: ownProps.name
   }
