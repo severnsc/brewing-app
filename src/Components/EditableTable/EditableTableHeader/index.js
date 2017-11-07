@@ -5,7 +5,7 @@ const EditableTableHeader = ({columnNames}) => {
 
   return(
     <div>
-      {columnNames.map( columnName => {return <div>columnName</div>})}
+      {columnNames.map( columnName => {return <div>{columnName}</div>})}
     </div>
   )
 
