@@ -34,9 +34,9 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const MaltInventory = connect(
+const InventoryTable = connect(
   mapStateToProps,
   mapDispatchToProps
-)(InventoryTable)
+)(Table)
 
-export default MaltInventory
+export default InventoryTable
