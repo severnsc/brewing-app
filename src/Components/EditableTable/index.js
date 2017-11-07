@@ -21,7 +21,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
   return(
     <div>
       <EditableTableHeader
-        columnNames={columns.map((col) => {return col.value} )}
+        columnNames={columns.map((col) => {return col.name} )}
       />
       {tableRows.map( tableRow => 
         {return <EditableTableRow cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
