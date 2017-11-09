@@ -90,7 +90,9 @@ export default class Timer extends Component{
   render(){
     return(
       <ComponentContainer>
-        <TimerClock minutes={this.state.minutes} seconds={this.state.seconds} />
+        <TimerClock>
+          {this.state.minutes}:{this.state.seconds < 10 ? "0" + this.state.seconds : this.state.seconds}
+        </TimerClock>
         <FlexDiv>
           <TimerButton background={this.state.backgroundColor} onClick={this.toggleTimer}>
             {this.state.buttonText}

@@ -1,30 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-const TimerClock = (props) => {
-
-    const style = {fontSize: "8em"}
-
-    let seconds = props.seconds
-
-    if(props.seconds < 10){
-      seconds = "0" + props.seconds
-    }
-
-    return(
-      <h2 style={style}>{props.minutes} : {seconds}</h2>
-    )
-
-}
-
-TimerClock.propTypes = {
-  minutes: PropTypes.number.isRequired,
-  seconds: PropTypes.number.isRequired
-}
-
-TimerClock.defaultProps = {
-  minutes: 0,
-  seconds: 0
-}
-
-export default TimerClock
+export default styled.h2`
+  font-size: 8em;
+`
