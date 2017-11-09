@@ -1,13 +1,13 @@
+import shortid from 'shortid'
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 const EDIT_TABLE_ROW = "EDIT_TABLE_ROW"
 const SAVE_TABLE_ROW = "SAVE_TABLE_ROW"
 
-let nextTableRowId = 0
 export const addTableRow = (tableRow) => {
   return {
     type: ADD_TABLE_ROW,
     tableRow,
-    id: nextTableRowId++
+    id: shortid.generate()
   }
 }
 

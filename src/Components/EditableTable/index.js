@@ -24,7 +24,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
         columnNames={columns.map((col) => {return col.name} )}
       />
       {tableRows.map( tableRow => 
-        {return <EditableTableRow id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
+        {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
       )}
       <Button className="round" buttonText="&#43;" onClick={handleClick} />
     </div>
@@ -41,7 +41,7 @@ EditableTable.propTypes = {
     type: PropTypes.string
   }).isRequired).isRequired,
   tableRows: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     tableName: PropTypes.string.isRequired,
     editing: PropTypes.bool,
     cells: PropTypes.arrayOf(PropTypes.shape({
