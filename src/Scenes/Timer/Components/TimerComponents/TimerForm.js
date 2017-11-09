@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Button from '../../../../Components/Button/index.js'
-import ErrorText from '../../../../Components/ErrorText/index.js'
+import { Button } from '../../../../Components/Button'
+import ErrorText from '../../../../Components/ErrorText'
 import PropTypes from 'prop-types'
 import './Timer.css'
 import '../../../../App.css';
@@ -45,7 +45,9 @@ export default class TimerForm extends Component{
             <input type="text" value={this.state.minutes} id="minutesInput" onChange={this.handleChange} /><span id="minutes">minutes</span>
           </div>
           <div id="submitContainer">
-            <Button onClick={() => {}} buttonText="Create Timer" type="submit" id="timerSubmit" backgroundColor="#05a905" />
+            <Button type="submit" background="#05a905">
+              Create Timer
+            </Button>
           </div>
         </form>
       </div>

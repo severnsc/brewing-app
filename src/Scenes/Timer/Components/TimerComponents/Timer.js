@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Button from '../../../../Components/Button/index.js'
-import TimerClock from '../../../../Components/TimerClock/index.js'
+import { Button } from '../../../../Components/Button'
+import TimerClock from '../../../../Components/TimerClock'
 import PropTypes from 'prop-types'
 import './Timer.css';
 import '../../../../App.css';
@@ -85,8 +85,12 @@ export default class Timer extends Component{
       <div className="componentContainer" id="timerContainer">
         <TimerClock minutes={this.state.minutes} seconds={this.state.seconds} />
         <div id="timerButtonContainer">
-          <Button backgroundColor={this.state.backgroundColor} onClick={this.toggleTimer} buttonText={this.state.buttonText} />
-          <Button backgroundColor="#a7a6a6" onClick={this.resetTimer} buttonText="RESET" />
+          <Button background={this.state.backgroundColor} onClick={this.toggleTimer}>
+            {this.state.buttonText}
+          </Button>
+          <Button background="#a7a6a6" onClick={this.resetTimer}>
+            RESET
+          </Button>
         </div>
       </div>
     )
