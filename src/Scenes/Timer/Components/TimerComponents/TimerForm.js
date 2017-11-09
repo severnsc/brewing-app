@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '../../../../Components/Button'
 import ErrorText from '../../../../Components/ErrorText'
+import ComponentContainer from '../../../../Components/ComponentContainer'
 import PropTypes from 'prop-types'
 import './Timer.css'
 import '../../../../App.css';
@@ -37,7 +38,7 @@ export default class TimerForm extends Component{
 
   render(){
     return(
-      <div className="componentContainer">
+      <ComponentContainer>
         <ErrorText text={this.state.errorText} />
         <h1>Create a New Timer</h1>
         <form onSubmit={this.handleSubmit} id="timerForm">
@@ -50,7 +51,7 @@ export default class TimerForm extends Component{
             </Button>
           </div>
         </form>
-      </div>
+      </ComponentContainer>
     )
   }
 }
