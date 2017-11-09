@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import EditableTableHeader from './EditableTableHeader/index'
-import EditableTableRow from './EditableTableRow/index'
-import Button from '../../Components/Button/index'
+import EditableTableHeader from './EditableTableHeader'
+import EditableTableRow from './EditableTableRow'
+import RoundButton from '../../Components/RoundButton'
 
 const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRows}) => {
 
@@ -26,7 +26,9 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
       {tableRows.map( tableRow => 
         {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
       )}
-      <Button className="round" buttonText="&#43;" onClick={handleClick} />
+      <RoundButton onClick={handleClick}>
+        &#43;
+      </RoundButton>
     </div>
   )
 }
