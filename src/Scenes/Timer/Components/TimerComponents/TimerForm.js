@@ -1,10 +1,44 @@
 import React, { Component } from 'react';
 import Button from '../../../../Components/Button'
 import ErrorText from '../../../../Components/ErrorText'
+import FlexDiv from '../../../../Components/FlexDiv'
 import ComponentContainer from '../../../../Components/ComponentContainer'
 import PropTypes from 'prop-types'
-import './Timer.css'
 import '../../../../App.css';
+import styled from 'styled-components'
+
+const SubmitContainer = FlexDiv.extend`
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+`
+
+const TimerInputForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+`
+
+const MinutesInput = styled.input`
+  height: 1em;
+  font: 2em arial;
+  text-align: end;
+  max-width: 200px;
+`
+
+const Minutes = styled.span`
+  margin-left:5px;
+  font: 2em arial;
+`
+
+const TimerSubmit = Button.extend`
+  flex-grow:1;
+  height: 3em;
+  font: 1em arial;
+`
 
 export default class TimerForm extends Component{
 
@@ -41,16 +75,21 @@ export default class TimerForm extends Component{
       <ComponentContainer>
         <ErrorText text={this.state.errorText} />
         <h1>Create a New Timer</h1>
-        <form onSubmit={this.handleSubmit} id="timerForm">
-          <div id="inputContainer">
-            <input type="text" value={this.state.minutes} id="minutesInput" onChange={this.handleChange} /><span id="minutes">minutes</span>
-          </div>
-          <div id="submitContainer">
-            <Button type="submit" background="#05a905">
+        <TimerInputForm onSubmit={this.handleSubmit}>
+          <FlexDiv>
+            <MinutesInput 
+              type="text" 
+              value={this.state.minutes}
+              onChange={this.handleChange}
+            />
+            <Minutes>minutes</Minutes>
+          </FlexDiv>
+          <SubmitContainer>
+            <TimerSubmit type="submit" background="#05a905">
               Create Timer
-            </Button>
-          </div>
-        </form>
+            </TimerSubmit>
+          </SubmitContainer>
+        </TimerInputForm>
       </ComponentContainer>
     )
   }

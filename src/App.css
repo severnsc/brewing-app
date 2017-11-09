@@ -54,19 +54,6 @@ p, h1, h2, h3, h4, h5, h6{
   align-self: stretch;
 }
 
-.componentContainer{
-  display: flex;
-  flex-flow: column;
-  border: 1px solid #eaeaea;
-  align-items: center;
-  background-color: white;
-  flex:1;
-  margin:10px 0;
-  justify-content: center;
-  max-width: 95%;
-  min-height: 50%;
-}
-
 .nav{
   position:absolute;
   top:0;

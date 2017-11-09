@@ -4,7 +4,6 @@ import FlexDiv from '../../../../Components/FlexDiv'
 import ComponentContainer from '../../../../Components/ComponentContainer'
 import TimerClock from '../../../../Components/TimerClock'
 import PropTypes from 'prop-types'
-import './Timer.css';
 import '../../../../App.css';
 
 const TimerButton = Button.extend`
