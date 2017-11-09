@@ -5,5 +5,5 @@ export default styled.button`
   border-radius: 3px;
   border: none;
   color: white;
-  background: ${props => props.background}
+  background: ${props => props.background};
 `

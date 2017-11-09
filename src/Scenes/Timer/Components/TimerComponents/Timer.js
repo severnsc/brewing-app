@@ -5,6 +5,12 @@ import PropTypes from 'prop-types'
 import './Timer.css';
 import '../../../../App.css';
 
+const TimerButton = Button.extend`
+  font-size: 2em;
+  padding: 0.25em 2em;
+  margin:0 10px 10px 10px;
+`
+
 export default class Timer extends Component{
 
   startButtonGreen = "#05a905"
@@ -85,12 +91,12 @@ export default class Timer extends Component{
       <div className="componentContainer" id="timerContainer">
         <TimerClock minutes={this.state.minutes} seconds={this.state.seconds} />
         <div id="timerButtonContainer">
-          <Button background={this.state.backgroundColor} onClick={this.toggleTimer}>
+          <TimerButton background={this.state.backgroundColor} onClick={this.toggleTimer}>
             {this.state.buttonText}
-          </Button>
-          <Button background="#a7a6a6" onClick={this.resetTimer}>
+          </TimerButton>
+          <TimerButton background="#a7a6a6" onClick={this.resetTimer}>
             RESET
-          </Button>
+          </TimerButton>
         </div>
       </div>
     )
