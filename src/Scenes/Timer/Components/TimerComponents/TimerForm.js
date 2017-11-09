@@ -73,7 +73,9 @@ export default class TimerForm extends Component{
   render(){
     return(
       <ComponentContainer>
-        <ErrorText text={this.state.errorText} />
+        <ErrorText>
+          {this.state.errorText}
+        </ErrorText>
         <h1>Create a New Timer</h1>
         <TimerInputForm onSubmit={this.handleSubmit}>
           <FlexDiv>
