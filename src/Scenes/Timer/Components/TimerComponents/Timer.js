@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from '../../../../Components/Button'
+import Button from '../../../../Components/Button'
 import TimerClock from '../../../../Components/TimerClock'
 import PropTypes from 'prop-types'
 import './Timer.css';
