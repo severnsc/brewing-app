@@ -26,7 +26,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
       {tableRows.map( tableRow => 
         {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
       )}
-      <RoundButton onClick={handleClick}>
+      <RoundButton background="#05a905" onClick={handleClick}>
         &#43;
       </RoundButton>
     </div>
