@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '../../../../Components/Button'
 import FlexDiv from '../../../../Components/FlexDiv'
+import ComponentContainer from '../../../../Components/ComponentContainer'
 import TimerClock from '../../../../Components/TimerClock'
 import PropTypes from 'prop-types'
 import './Timer.css';
@@ -89,7 +90,7 @@ export default class Timer extends Component{
 
   render(){
     return(
-      <FlexDiv id="timerContainer">
+      <ComponentContainer>
         <TimerClock minutes={this.state.minutes} seconds={this.state.seconds} />
         <FlexDiv>
           <TimerButton background={this.state.backgroundColor} onClick={this.toggleTimer}>
@@ -99,7 +100,7 @@ export default class Timer extends Component{
             RESET
           </TimerButton>
         </FlexDiv>
-      </FlexDiv>
+      </ComponentContainer>
     )
   }
 }
