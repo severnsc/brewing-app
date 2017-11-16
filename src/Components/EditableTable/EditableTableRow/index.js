@@ -8,6 +8,7 @@ export default class EditableTableRow extends Component{
     id: PropTypes.string.isRequired,
     editing: PropTypes.bool,
     cells: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
       value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
@@ -26,9 +27,9 @@ export default class EditableTableRow extends Component{
     cells: this.props.cells
   }
 
-  handleChange = (e, index) => {
-    const cells = this.state.cells.map((cell, i) => {
-      return i === index ? {...cell, value: e.target.value} : cell
+  handleChange = (e) => {
+    const cells = this.state.cells.map((cell) => {
+      return e.target.id === cell.id ? {...cell, value: e.target.value} : cell
     })
     this.setState({cells})
   }
@@ -42,14 +43,15 @@ export default class EditableTableRow extends Component{
     
     if(this.props.editing){
       
-      const cells = this.state.cells.map((cell, index) => {
+      const cells = this.state.cells.map((cell) => {
         return(
-          <div className="tableCell" key={index}>
+          <div className="tableCell" key={cell.id}>
             <input
-              key={index} 
+              key={cell.id}
+              id={cell.id} 
               type={cell.type} 
               value={cell.value}
-              onChange={(e) => {this.handleChange(e, index)}}
+              onChange={this.handleChange}
             />
           </div>
         )
@@ -72,9 +74,9 @@ export default class EditableTableRow extends Component{
 
     }else{
       
-      const cells = this.state.cells.map((cell, index) => {
+      const cells = this.state.cells.map((cell) => {
         return(
-          <div className="tableCell" key={index}>
+          <div className="tableCell" key={cell.id}>
             <p>{cell.value}</p>
           </div>
         )
