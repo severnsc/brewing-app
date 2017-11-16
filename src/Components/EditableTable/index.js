@@ -3,12 +3,17 @@ import PropTypes from 'prop-types'
 import EditableTableHeader from './EditableTableHeader'
 import EditableTableRow from './EditableTableRow'
 import RoundButton from '../../Components/RoundButton'
+import shortid from 'shortid'
 
 const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRows}) => {
 
   const handleClick = () => {
     const cells = columns.map((column) => {
-      return {value: "", type: column.type}
+      return {
+        id: shortid.generate(),
+        value: "", 
+        type: column.type
+      }
     })
     const newRow = {
       tableName: name,
@@ -47,6 +52,7 @@ EditableTable.propTypes = {
     tableName: PropTypes.string.isRequired,
     editing: PropTypes.bool,
     cells: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
       value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
