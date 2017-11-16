@@ -1,6 +1,21 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Button from '../../Button/index.js'
+import styled from 'styled-components'
+
+const TableRow = styled.div`
+  display:flex;
+  flex-direction:row;
+`
+
+const TableCell = styled.div`
+  flex:1;
+  margin:5px;
+`
+
+const FlexForm = styled.form`
+  display:flex;
+`
 
 export default class EditableTableRow extends Component{
 
@@ -45,7 +60,7 @@ export default class EditableTableRow extends Component{
       
       const cells = this.state.cells.map((cell) => {
         return(
-          <div className="tableCell" key={cell.id}>
+          <TableCell key={cell.id}>
             <input
               key={cell.id}
               id={cell.id} 
@@ -53,40 +68,43 @@ export default class EditableTableRow extends Component{
               value={cell.value}
               onChange={this.handleChange}
             />
-          </div>
+          </TableCell>
         )
       })
 
       return(
-        <div className="tableRow">
-          <form onSubmit={this.handleSubmit}>
+        <TableRow>
+          <FlexForm onSubmit={this.handleSubmit}>
             {cells}
             <Button
               onClick={() => {}}
               className="round"
               type="submit"
-              buttonText="&#10004;"
               backgroundColor="#05a905"
-            />
-          </form>
-        </div>
+            >
+              &#10004;
+            </Button>
+          </FlexForm>
+        </TableRow>
       )
 
     }else{
       
       const cells = this.state.cells.map((cell) => {
         return(
-          <div className="tableCell" key={cell.id}>
+          <TableCell key={cell.id}>
             <p>{cell.value}</p>
-          </div>
+          </TableCell>
         )
       })
 
       return(
-        <div className="tableRow">
+        <TableRow>
           {cells}
-          <Button className="round" onClick={() => this.props.setEditing(this.props.id)} buttonText=" &#9998;" backgroundColor="#a7a6a6" />
-        </div>
+          <Button className="round" onClick={() => this.props.setEditing(this.props.id)} backgroundColor="#a7a6a6">
+            &#9998;
+          </Button>
+        </TableRow>
       )
 
     }
