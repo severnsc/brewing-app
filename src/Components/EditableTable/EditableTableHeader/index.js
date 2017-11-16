@@ -1,12 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const Div = styled.div`
+  display:flex;
+  flex-direction:row;
+`
+
+const HeaderCell = styled.div`
+  flex:1;
+`
 
 const EditableTableHeader = ({columnNames}) => {
 
   return(
-    <div>
-      {columnNames.map( columnName => {return <div key={columnName}>{columnName}</div>})}
-    </div>
+    <Div>
+      {columnNames.map( columnName => {return <HeaderCell key={columnName}>{columnName}</HeaderCell>})}
+    </Div>
   )
 
 }
