@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Button from '../../Button/index.js'
 import styled from 'styled-components'
@@ -17,98 +17,92 @@ const FlexForm = styled.form`
   display:flex;
 `
 
-export default class EditableTableRow extends Component{
+const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
 
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    editing: PropTypes.bool,
-    cells: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ]).isRequired,
-      type: PropTypes.string.isRequired
-    })).isRequired,
-    setEditing: PropTypes.func.isRequired,
-    saveTableRow: PropTypes.func.isRequired
+  const onChange = (e) => {
+    const newCells = cells.map(cell =>
+      cell.id === e.target.id ? {...cell, value: e.target.value} : cell
+    )
+    saveTableRow(newCells)
   }
 
-  static defaultProps = {
-    editing: false,
-  }
-
-  state = {
-    cells: this.props.cells
-  }
-
-  handleChange = (e) => {
-    const cells = this.state.cells.map((cell) => {
-      return e.target.id === cell.id ? {...cell, value: e.target.value} : cell
-    })
-    this.setState({cells})
-  }
-
-  handleSubmit = (e) => {
+  const toggleEdit = (e) => {
     e.preventDefault()
-    this.props.saveTableRow(this.state.cells)
+    setEditing(id)
   }
-
-  render(){
     
-    if(this.props.editing){
-      
-      const cells = this.state.cells.map((cell) => {
-        return(
-          <TableCell key={cell.id}>
-            <input
-              key={cell.id}
-              id={cell.id} 
-              type={cell.type} 
-              value={cell.value}
-              onChange={this.handleChange}
-            />
-          </TableCell>
-        )
-      })
-
+  if(editing){
+    
+    const tableCells = cells.map((cell) => {
       return(
-        <TableRow>
-          <FlexForm onSubmit={this.handleSubmit}>
-            {cells}
-            <Button
-              onClick={() => {}}
-              className="round"
-              type="submit"
-              backgroundColor="#05a905"
-            >
-              &#10004;
-            </Button>
-          </FlexForm>
-        </TableRow>
+        <TableCell key={cell.id}>
+          <input
+            key={cell.id}
+            id={cell.id} 
+            type={cell.type} 
+            defaultValue={cell.value}
+            onChange={onChange}
+          />
+        </TableCell>
       )
+    })
 
-    }else{
-      
-      const cells = this.state.cells.map((cell) => {
-        return(
-          <TableCell key={cell.id}>
-            <p>{cell.value}</p>
-          </TableCell>
-        )
-      })
-
-      return(
-        <TableRow>
-          {cells}
-          <Button className="round" onClick={() => this.props.setEditing(this.props.id)} backgroundColor="#a7a6a6">
-            &#9998;
+    return(
+      <TableRow>
+        <FlexForm onSubmit={toggleEdit}>
+          {tableCells}
+          <Button
+            onClick={() => {}}
+            className="round"
+            type="submit"
+            backgroundColor="#05a905"
+          >
+            &#10004;
           </Button>
-        </TableRow>
-      )
+        </FlexForm>
+      </TableRow>
+    )
 
-    }
+  }else{
+    
+    const tableCells = cells.map((cell) => {
+      return(
+        <TableCell key={cell.id}>
+          <p>{cell.value}</p>
+        </TableCell>
+      )
+    })
+
+    return(
+      <TableRow>
+        {tableCells}
+        <Button className="round" onClick={toggleEdit} backgroundColor="#a7a6a6">
+          &#9998;
+        </Button>
+      </TableRow>
+    )
 
   }
 
 }
+
+EditableTableRow.propTypes = {
+  id: PropTypes.string.isRequired,
+  editing: PropTypes.bool,
+  cells: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired,
+    type: PropTypes.string.isRequired
+  })).isRequired,
+  setEditing: PropTypes.func.isRequired,
+  saveTableRow: PropTypes.func.isRequired
+}
+
+EditableTableRow.defaultProps = {
+  editing: false,
+}
+
+export default EditableTableRow

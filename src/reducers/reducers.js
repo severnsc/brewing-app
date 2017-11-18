@@ -11,17 +11,17 @@ const tableRows = (state = [], action) => {
         {...action.tableRow, id: action.id, cells}
       ]
 
-    case 'EDIT_TABLE_ROW':
+    case 'TOGGLE_EDIT_TABLE_ROW':
       return state.map((tableRow) => {
         return (tableRow.id === action.id)
-        ? {...tableRow, editing: true}
+        ? {...tableRow, editing: !tableRow.editing}
         : tableRow
       })
 
     case 'SAVE_TABLE_ROW':
       return state.map((tableRow) => {
         return (tableRow.id === action.cells[0].tableRowId)
-        ? {...tableRow, cells: action.cells, editing: false}
+        ? {...tableRow, cells: action.cells}
         : tableRow
       })
     

@@ -1,6 +1,6 @@
 import shortid from 'shortid'
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
-const EDIT_TABLE_ROW = "EDIT_TABLE_ROW"
+const TOGGLE_EDIT_TABLE_ROW = "TOGGLE_EDIT_TABLE_ROW"
 const SAVE_TABLE_ROW = "SAVE_TABLE_ROW"
 
 export const addTableRow = (tableRow) => {
@@ -11,9 +11,9 @@ export const addTableRow = (tableRow) => {
   }
 }
 
-export const editTableRow = (id) => {
+export const toggleTableRowEditing = (id) => {
   return {
-    type: EDIT_TABLE_ROW,
+    type: TOGGLE_EDIT_TABLE_ROW,
     id
   }
 }
