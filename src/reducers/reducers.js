@@ -60,3 +60,14 @@ export const timer = (state = {}, action) => {
   }
 
 }
+
+export const errorText = (state = "", action) => {
+
+  switch(action.type){
+
+    default:
+      return state
+
+  }
+
+}

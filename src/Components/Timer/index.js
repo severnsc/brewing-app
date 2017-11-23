@@ -1,3 +1,4 @@
+import React from 'react'
 import FlexDiv from '../FlexDiv'
 import TimerClock from '../TimerClock'
 import Button from '../Button'
@@ -24,7 +25,7 @@ const Timer = ({minutes, seconds, active, toggleTimer, resetTimer}) => {
         <TimerButton background={buttonBackground} onClick={toggleTimer}>
           {buttonText}
         </TimerButton>
-        <TimerButton background="#a7a6a6" onClick={onReset}>
+        <TimerButton background="#a7a6a6" onClick={resetTimer}>
           RESET
         </TimerButton>
       </FlexDiv>

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { createTimer } from '../actions'
+import { createTimer } from '../actions/actions'
 
 import TimerForm from '../Components/TimerForm'
 

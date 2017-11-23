@@ -1,16 +1,17 @@
+import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-const timerClock = styled.h2`
+const TimerClockText = styled.h2`
   font-size: 8em;
 `
 
 const TimerClock = ({minutes, seconds}) => {
 
   return(
-    <timerClock>
+    <TimerClockText>
       {minutes} : {seconds < 10 ? "0" + seconds : seconds}
-    </timerClock>
+    </TimerClockText>
   )
 
 }

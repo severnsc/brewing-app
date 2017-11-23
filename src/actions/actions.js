@@ -29,16 +29,18 @@ export const saveTableRow = (cells) => {
 }
 
 export const createTimer = (minutes) => {
-  type: CREATE_TIMER,
-  minutes
+  return {
+    type: CREATE_TIMER,
+    minutes
+  }
 }
 
 export const toggleTimer = () => {
-  type: TOGGLE_TIMER
+  return {type: TOGGLE_TIMER}
 }
 
 export const resetTimer = () => {
-  type: RESET_TIMER
+  return {type: RESET_TIMER}
 }
 
 /*

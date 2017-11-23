@@ -1,19 +1,20 @@
-import TimerFormContainer from '../containers/TimerFormContainer'
-import TimerContainer from '../containers/TimerContainer'
+import React from 'react'
+import TimerFormContainer from '../../containers/TimerFormContainer'
+import TimerContainer from '../../containers/TimerContainer'
 import PropTypes from 'prop-types'
 
-const TimerScene = (props, { store }) => {
+const TimerScene = ({timerExists}) => {
 
-  if(store.timer){
-    <TimerContainer />
+  if(timerExists){
+    return <TimerContainer />
   }else{
-    <TimerFormContainer />
+    return <TimerFormContainer />
   }
 
 }
 
-TimerScene.contextTypes = {
-  store: PropTypes.object
+TimerScene.propTypes = {
+  timerExists: PropTypes.bool.isRequired
 }
 
 export default TimerScene

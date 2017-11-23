@@ -1,3 +1,5 @@
+import React from 'react'
+import Button from '../Button'
 import ErrorText from '../ErrorText'
 import FlexDiv from '../FlexDiv'
 import styled from 'styled-components'
@@ -40,19 +42,25 @@ const TimerForm = ({errorText, createTimer}) => {
 
   let minutesInput
 
+  const onSubmit = (e) => {
+    e.preventDefault()
+    console.log(minutesInput)
+    createTimer(parseInt(minutesInput.value, 10))
+  }
+
   return(
-    <div>
+    <FlexDiv>
       <ErrorText>
         {errorText}
       </ErrorText>
       <h1>Create New Timer</h1>
       <TimerInputForm 
-        onSubmit={createTimer(parseInt(minutesinput.value, 10))}
+        onSubmit={onSubmit}
       >
         <FlexDiv>
           <MinutesInput 
             type="text"
-            ref={input => minutesinput = input}
+            innerRef={(input) => {minutesInput = input}}
           />
           <Minutes>minutes</Minutes>
         </FlexDiv>
@@ -62,7 +70,7 @@ const TimerForm = ({errorText, createTimer}) => {
           </TimerSubmit>
         </SubmitContainer>
       </TimerInputForm>
-    </div>
+    </FlexDiv>
   )
 
 }
