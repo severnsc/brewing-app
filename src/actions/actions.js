@@ -2,6 +2,9 @@ import shortid from 'shortid'
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 const TOGGLE_EDIT_TABLE_ROW = "TOGGLE_EDIT_TABLE_ROW"
 const SAVE_TABLE_ROW = "SAVE_TABLE_ROW"
+const TOGGLE_TIMER = "TOGGLE_TIMER"
+const RESET_TIMER = "RESET_TIMER"
+const CREATE_TIMER = "CREATE_TIMER"
 
 export const addTableRow = (tableRow) => {
   return {
@@ -25,23 +28,26 @@ export const saveTableRow = (cells) => {
   }
 }
 
-/*
-
-tableRow object:
-
-{
-  id: Integer,
-  tableName: String,
-  editing: bool,
-  readOnly: bool,
-  cells: [{
-    tableRowId: Integer,
-    value: String or Number,
-    type: String
-  }]
+export const createTimer = (minutes) => {
+  type: CREATE_TIMER,
+  minutes
 }
 
-make Table map the tableRow state it's passed and create 
-TableRow components from it
+export const toggleTimer = () => {
+  type: TOGGLE_TIMER
+}
 
+export const resetTimer = () => {
+  type: RESET_TIMER
+}
+
+/*
+  Timer object:
+  {
+    minutes: integer,
+    seconds: integer,
+    active: bool,
+    initialMinutes: integer,
+    initialSeconds: integer
+  }
 */

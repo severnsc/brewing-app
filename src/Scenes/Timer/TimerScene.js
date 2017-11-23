@@ -1,30 +1,19 @@
-import React, { Component } from 'react';
-import '../../App.css';
-import TimerForm from './Components/TimerComponents/TimerForm.js';
-import Timer from './Components/TimerComponents/Timer.js';
+import TimerFormContainer from '../containers/TimerFormContainer'
+import TimerContainer from '../containers/TimerContainer'
+import PropTypes from 'prop-types'
 
-export default class TimerScene extends Component{
+const TimerScene = (props, { store }) => {
 
-  state = {
-    minutes: null,
+  if(store.timer){
+    <TimerContainer />
+  }else{
+    <TimerFormContainer />
   }
 
-  timerFormSubmit = (minutes) => {
-    this.setState({minutes: parseInt(minutes, 10)})
-  }
-
-  render(){
-
-    if(this.state.minutes === null){
-      return(
-        <TimerForm handleSubmit={this.timerFormSubmit} />
-      )
-    }else{
-      return(
-        <div>
-          <Timer minutes={this.state.minutes} />
-        </div>
-      )
-    } 
-  }
 }
+
+TimerScene.contextTypes = {
+  store: PropTypes.object
+}
+
+export default TimerScene

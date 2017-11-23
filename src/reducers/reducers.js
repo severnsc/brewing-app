@@ -1,4 +1,4 @@
-const tableRows = (state = [], action) => {
+export const tableRows = (state = [], action) => {
   
   switch(action.type){
     
@@ -31,4 +31,32 @@ const tableRows = (state = [], action) => {
   }
 }
 
-export default tableRows
+export const timer = (state = {}, action) => {
+
+  switch(action.type){
+
+    case 'CREATE_TIMER':
+      return {
+        minutes: action.minutes,
+        seconds: 0,
+        active: false,
+        initialMinutes: action.minutes,
+        initialSeconds: 0
+      }
+
+    case 'TOGGLE_TIMER':
+      return {...state, active: !state.active}
+
+    case 'RESET_TIMER':
+      return {
+              ...state, 
+              minutes: state.initialMinutes,
+              seconds: state.initialSeconds
+            }
+
+    default:
+      return state
+
+  }
+
+}
