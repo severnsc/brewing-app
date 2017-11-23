@@ -1,8 +1,10 @@
 import { connect } from 'react-redux'
 
 import {
-  toggleTimer,
-  resetTimer
+  startTimer,
+  stopTimer,
+  resetTimer,
+  updateTimer
 } from '../actions/actions'
 
 import Timer from '../Components/Timer'
@@ -17,11 +19,17 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleTimer: () => {
-      dispatch(toggleTimer())
+    startTimer: time => {
+      dispatch(startTimer(time))
+    },
+    stopTimer: () => {
+      dispatch(stopTimer())
     },
     resetTimer: () => {
       dispatch(resetTimer())
+    },
+    updateTimer: time => {
+      dispatch(updateTimer(time))
     }
   }
 }

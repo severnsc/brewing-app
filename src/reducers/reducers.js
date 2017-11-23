@@ -44,8 +44,18 @@ export const timer = (state = {}, action) => {
         initialSeconds: 0
       }
 
-    case 'TOGGLE_TIMER':
-      return {...state, active: !state.active}
+    case 'START_TIMER':
+      return {
+        ...state, 
+        active: true,
+        lastCheckedTime: action.time
+      }
+
+    case 'STOP_TIMER':
+      return {
+        ...state,
+        active: false
+      }
 
     case 'RESET_TIMER':
       return {
@@ -53,6 +63,25 @@ export const timer = (state = {}, action) => {
               minutes: state.initialMinutes,
               seconds: state.initialSeconds
             }
+
+    case 'UPDATE_TIMER':
+      const diff = action.time - state.lastCheckedTime
+      const minutesDiff = Math.floor(diff / 60000)
+      const secondsDiff = Math.floor(diff / 1000) % 60
+      let newSeconds = state.seconds - secondsDiff
+      let newMinutes
+      if (newSeconds < 0){
+        newSeconds = 60 + newSeconds
+        newMinutes = state.minutes - (minutesDiff + 1)
+      }else{
+        newMinutes = state.minutes - minutesDiff
+      }
+      return {
+        ...state,
+        minutes: newMinutes,
+        seconds: newSeconds,
+        lastCheckedTime: action.time
+      }
 
     default:
       return state

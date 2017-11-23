@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import FlexDiv from '../FlexDiv'
 import TimerClock from '../TimerClock'
 import Button from '../Button'
@@ -10,36 +10,58 @@ const TimerButton = Button.extend`
   margin:0 10px 10px 10px;
 `
 
-const Timer = ({minutes, seconds, active, toggleTimer, resetTimer}) => {
+export default class Timer extends Component{
+  
+  static propTypes = {
+    minutes: PropTypes.number.isRequired,
+    seconds: PropTypes.number.isRequired,
+    active: PropTypes.bool.isRequired,
+    startTimer: PropTypes.func.isRequired,
+    stopTimer: PropTypes.func.isRequired,
+    resetTimer: PropTypes.func.isRequired,
+    updateTimer: PropTypes.func.isRequired
+  }
 
-  const buttonBackground = active ? 'red' : "#05a905"
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.active) this.timeout = setTimeout(this.updateTimer, 1000)
+  }
 
-  const buttonText = active ? 'STOP' : 'START'
+  updateTimer = () => {
+    this.props.updateTimer(new Date())
+  }
 
-  return(
-    <FlexDiv>
+  handleClick = () => {
+    if(this.props.active){
+      clearTimeout(this.timeout)
+      this.props.stopTimer()
+    }else{
+      this.props.startTimer(new Date())
+    }
+  }
+
+  render(){
+
+    const {active, minutes, seconds, resetTimer} = this.props
+
+    const buttonBackground = active ? 'red' : "#05a905"
+
+    const buttonText = active ? 'STOP' : 'START'
+
+    return(
       <FlexDiv>
-        <TimerClock minutes={minutes} seconds={seconds} />
+        <FlexDiv>
+          <TimerClock minutes={minutes} seconds={seconds} />
+        </FlexDiv>
+        <FlexDiv>
+          <TimerButton background={buttonBackground} onClick={this.handleClick}>
+            {buttonText}
+          </TimerButton>
+          <TimerButton background="#a7a6a6" onClick={resetTimer}>
+            RESET
+          </TimerButton>
+        </FlexDiv>
       </FlexDiv>
-      <FlexDiv>
-        <TimerButton background={buttonBackground} onClick={toggleTimer}>
-          {buttonText}
-        </TimerButton>
-        <TimerButton background="#a7a6a6" onClick={resetTimer}>
-          RESET
-        </TimerButton>
-      </FlexDiv>
-    </FlexDiv>
-  )
+    )
+  }
 
 }
-
-Timer.propTypes = {
-  minutes: PropTypes.number.isRequired,
-  seconds: PropTypes.number.isRequired,
-  active: PropTypes.bool.isRequired,
-  toggleTimer: PropTypes.func.isRequired,
-  resetTimer: PropTypes.func.isRequired
-}
-
-export default Timer

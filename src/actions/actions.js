@@ -2,9 +2,11 @@ import shortid from 'shortid'
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 const TOGGLE_EDIT_TABLE_ROW = "TOGGLE_EDIT_TABLE_ROW"
 const SAVE_TABLE_ROW = "SAVE_TABLE_ROW"
-const TOGGLE_TIMER = "TOGGLE_TIMER"
+const START_TIMER = "START_TIMER"
+const STOP_TIMER = "STOP_TIMER"
 const RESET_TIMER = "RESET_TIMER"
 const CREATE_TIMER = "CREATE_TIMER"
+const UPDATE_TIMER = "UPDATE_TIMER"
 
 export const addTableRow = (tableRow) => {
   return {
@@ -35,12 +37,30 @@ export const createTimer = (minutes) => {
   }
 }
 
-export const toggleTimer = () => {
-  return {type: TOGGLE_TIMER}
+export const startTimer = (time) => {
+  return {
+    type: START_TIMER,
+    time
+  }
+}
+
+export const stopTimer = () => {
+  return{
+    type: STOP_TIMER
+  }
 }
 
 export const resetTimer = () => {
-  return {type: RESET_TIMER}
+  return {
+    type: RESET_TIMER
+  }
+}
+
+export const updateTimer = (time) => {
+  return {
+    type: UPDATE_TIMER,
+    time
+  }
 }
 
 /*
