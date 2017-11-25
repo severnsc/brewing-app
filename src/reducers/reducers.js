@@ -100,3 +100,24 @@ export const errorText = (state = "", action) => {
   }
 
 }
+
+export const alerts = (state = [], action) => {
+
+  switch(action.type){
+
+    case 'ADD_TABLE_ROW':
+      if(action.tableRow.tableName === "alerts"){
+        return [
+          ...state,
+          {...action.tableRow, fired: false}
+        ]
+      }else{
+        return state
+      }
+
+    default:
+      return state
+
+  }
+
+}
