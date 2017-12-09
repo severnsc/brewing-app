@@ -6,13 +6,20 @@ import {
   saveTableRow 
 } from '../actions/actions'
 
-import { getAlertRows } from '../selectors'
+import { 
+  getAlertRows,
+  alertsToBeFired
+} from '../selectors'
 
 import EditableTable from '../Components/EditableTable'
 
+const fireAlerts = alerts => {
+  alerts.forEach(alert => console.log(alert.description))
+}
 
+const mapStateToProps = state => {
 
-const mapStateToProps = (state) => {
+  fireAlerts(alertsToBeFired(state))
 
   const columns = [
     {name: "Description", type: "text"},
