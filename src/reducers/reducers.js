@@ -103,7 +103,7 @@ export const alerts = (state = [], action) => {
   switch(action.type){
 
     case 'ADD_TABLE_ROW':
-      const alert = {id: action.tableRow.id, fired: false}
+      const alert = {id: action.tableRow.id}
       return [
         ...state,
         alert
