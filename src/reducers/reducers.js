@@ -3,12 +3,9 @@ export const tableRows = (state = [], action) => {
   switch(action.type){
     
     case 'ADD_TABLE_ROW':
-      const cells = action.tableRow.cells.map((cell) => {
-        return {...cell, tableRowId: action.id}
-      })
       return [
         ...state,
-        {...action.tableRow, id: action.id, cells}
+        action.tableRow
       ]
 
     case 'TOGGLE_EDIT_TABLE_ROW':
@@ -20,7 +17,7 @@ export const tableRows = (state = [], action) => {
 
     case 'SAVE_TABLE_ROW':
       return state.map((tableRow) => {
-        return (tableRow.id === action.cells[0].tableRowId)
+        return (tableRow.id === action.cells[0].tableRowID)
         ? {...tableRow, cells: action.cells}
         : tableRow
       })
@@ -106,14 +103,23 @@ export const alerts = (state = [], action) => {
   switch(action.type){
 
     case 'ADD_TABLE_ROW':
-      if(action.tableRow.tableName === "alerts"){
-        return [
-          ...state,
-          {...action.tableRow, fired: false}
-        ]
-      }else{
-        return state
-      }
+      const alert = {id: action.tableRow.id, fired: false}
+      return [
+        ...state,
+        alert
+      ]
+
+    case 'SAVE_TABLE_ROW':
+      return state.map(alert => {
+        return alert.id === action.cells[0].tableRowID
+        ? {
+            ...alert,
+            description: action.cells[0].value,
+            minutes: action.cells[1].value.split(":")[0],
+            seconds: action.cells[1].value.split(":")[1]
+          }
+        : alert
+      })
 
     default:
       return state

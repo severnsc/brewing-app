@@ -1,4 +1,3 @@
-import shortid from 'shortid'
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 const TOGGLE_EDIT_TABLE_ROW = "TOGGLE_EDIT_TABLE_ROW"
 const SAVE_TABLE_ROW = "SAVE_TABLE_ROW"
@@ -11,8 +10,7 @@ const UPDATE_TIMER = "UPDATE_TIMER"
 export const addTableRow = (tableRow) => {
   return {
     type: ADD_TABLE_ROW,
-    tableRow,
-    id: shortid.generate()
+    tableRow
   }
 }
 

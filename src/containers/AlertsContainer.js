@@ -6,15 +6,13 @@ import {
   saveTableRow 
 } from '../actions/actions'
 
+import { getAlertRows } from '../selectors'
+
 import EditableTable from '../Components/EditableTable'
 
-const getAlerts = (tableRows) => {
-  return tableRows.filter((tableRow) => {
-    return tableRow.tableName === "alerts"
-  })
-}
 
-const mapStateToProps = (state, ownProps) => {
+
+const mapStateToProps = (state) => {
 
   const columns = [
     {name: "Description", type: "text"},
@@ -22,7 +20,7 @@ const mapStateToProps = (state, ownProps) => {
   ]
 
   return{
-    tableRows: getAlerts(state.tableRows),
+    tableRows: getAlertRows(state),
     columns,
     name: "alerts"
   }

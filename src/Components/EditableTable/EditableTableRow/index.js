@@ -91,6 +91,7 @@ EditableTableRow.propTypes = {
   editing: PropTypes.bool,
   cells: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
+    tableRowID: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number

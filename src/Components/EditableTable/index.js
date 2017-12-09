@@ -8,14 +8,17 @@ import shortid from 'shortid'
 const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRows}) => {
 
   const handleClick = () => {
+    const tableRowID = shortid.generate()
     const cells = columns.map((column) => {
       return {
         id: shortid.generate(),
+        tableRowID,
         value: "", 
         type: column.type
       }
     })
     const newRow = {
+      id: tableRowID,
       tableName: name,
       editing: true,
       cells
@@ -53,6 +56,7 @@ EditableTable.propTypes = {
     editing: PropTypes.bool,
     cells: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string.isRequired,
+      tableRowID: PropTypes.string.isRequired,
       value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
