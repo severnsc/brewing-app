@@ -8,6 +8,11 @@ const TimerButton = Button.extend`
   font-size: 2em;
   padding: 0.25em 2em;
   margin:0 10px 10px 10px;
+  width:100%;
+`
+
+const TimerButtonDiv = FlexDiv.extend`
+  width:100%
 `
 
 export default class Timer extends Component{
@@ -52,14 +57,14 @@ export default class Timer extends Component{
         <FlexDiv>
           <TimerClock minutes={minutes} seconds={seconds} />
         </FlexDiv>
-        <FlexDiv>
+        <TimerButtonDiv>
           <TimerButton background={buttonBackground} onClick={this.handleClick}>
             {buttonText}
           </TimerButton>
           <TimerButton background="#a7a6a6" onClick={resetTimer}>
             RESET
           </TimerButton>
-        </FlexDiv>
+        </TimerButtonDiv>
       </FlexDiv>
     )
   }
