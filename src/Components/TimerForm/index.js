@@ -33,7 +33,7 @@ const SubmitContainer = FlexDiv.extend`
 `
 
 const TimerSubmit = Button.extend`
-  flex-grow:1;
+  width:100%;
   height: 3em;
   font: 1em arial;
 `
@@ -57,13 +57,13 @@ const TimerForm = ({errorText, createTimer}) => {
       <TimerInputForm 
         onSubmit={onSubmit}
       >
-        <FlexDiv>
+        <div>
           <MinutesInput 
             type="text"
             innerRef={(input) => {minutesInput = input}}
           />
           <Minutes>minutes</Minutes>
-        </FlexDiv>
+        </div>
         <SubmitContainer>
           <TimerSubmit type="submit" background="#05a905">
             Create Timer
