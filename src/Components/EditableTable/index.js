@@ -3,7 +3,17 @@ import PropTypes from 'prop-types'
 import EditableTableHeader from './EditableTableHeader'
 import EditableTableRow from './EditableTableRow'
 import RoundButton from '../../Components/RoundButton'
+import styled from 'styled-components'
 import shortid from 'shortid'
+
+const Div = styled.div`
+  display:flex;
+  flex-flow:column;
+`
+
+const CenteredRoundButton = RoundButton.extend`
+  align-self:center;
+`
 
 const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRows}) => {
 
@@ -27,17 +37,17 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
   }
 
   return(
-    <div>
+    <Div>
       <EditableTableHeader
         columnNames={columns.map((col) => {return col.name} )}
       />
       {tableRows.map( tableRow => 
         {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
       )}
-      <RoundButton background="#05a905" onClick={handleClick}>
+      <CenteredRoundButton background="#05a905" onClick={handleClick}>
         &#43;
-      </RoundButton>
-    </div>
+      </CenteredRoundButton>
+    </Div>
   )
 }
 

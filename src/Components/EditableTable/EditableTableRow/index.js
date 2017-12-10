@@ -55,7 +55,7 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
             onClick={() => {}}
             className="round"
             type="submit"
-            backgroundColor="#05a905"
+            background="#05a905"
           >
             &#10004;
           </Button>

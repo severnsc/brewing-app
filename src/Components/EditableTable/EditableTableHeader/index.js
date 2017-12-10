@@ -5,10 +5,12 @@ import styled from 'styled-components'
 const Div = styled.div`
   display:flex;
   flex-direction:row;
+  align-items:center;
 `
 
 const HeaderCell = styled.div`
   flex:1;
+  text-align:center;
 `
 
 const EditableTableHeader = ({columnNames}) => {
