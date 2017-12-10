@@ -6,6 +6,7 @@
     "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",
     "express": "^4.16.1",
+    "method-override": "^2.3.10",
     "nodemon": "^1.11.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.1",
@@ -15,14 +16,14 @@
     "remote-redux-devtools": "^0.5.12",
     "reselect": "^3.0.1",
     "shortid": "^2.2.8",
-    "styled-components": "^2.2.3",
+    "styled-components": "^2.2.4",
     "twilio": "^3.7.0"
   },
   "devDependencies": {
     "react-scripts": "1.0.10"
   },
   "scripts": {
-    "start": "node src/server.js & PORT=3000 react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

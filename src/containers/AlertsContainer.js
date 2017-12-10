@@ -14,7 +14,18 @@ import {
 import EditableTable from '../Components/EditableTable'
 
 const fireAlerts = alerts => {
-  alerts.forEach(alert => console.log(alert.description))
+  const messageEndpoint = 'http://localhost:3001/messages'
+  alerts.forEach(alert => {
+    fetch(messageEndpoint, {
+      body: JSON.stringify({message: alert.description}),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+    .then(res => console.log(res))
+    .catch(err => console.error(err))
+  })
 }
 
 const mapStateToProps = state => {
