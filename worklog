@@ -1,3 +1,0 @@
-Big goal: Get alerts to trigger when the timer's time is equal to the alert's trigger time
-
-Current goal: add state back to EditableTableRow and hold the values of the cells in that state. On save, send the cells as the arguments to the action and we can then use those cell values to update the tableRow as well as to create the action objects in that slice of the state tree
