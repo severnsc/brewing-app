@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
 
+import sendMessage from '../api/messagingAPI'
+
 import { 
   addTableRow, 
   toggleTableRowEditing, 
@@ -13,20 +15,12 @@ import {
 
 import EditableTable from '../Components/EditableTable'
 
-const fireAlerts = alerts => {
-  const messageEndpoint = 'http://localhost:3001/messages'
+const fireAlerts = alerts =>
   alerts.forEach(alert => {
-    fetch(messageEndpoint, {
-      body: JSON.stringify({message: alert.description}),
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    })
+    sendMessage(alert.description)
     .then(res => console.log(res))
     .catch(err => console.error(err))
   })
-}
 
 const mapStateToProps = state => {
 
