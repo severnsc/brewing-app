@@ -4,6 +4,7 @@ const sendSMS = require('./lib/Twilio.js')
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const createTimer = require('./timers.js')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -32,6 +33,11 @@ app.post('/messages', (req, res) => {
   console.log(req.body)
   sendSMS(req.body.message)
   res.sendStatus(200)
+})
+
+app.post('/timers/new', (req, res) => {
+  const timer = createTimer(req.body.initialMinutes)
+  res.send(timer)
 })
 
 app.listen(process.env.PORT, () => {
