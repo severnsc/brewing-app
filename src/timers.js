@@ -7,4 +7,12 @@ const createTimer = initialMinutes => ({
   running: false
 })
 
-module.exports = createTimer
+const startTimer = timer => {
+  const startedTimer = Object.assign({}, timer, {running: true})
+  return startedTimer
+}
+
+module.exports = {
+  createTimer: createTimer,
+  startTimer: startTimer
+}
