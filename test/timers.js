@@ -3,6 +3,8 @@ const should = chai.should()
 const timers = require('../src/timers.js')
 const createTimer = timers.createTimer
 const startTimer = timers.startTimer
+const stopTimer = timers.stopTimer
+const resetTimer = timers.resetTimer
 const decrementTimer = timers.decrementTimer
 
 describe('createTimer', () => {
@@ -16,24 +18,49 @@ describe('createTimer', () => {
 })
 
 describe('startTimer', () => {
-  it('should return clone of timer with running true', () => {
+  it('should return clone of timer with start props set', () => {
     const timer = createTimer(90)
-    const newTimer = startTimer(timer)
+    const startedTimer = startTimer(timer)
     timer.should.equal(timer)
-    newTimer.should.not.equal(timer)
-    newTimer.should.have.property('running').equal(true)
-    newTimer.should.have.property('id').equal(timer.id)
-    newTimer.should.have.property('startTime')
+    startedTimer.should.not.equal(timer)
+    startedTimer.should.have.property('running').equal(true)
+    startedTimer.should.have.property('id').equal(timer.id)
+    startedTimer.should.have.property('startTime')
+  })
+})
+
+describe('stopTimer', () => {
+  it('should return clone of timer with stop props set', () => {
+    const timer = createTimer(90)
+    timer.running = true
+    timer.startTime = Date.now()
+    const stoppedTimer = stopTimer(timer)
+    timer.should.equal(timer)
+    stoppedTimer.should.not.equal(timer)
+    stoppedTimer.should.have.property('running').equal(false)
+    stoppedTimer.should.have.property('id').equal(timer.id)
+    stoppedTimer.should.have.property('startTime').equal(null)
+  })
+})
+
+describe('resetTimer', () => {
+  it('should return clone of timer set to original time', () => {
+    const timer = createTimer(90)
+    timer.currentTime = '89:52'
+    const resetedTimer = resetTimer(timer)
+    timer.should.equal(timer)
+    resetedTimer.should.not.equal(timer)
+    resetedTimer.should.have.property('currentTime').equal('90:00')
   })
 })
 
 describe('decrementTimer', () => {
   it('should return a clone of timer with time decremented', () => {
     let timer = createTimer(90)
-    timer = startTimer(timer)
-    let decrementedTimer
+    timer.running = true
+    timer.startTime = Date.now()
     setTimeout(() => {
-      decrementedTimer = decrementTimer(timer)
+      const decrementedTimer = decrementTimer(timer)
       timer.should.equal(timer)
       decrementedTimer.should.not.equal(timer)
       decrementedTimer.should.have.property('currentTime').not.equal('90:00')

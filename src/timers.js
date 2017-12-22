@@ -15,6 +15,21 @@ const startTimer = timer => {
   return startedTimer
 }
 
+const stopTimer = timer => {
+  const stoppedTimer = Object.assign({}, timer, {
+    running: false,
+    startTime: null
+  })
+  return stoppedTimer
+}
+
+const resetTimer = timer => {
+  const resetedTimer = Object.assign({}, timer, {
+    currentTime: `${timer.initialMinutes}:00`
+  })
+  return resetedTimer
+}
+
 const decrementTimer = timer => {
   const elapsedMs = Date.now() - timer.startTime
   const initialMs = timer.initialMinutes * 60000
@@ -31,5 +46,7 @@ const decrementTimer = timer => {
 module.exports = {
   createTimer,
   startTimer,
+  stopTimer,
+  resetTimer,
   decrementTimer
 }
