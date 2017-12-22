@@ -50,9 +50,13 @@ app.post('/messages', (req, res) => {
   res.sendStatus(200)
 })
 
-app.get('/timers', (req, res) => {
- const timer = timersArray.filter(timer => timer.id === req.query.id)[0] 
+app.get('/timer/:id', (req, res) => {
+ const timer = timersArray.filter(timer => timer.id === req.params.id)[0] 
  res.send(timer)
+})
+
+app.get('/timers', (req, res) => {
+  res.send(timersArray)
 })
 
 app.post('/timers/new', (req, res) => {
