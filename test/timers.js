@@ -1,11 +1,12 @@
 const chai = require('chai')
 const should = chai.should()
-const timers = require('../src/timers.js')
-const createTimer = timers.createTimer
-const startTimer = timers.startTimer
-const stopTimer = timers.stopTimer
-const resetTimer = timers.resetTimer
-const decrementTimer = timers.decrementTimer
+const {
+  createTimer,
+  startTimer,
+  stopTimer,
+  resetTimer,
+  decrementTimer
+} = require('../src/timers.js')
 
 describe('createTimer', () => {
   it('should create a new timer and return it', () => {
@@ -55,15 +56,14 @@ describe('resetTimer', () => {
 })
 
 describe('decrementTimer', () => {
-  it('should return a clone of timer with time decremented', () => {
-    let timer = createTimer(90)
+  it('should return a clone of timer with time decremented', (done) => {
+    const timer = createTimer(90)
     timer.running = true
     timer.startTime = Date.now()
-    setTimeout(() => {
-      const decrementedTimer = decrementTimer(timer)
-      timer.should.equal(timer)
-      decrementedTimer.should.not.equal(timer)
-      decrementedTimer.should.have.property('currentTime').not.equal('90:00')
-    }, 2000)
+    const decrementedTimer = decrementTimer(timer)
+    done()
+    timer.should.equal(timer)
+    decrementedTimer.should.not.equal(timer)
+    decrementedTimer.should.have.property('currentTime').not.equal('90:00')
   })
 })
