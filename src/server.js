@@ -7,6 +7,7 @@ const methodOverride = require('method-override')
 const timers = require('./timers.js')
 const createTimer = timers.createTimer
 const startTimer = timers.startTimer
+const resetTimer = timers.resetTimer
 const decrementTimer = timers.decrementTimer
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,7 +17,8 @@ app.use(methodOverride());
 
 let timersArray = []
 
-const updateTimer = timer => {
+const updateTimer = timerId => {
+  const timer = timersArray.filter(timer => timer.id === timerId)[0]
   const updatedTimer = decrementTimer(timer)
   timersArray = timersArray.map(t => {
     return (t.id === updatedTimer.id)
@@ -48,6 +50,11 @@ app.post('/messages', (req, res) => {
   res.sendStatus(200)
 })
 
+app.get('/timers', (req, res) => {
+ const timer = timersArray.filter(timer => timer.id === req.query.id)[0] 
+ res.send(timer)
+})
+
 app.post('/timers/new', (req, res) => {
   const timer = createTimer(req.body.initialMinutes)
   timersArray.push(timer)
@@ -57,11 +64,35 @@ app.post('/timers/new', (req, res) => {
 app.post('/timers/start', (req, res) => {
   const timer = timersArray.filter(timer => timer.id === req.body.id)[0]
   const startedTimer = startTimer(timer)
-  const interval = setInterval(updateTimer, 1000, startedTimer)
-  startedTimer = Object.assign({}, startedTimer, {interval})
+  const interval = setInterval(updateTimer, 1000, startedTimer.id)
+  startedTimer.interval = interval
   timersArray = timersArray.map(t => {
-    return (t.id === req.body.id)
+    return (t.id === startedTimer.id)
     ? startedTimer
+    : t
+  })
+  res.sendStatus(200)
+})
+
+app.post('/timers/stop', (req, res) => {
+  const timer = timersArray.filter(timer => timer.id === req.body.id)[0]
+  const stoppedTimer = stopTimer(timer)
+  clearInterval(timer.interval)
+  stoppedTimer.interval = null
+  timersArray = timersArray.map(t => {
+    return (t.id === stoppedTimer.id)
+    ? stoppedTimer
+    : t
+  })
+  res.sendStatus(200)
+})
+
+app.post('/timers/reset', (req, res) => {
+  const timer = timersArray.filter(timer => timer.id === req.body.id)[0]
+  const resetedTimer = resetTimer(timer)
+  timersArray = timersArray.map(t => {
+    return (t.id === resetedTimer.id)
+    ? resetedTimer
     : t
   })
   res.sendStatus(200)
