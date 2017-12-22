@@ -4,11 +4,20 @@ const sendSMS = require('./lib/Twilio.js')
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-const timers = require('./timers.js')
-const createTimer = timers.createTimer
-const startTimer = timers.startTimer
-const resetTimer = timers.resetTimer
-const decrementTimer = timers.decrementTimer
+
+const {
+  createTimer,
+  startTimer,
+  stopTimer,
+  resetTimer,
+  decrementTimer
+} = require('./timers.js')
+
+const {
+  createAlert,
+  editAlert,
+  triggerAlert
+} = require('./alerts.js')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -16,6 +25,7 @@ app.use(bodyParser.json())
 app.use(methodOverride());
 
 let timersArray = []
+let alertsArray = []
 
 const updateTimer = timerId => {
   const timer = timersArray.filter(timer => timer.id === timerId)[0]
@@ -48,6 +58,44 @@ app.use(allowCrossDomain);
 app.post('/messages', (req, res) => {
   sendSMS(req.body.message)
   res.sendStatus(200)
+})
+
+app.get('/alert/:id', (req, res) => {
+  const alert = alertsArray.filter(alert => alert.id === req.params.id)[0]
+  res.send(alert)
+})
+
+app.post('/alert/:id/edit', (req, res) => {
+  const alert = alertsArray.filter(alert => alert.id === req.params.id)[0]
+  const editedAlert = editAlert(alert, req.body.newProps)
+  alertsArray = alertsArray.map(a => {
+    return (a.id === editedAlert.id)
+    ? editedAlert
+    : a
+  })
+  res.send(editedAlert)
+})
+
+app.post('/alert/:id/trigger', (req, res) => {
+  const alert = alertsArray.filter(alert => alert.id === req.params.id)[0]
+  const triggeredAlert = triggerAlert(alert)
+  alertsArray = alertsArray.map(a => {
+    return (a.id === triggeredAlert.id)
+    ? editedAlert
+    : a
+  })
+  res.send(triggeredAlert)
+})
+
+app.get('/alerts', (req, res) => {
+  res.send(alertsArray)
+})
+
+app.post('/alerts/new', (req, res) => {
+  const {description, triggerTime, timerId} = req.body
+  const alert = createAlert(description, triggerTime, timerId)
+  alertsArray.push(alert)
+  res.send(alert)
 })
 
 app.get('/timer/:id', (req, res) => {
