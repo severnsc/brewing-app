@@ -7,6 +7,7 @@ const methodOverride = require('method-override')
 const timers = require('./timers.js')
 const createTimer = timers.createTimer
 const startTimer = timers.startTimer
+const decrementTimer = timers.decrementTimer
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -15,31 +16,13 @@ app.use(methodOverride());
 
 let timersArray = []
 
-const decrementTimer = timerID => {
-  const timer = timersArray.filter(t => t.id === timerID)[0]
-  const splitTimer = timer.currentTime.split(":")
-  const timerMinutes = parseInt(splitTimer[0], 10)
-  const timerSeconds = parseInt(splitTimer[1], 10)
-  let updatedTimer
-  if(timerSeconds === 0){
-     updatedTimer = Object.assign({}, timer, {
-      currentTime: `${timerMinutes - 1}:59`
-    })
-  }else{
-    let newSeconds = timerSeconds - 1
-    if(newSeconds < 10){
-      newSeconds = "0" + newSeconds
-    }
-    updatedTimer =  Object.assign({}, timer, {
-      currentTime: `${timerMinutes}:${newSeconds}`
-    })
-  }
+const updateTimer = timer => {
+  const updatedTimer = decrementTimer(timer)
   timersArray = timersArray.map(t => {
     return (t.id === updatedTimer.id)
     ? updatedTimer
-    : timer
+    : t
   })
-  console.log(updatedTimer)
 }
 
 // ## CORS middleware
@@ -74,13 +57,13 @@ app.post('/timers/new', (req, res) => {
 app.post('/timers/start', (req, res) => {
   const timer = timersArray.filter(timer => timer.id === req.body.id)[0]
   const startedTimer = startTimer(timer)
+  const interval = setInterval(updateTimer, 1000, startedTimer)
+  startedTimer = Object.assign({}, startedTimer, {interval})
   timersArray = timersArray.map(t => {
     return (t.id === req.body.id)
     ? startedTimer
     : t
   })
-  const interval = setInterval(decrementTimer, 1000, startedTimer.id)
-  //send back the interval somehow, for now sending 200
   res.sendStatus(200)
 })
 
