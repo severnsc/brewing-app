@@ -94,7 +94,7 @@ app.get('/alerts', (req, res) => {
 app.post('/alerts/new', (req, res) => {
   const {description, triggerTime, timerId} = req.body
   const alert = createAlert(description, triggerTime, timerId)
-  alertsArray.push(alert)
+  alertsArray = [...alertsArray, alert]
   res.send(alert)
 })
 
@@ -109,7 +109,7 @@ app.get('/timers', (req, res) => {
 
 app.post('/timers/new', (req, res) => {
   const timer = createTimer(req.body.initialMinutes)
-  timersArray.push(timer)
+  timersArray = [...timersArray, timer]
   res.send(timer)
 })
 
