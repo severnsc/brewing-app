@@ -103,18 +103,8 @@ app.get('/timer/:id', (req, res) => {
  res.send(timer)
 })
 
-app.get('/timers', (req, res) => {
-  res.send(timersArray)
-})
-
-app.post('/timers/new', (req, res) => {
-  const timer = createTimer(req.body.initialMinutes)
-  timersArray = [...timersArray, timer]
-  res.send(timer)
-})
-
-app.post('/timers/start', (req, res) => {
-  const timer = timersArray.filter(timer => timer.id === req.body.id)[0]
+app.post('/timer/:id/start', (req, res) => {
+  const timer = timersArray.filter(timer => timer.id === req.params.id)[0]
   const startedTimer = startTimer(timer)
   const interval = setInterval(updateTimer, 1000, startedTimer.id)
   startedTimer.interval = interval
@@ -126,8 +116,8 @@ app.post('/timers/start', (req, res) => {
   res.sendStatus(200)
 })
 
-app.post('/timers/stop', (req, res) => {
-  const timer = timersArray.filter(timer => timer.id === req.body.id)[0]
+app.post('/timer/:id/stop', (req, res) => {
+  const timer = timersArray.filter(timer => timer.id === req.params.id)[0]
   const stoppedTimer = stopTimer(timer)
   clearInterval(timer.interval)
   stoppedTimer.interval = null
@@ -139,8 +129,8 @@ app.post('/timers/stop', (req, res) => {
   res.sendStatus(200)
 })
 
-app.post('/timers/reset', (req, res) => {
-  const timer = timersArray.filter(timer => timer.id === req.body.id)[0]
+app.post('/timer/:id/reset', (req, res) => {
+  const timer = timersArray.filter(timer => timer.id === req.params.id)[0]
   const resetedTimer = resetTimer(timer)
   timersArray = timersArray.map(t => {
     return (t.id === resetedTimer.id)
@@ -148,6 +138,16 @@ app.post('/timers/reset', (req, res) => {
     : t
   })
   res.sendStatus(200)
+})
+
+app.get('/timers', (req, res) => {
+  res.send(timersArray)
+})
+
+app.post('/timers/new', (req, res) => {
+  const timer = createTimer(req.body.initialMinutes)
+  timersArray = [...timersArray, timer]
+  res.send(timer)
 })
 
 app.listen(process.env.PORT, () => {
