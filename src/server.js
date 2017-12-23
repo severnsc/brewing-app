@@ -27,9 +27,21 @@ app.use(methodOverride());
 let timersArray = []
 let alertsArray = []
 
+const checkAlerts = (timerId, time) => {
+  alertsArray = alertsArray.map(alert => {
+    if(alert.timerId === timerId && !alert.triggered && alert.triggerTime === time){
+      sendSMS(alert.description)
+      return Object.assign({}, alert, {triggered: true})
+    }else{
+      return alert
+    }
+  })
+}
+
 const updateTimer = timerId => {
   const timer = timersArray.filter(timer => timer.id === timerId)[0]
   const updatedTimer = decrementTimer(timer)
+  checkAlerts(updatedTimer.id, updatedTimer.currentTime)
   timersArray = timersArray.map(t => {
     return (t.id === updatedTimer.id)
     ? updatedTimer
@@ -54,11 +66,6 @@ const allowCrossDomain = (req, res, next) => {
     }
 };
 app.use(allowCrossDomain);
-
-app.post('/messages', (req, res) => {
-  sendSMS(req.body.message)
-  res.sendStatus(200)
-})
 
 app.get('/alert/:id', (req, res) => {
   const alert = alertsArray.filter(alert => alert.id === req.params.id)[0]
