@@ -77,6 +77,85 @@ export const updateRemoteTimer = timer => {
   }
 }
 
+//Async actions
+
+export const requestCreateRemoteTimer = minutes => {
+  return dispatch => {
+    dispatch(createTimer(minutes))
+    fetch('http://localhost:3001/timers/new', {
+      body: JSON.stringify({initialMinutes: minutes}),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+    .then(
+      res => res.json(),
+      err => console.log("An error occured.", err)
+      )
+    .then(timer => {
+      dispatch(createRemoteTimer(timer))
+    })
+  }
+}
+
+export const requestStartRemoteTimer = time => {
+  return (dispatch, getState) => {
+    dispatch(startTimer(time))
+    fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/start`, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+    .then(
+      res => res.json(),
+      err => console.log("An error occured.", err)
+      )
+    .then(timer => {
+      dispatch(updateRemoteTimer(timer))
+    })
+  }
+}
+
+export const requestStopRemoteTimer = () => {
+  return (dispatch, getState) => {
+    dispatch(stopTimer())
+    fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/stop`, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+    .then(
+      res => res.json(),
+      err => console.log("An error occured.", err)
+      )
+    .then(timer => {
+      dispatch(updateRemoteTimer(timer))
+    })
+  }
+}
+
+export const requestResetRemoteTimer = () => {
+  return (dispatch, getState) => {
+    dispatch(resetTimer())
+    fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/reset`, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+    .then(
+      res => res.json(),
+      err => console.log("An error occured.", err)
+      )
+    .then(timer => {
+      dispatch(updateRemoteTimer(timer))
+    })
+  }
+}
+
 /*
   Timer object:
   {
