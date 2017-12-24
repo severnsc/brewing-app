@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { createTimer } from '../actions/actions'
+import { requestCreateRemoteTimer } from '../actions/actions'
 
 import TimerForm from '../Components/TimerForm'
 
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     createTimer: (minutes) => {
-      dispatch(createTimer(minutes))
+      dispatch(requestCreateRemoteTimer(minutes))
     }
   }
 }
