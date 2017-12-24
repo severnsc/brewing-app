@@ -1,11 +1,19 @@
-import { tableRows, timer, errorText, alerts} from './reducers'
+import {
+  tableRows,
+  timer,
+  errorText,
+  alerts,
+  remoteTimer
+} from './reducers'
+
 import { combineReducers } from 'redux'
 
 const brewingApp = combineReducers({
   tableRows,
   timer,
   errorText,
-  alerts
+  alerts,
+  remoteTimer
 })
 
 export default brewingApp
