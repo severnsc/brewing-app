@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 
 import {
-  startTimer,
-  stopTimer,
-  resetTimer,
+  requestStartRemoteTimer,
+  requestStopRemoteTimer,
+  requestResetRemoteTimer,
   updateTimer
 } from '../actions/actions'
 
@@ -20,13 +20,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     startTimer: time => {
-      dispatch(startTimer(time))
+      dispatch(requestStartRemoteTimer(time))
     },
     stopTimer: () => {
-      dispatch(stopTimer())
+      dispatch(requestStopRemoteTimer())
     },
     resetTimer: () => {
-      dispatch(resetTimer())
+      dispatch(requestResetRemoteTimer())
     },
     updateTimer: time => {
       dispatch(updateTimer(time))
