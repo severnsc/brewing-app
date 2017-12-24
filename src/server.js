@@ -120,7 +120,7 @@ app.post('/timer/:id/start', (req, res) => {
     ? startedTimer
     : t
   })
-  res.sendStatus(200)
+  res.send(startedTimer)
 })
 
 app.post('/timer/:id/stop', (req, res) => {
@@ -133,7 +133,7 @@ app.post('/timer/:id/stop', (req, res) => {
     ? stoppedTimer
     : t
   })
-  res.sendStatus(200)
+  res.send(stoppedTimer
 })
 
 app.post('/timer/:id/reset', (req, res) => {
@@ -144,7 +144,7 @@ app.post('/timer/:id/reset', (req, res) => {
     ? resetedTimer
     : t
   })
-  res.sendStatus(200)
+  res.send(resetedTimer)
 })
 
 app.get('/timers', (req, res) => {
