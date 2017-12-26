@@ -138,6 +138,9 @@ export const remoteTimer = (state = {}, action) => {
     case 'UPDATE_REMOTE_TIMER':
       return action.timer
 
+    default:
+      return state
+
   }
 
 }
