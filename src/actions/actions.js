@@ -82,7 +82,7 @@ export const updateRemoteTimer = timer => {
 export const requestCreateRemoteTimer = minutes => {
   return dispatch => {
     dispatch(createTimer(minutes))
-    fetch('http://localhost:3001/timers/new', {
+    return fetch('http://localhost:3001/timers/new', {
       body: JSON.stringify({initialMinutes: minutes}),
       headers: {
         "Content-Type": "application/json"
@@ -102,7 +102,7 @@ export const requestCreateRemoteTimer = minutes => {
 export const requestStartRemoteTimer = time => {
   return (dispatch, getState) => {
     dispatch(startTimer(time))
-    fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/start`, {
+    return fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/start`, {
       headers: {
         "Content-Type": "application/json"
       },
@@ -121,7 +121,7 @@ export const requestStartRemoteTimer = time => {
 export const requestStopRemoteTimer = () => {
   return (dispatch, getState) => {
     dispatch(stopTimer())
-    fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/stop`, {
+    return fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/stop`, {
       headers: {
         "Content-Type": "application/json"
       },
@@ -140,7 +140,7 @@ export const requestStopRemoteTimer = () => {
 export const requestResetRemoteTimer = () => {
   return (dispatch, getState) => {
     dispatch(resetTimer())
-    fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/reset`, {
+    return fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/reset`, {
       headers: {
         "Content-Type": "application/json"
       },
