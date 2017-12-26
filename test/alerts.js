@@ -3,7 +3,7 @@ const should = chai.should()
 const {
   createAlert,
   editAlert,
-  triggerAlert
+  activateAlert
 } = require('../src/alerts.js')
 
 describe('createAlert', () => {
@@ -12,9 +12,9 @@ describe('createAlert', () => {
     newAlert.should.be.a('object')
     newAlert.should.have.property('id')
     newAlert.should.have.property('description').equal('description')
-    newAlert.should.have.property('triggerTime').equal('89:00')
+    newAlert.should.have.property('activationTime').equal('89:00')
     newAlert.should.have.property('timerId').equal(1)
-    newAlert.should.have.property('triggered').equal(false)
+    newAlert.should.have.property('activated').equal(false)
   })
 })
 
@@ -23,9 +23,9 @@ describe('editAlert', () => {
     const alert = {
       id: 1,
       description: "description",
-      triggerTime: "89:00",
+      activationTime: "89:00",
       timerId: 1,
-      triggered: false
+      activated: false
     }
     const editedAlert = editAlert(alert, {
       description: "edited description"
@@ -36,18 +36,18 @@ describe('editAlert', () => {
   })
 })
 
-describe('triggerAlert', () => {
-  it('should return clone of alert w/ triggered = true', () => {
+describe('activateAlert', () => {
+  it('should return clone of alert w/ activated = true', () => {
     const alert = {
       id: 1,
       description: "description",
-      triggerTime: "89:00",
+      activationTime: "89:00",
       timerId: 1,
-      triggered: false
+      activated: false
     }
-    const triggeredAlert = triggerAlert(alert)
+    const activatedAlert = activateAlert(alert)
     alert.should.equal(alert)
-    triggeredAlert.should.not.equal(alert)
-    triggeredAlert.should.have.property('triggered').equal(true)
+    activatedAlert.should.not.equal(alert)
+    activatedAlert.should.have.property('activated').equal(true)
   })
 })

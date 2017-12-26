@@ -88,15 +88,15 @@ app.post('/alert/:id/edit', (req, res) => {
   res.send(editedAlert)
 })
 
-app.post('/alert/:id/trigger', (req, res) => {
+app.post('/alert/:id/activate', (req, res) => {
   const alert = alertsArray.filter(alert => alert.id === req.params.id)[0]
-  const triggeredAlert = triggerAlert(alert)
+  const activatedAlert = activateAlert(alert)
   alertsArray = alertsArray.map(a => {
-    return (a.id === triggeredAlert.id)
-    ? editedAlert
+    return (a.id === activatedAlert.id)
+    ? activatedAlert
     : a
   })
-  res.send(triggeredAlert)
+  res.send(activatedAlert)
 })
 
 app.get('/alerts', (req, res) => {
@@ -138,7 +138,7 @@ app.post('/timer/:id/stop', (req, res) => {
     ? stoppedTimer
     : t
   })
-  res.send(stoppedTimer
+  res.send(stoppedTimer)
 })
 
 app.post('/timer/:id/reset', (req, res) => {

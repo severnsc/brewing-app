@@ -1,12 +1,12 @@
 const shortid = require('shortid')
 
-const createAlert = (description, triggerTime, timerId) => {
+const createAlert = (description, activationTime, timerId) => {
   return {
     id: shortid.generate(),
     description,
-    triggerTime,
+    activationTime,
     timerId,
-    triggered: false
+    activated: false
   }
 }
 
@@ -15,15 +15,15 @@ const editAlert = (alert, newProps) => {
   return editedAlert
 }
 
-const triggerAlert = alert => {
-  const triggeredAlert = Object.assign({}, alert, {
-    triggered: true
+const activateAlert = alert => {
+  const activatedAlert = Object.assign({}, alert, {
+    activated: true
   })
-  return triggeredAlert
+  return activatedAlert
 }
 
 module.exports = {
   createAlert,
   editAlert,
-  triggerAlert
+  activateAlert
 }
