@@ -125,7 +125,7 @@ app.post('/timer/:id/start', (req, res) => {
     ? startedTimer
     : t
   })
-  res.send(startedTimer)
+  res.send(Object.assign({}, startedTimer, {interval: null}))
 })
 
 app.post('/timer/:id/stop', (req, res) => {
@@ -149,7 +149,7 @@ app.post('/timer/:id/reset', (req, res) => {
     ? resetedTimer
     : t
   })
-  res.send(resetedTimer)
+  res.send(Object.assign({}, resetedTimer, {interval: null}))
 })
 
 app.get('/timers', (req, res) => {
