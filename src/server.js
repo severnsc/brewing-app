@@ -40,8 +40,13 @@ const checkAlerts = (timerId, time) => {
 
 const updateTimer = timerId => {
   const timer = timersArray.filter(timer => timer.id === timerId)[0]
-  const updatedTimer = decrementTimer(timer)
+  let updatedTimer = decrementTimer(timer)
   checkAlerts(updatedTimer.id, updatedTimer.currentTime)
+  if(updatedTimer.currentTime === "0:00"){
+    clearInterval(updatedTimer)
+    updatedTimer = stopTimer(updatedTimer)
+    updatedTimer.interval = null
+  }
   timersArray = timersArray.map(t => {
     return (t.id === updatedTimer.id)
     ? updatedTimer
