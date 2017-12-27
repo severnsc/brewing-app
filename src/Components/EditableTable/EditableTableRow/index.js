@@ -88,6 +88,7 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
 
 EditableTableRow.propTypes = {
   id: PropTypes.string.isRequired,
+  tableName: PropTypes.string.isRequired,
   editing: PropTypes.bool,
   cells: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
