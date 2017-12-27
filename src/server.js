@@ -16,7 +16,7 @@ const {
 const {
   createAlert,
   editAlert,
-  triggerAlert
+  activateAlert
 } = require('./alerts.js')
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,9 +29,9 @@ let alertsArray = []
 
 const checkAlerts = (timerId, time) => {
   alertsArray = alertsArray.map(alert => {
-    if(alert.timerId === timerId && !alert.triggered && alert.triggerTime === time){
+    if(alert.timerId === timerId && !alert.activated && alert.activateTime === time){
       sendSMS(alert.description)
-      return Object.assign({}, alert, {triggered: true})
+      return Object.assign({}, alert, {activated: true})
     }else{
       return alert
     }
@@ -104,8 +104,8 @@ app.get('/alerts', (req, res) => {
 })
 
 app.post('/alerts/new', (req, res) => {
-  const {description, triggerTime, timerId} = req.body
-  const alert = createAlert(description, triggerTime, timerId)
+  const {description, activateTime, timerId} = req.body
+  const alert = createAlert(description, activateTime, timerId)
   alertsArray = [...alertsArray, alert]
   res.send(alert)
 })
