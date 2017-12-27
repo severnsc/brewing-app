@@ -44,7 +44,6 @@ const TimerForm = ({errorText, createTimer}) => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(minutesInput)
     createTimer(parseInt(minutesInput.value, 10))
   }
 
