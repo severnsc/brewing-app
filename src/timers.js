@@ -3,6 +3,7 @@ const shortid = require('shortid')
 const createTimer = initialMinutes => ({
   id: shortid.generate(),
   initialMinutes,
+  msRemaining: initialMinutes * 60000,
   currentTime: `${initialMinutes}:00`,
   running: false
 })
@@ -16,9 +17,12 @@ const startTimer = timer => {
 }
 
 const stopTimer = timer => {
+  const splitTimer = timer.currentTime.split(':')
+  const totalMs = (splitTimer[0] * 60000) + (splitTimer[1] * 1000)
   const stoppedTimer = Object.assign({}, timer, {
     running: false,
-    startTime: null
+    startTime: null,
+    msRemaining: totalMs
   })
   return stoppedTimer
 }
@@ -32,8 +36,7 @@ const resetTimer = timer => {
 
 const decrementTimer = timer => {
   const elapsedMs = Date.now() - timer.startTime
-  const initialMs = timer.initialMinutes * 60000
-  const newMs = initialMs - elapsedMs
+  const newMs = timer.msRemaining - elapsedMs
   const timerMinutes = Math.floor(newMs / 60000)
   let timerSeconds = Math.floor((newMs / 1000) % 60)
   if (timerSeconds < 10) timerSeconds = "0" + timerSeconds
