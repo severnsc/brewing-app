@@ -13,12 +13,6 @@ const {
   decrementTimer
 } = require('./timers.js')
 
-const {
-  createAlert,
-  editAlert,
-  activateAlert
-} = require('./alerts.js')
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
@@ -29,7 +23,7 @@ let alertsArray = []
 
 const checkAlerts = (timerId, time) => {
   alertsArray = alertsArray.map(alert => {
-    if(alert.timerId === timerId && !alert.activated && alert.activateTime === time){
+    if(alert.timerId === timerId && !alert.activated && alert.activationTime === time){
       sendSMS(alert.description)
       return Object.assign({}, alert, {activated: true})
     }else{
@@ -78,25 +72,15 @@ app.get('/alert/:id', (req, res) => {
 })
 
 app.post('/alert/:id/edit', (req, res) => {
-  const alert = alertsArray.filter(alert => alert.id === req.params.id)[0]
-  const editedAlert = editAlert(alert, req.body.newProps)
+  if (req.params.id !== req.body.alert.id) sendStatus(500)
+  const editedAlert = req.body.alert
   alertsArray = alertsArray.map(a => {
     return (a.id === editedAlert.id)
     ? editedAlert
     : a
   })
+  console.log(editedAlert)
   res.send(editedAlert)
-})
-
-app.post('/alert/:id/activate', (req, res) => {
-  const alert = alertsArray.filter(alert => alert.id === req.params.id)[0]
-  const activatedAlert = activateAlert(alert)
-  alertsArray = alertsArray.map(a => {
-    return (a.id === activatedAlert.id)
-    ? activatedAlert
-    : a
-  })
-  res.send(activatedAlert)
 })
 
 app.get('/alerts', (req, res) => {
@@ -104,9 +88,9 @@ app.get('/alerts', (req, res) => {
 })
 
 app.post('/alerts/new', (req, res) => {
-  const {description, activateTime, timerId} = req.body
-  const alert = createAlert(description, activateTime, timerId)
+  const alert = req.body.alert
   alertsArray = [...alertsArray, alert]
+  console.log(alert)
   res.send(alert)
 })
 
