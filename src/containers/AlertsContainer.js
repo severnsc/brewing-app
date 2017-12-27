@@ -1,34 +1,21 @@
 import { connect } from 'react-redux'
 
-import sendMessage from '../api/messagingAPI'
-
 import { 
-  addTableRow, 
-  toggleTableRowEditing, 
-  saveTableRow 
+  requestCreateAlert,
+  requestUpdateAlert,
 } from '../actions/actions'
 
 import { 
-  getAlertRows,
-  alertsToBeFired
+  getAlertRows
 } from '../selectors'
 
 import EditableTable from '../Components/EditableTable'
 
-const fireAlerts = alerts =>
-  alerts.forEach(alert => {
-    sendMessage(alert.description)
-    .then(res => console.log(res))
-    .catch(err => console.error(err))
-  })
-
 const mapStateToProps = state => {
-
-  fireAlerts(alertsToBeFired(state))
 
   const columns = [
     {name: "Description", type: "text"},
-    {name: "Trigger time", type: "text"}
+    {name: "Activation time", type: "text"}
   ]
 
   return{
@@ -41,13 +28,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addRow: tableRow => {
-      dispatch(addTableRow(tableRow))
-    },
-    setEditing: id => {
-      dispatch(toggleTableRowEditing(id))
+      dispatch(requestCreateAlert(tableRow))
     },
     saveTableRow: cells => {
-      dispatch(saveTableRow(cells))
+      dispatch(requestUpdateAlert(cells))
     }
   }
 }

@@ -8,15 +8,3 @@ export const getAlertRows = createSelector(
     )
   }
 )
-
-export const alertsToBeFired = createSelector(
-  state => state.alerts,
-  state => state.timer,
-  (alerts, timer) => {
-    console.log(alerts)
-    return alerts.filter(alert => 
-      parseInt(alert.minutes, 10) === timer.minutes && 
-        parseInt(alert.seconds, 10) === timer.seconds
-    )
-  }
-)

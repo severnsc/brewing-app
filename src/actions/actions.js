@@ -6,6 +6,8 @@ const STOP_TIMER = "STOP_TIMER"
 const RESET_TIMER = "RESET_TIMER"
 const CREATE_TIMER = "CREATE_TIMER"
 const UPDATE_TIMER = "UPDATE_TIMER"
+const CREATE_ALERT = "CREATE_ALERT"
+const UPDATE_ALERT = "UPDATE_ALERT"
 const CREATE_REMOTE_TIMER = "CREATE_REMOTE_TIMER"
 const UPDATE_REMOTE_TIMER = "UPDATE_REMOTE_TIMER"
 
@@ -27,6 +29,20 @@ export const saveTableRow = cells => {
   return {
     type: SAVE_TABLE_ROW,
     cells
+  }
+}
+
+export const createAlert = alert => {
+  return {
+    type: CREATE_ALERT,
+    alert
+  }
+}
+
+export const updateAlert = alert => {
+  return {
+    type: UPDATE_ALERT,
+    alert
   }
 }
 
@@ -153,6 +169,60 @@ export const requestResetRemoteTimer = () => {
     .then(timer => {
       dispatch(updateRemoteTimer(timer))
     })
+  }
+}
+
+export const requestCreateAlert = tableRow => {
+  return (dispatch, getState) => {
+    dispatch(addTableRow(tableRow))
+    const alert = {
+      id: tableRow.id,
+      description: tableRow.cells[0].value,
+      activationTime: tableRow.cells[1].value,
+      timerId: getState().remoteTimer.id,
+      activated: false
+    }
+    dispatch(createAlert(alert))
+    return fetch(`http://localhost:3001/alerts/new`, {
+      body: JSON.stringify({alert}),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+    .then(
+      res => res.json(),
+      err => console.log("An error occured.", err)
+    )
+    .then(json => console.log(json))
+  }
+}
+
+export const requestUpdateAlert = cells => {
+  return (dispatch, getState) => {
+    dispatch(toggleTableRowEditing(cells[0].tableRowID))
+    dispatch(saveTableRow(cells))
+    const alert = getState().alerts.filter(
+      alert => alert.id === cells[0].tableRowID
+    )[0]
+    const updatedAlert = {
+      ...alert,
+      description: cells[0].value,
+      activationTime: cells[1].value
+    }
+    dispatch(updateAlert(updatedAlert))
+    return fetch(`http://localhost:3001/alert/${updatedAlert.id}/edit`, {
+      body: JSON.stringify({alert: updatedAlert}),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+    .then(
+      res => res.json(),
+      err => console.log("An error occured.", err)
+    )
+    .then(json => console.log(json))
   }
 }
 

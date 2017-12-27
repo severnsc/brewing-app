@@ -102,22 +102,16 @@ export const alerts = (state = [], action) => {
 
   switch(action.type){
 
-    case 'ADD_TABLE_ROW':
-      const alert = {id: action.tableRow.id}
+    case 'CREATE_ALERT':
       return [
         ...state,
-        alert
+        action.alert
       ]
 
-    case 'SAVE_TABLE_ROW':
+    case 'UPDATE_ALERT':
       return state.map(alert => {
-        return alert.id === action.cells[0].tableRowID
-        ? {
-            ...alert,
-            description: action.cells[0].value,
-            minutes: action.cells[1].value.split(":")[0],
-            seconds: action.cells[1].value.split(":")[1]
-          }
+        return (alert.id === action.alert.id)
+        ? action.alert
         : alert
       })
 
