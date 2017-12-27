@@ -15,7 +15,7 @@ const CenteredRoundButton = RoundButton.extend`
   align-self:center;
 `
 
-const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRows}) => {
+const EditableTable = ({name, addRow, saveTableRow, columns, tableRows}) => {
 
   const handleClick = () => {
     const tableRowID = shortid.generate()
@@ -42,7 +42,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
         columnNames={columns.map((col) => {return col.name} )}
       />
       {tableRows.map( tableRow => 
-        {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
+        {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} saveTableRow={saveTableRow} />}
       )}
       <CenteredRoundButton background="#05a905" onClick={handleClick}>
         &#43;
@@ -54,7 +54,6 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
 EditableTable.propTypes = {
   name: PropTypes.string.isRequired,
   addRow: PropTypes.func.isRequired,
-  setEditing: PropTypes.func.isRequired,
   saveTableRow: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,

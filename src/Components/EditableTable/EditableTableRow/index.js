@@ -19,16 +19,14 @@ const FlexForm = styled.form`
 
 const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
 
-  const onChange = (e) => {
-    const newCells = cells.map(cell =>
-      cell.id === e.target.id ? {...cell, value: e.target.value} : cell
-    )
-    saveTableRow(newCells)
-  }
-
   const toggleEdit = (e) => {
     e.preventDefault()
-    setEditing(id)
+    const newCells = []
+    for(let i=0;i<e.target.length - 1;i++){
+      newCells.push({...cells[i], value: e.target[i].value})
+    }
+    console.log(newCells)
+    saveTableRow(newCells)
   }
     
   if(editing){
@@ -41,7 +39,6 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
             id={cell.id} 
             type={cell.type} 
             defaultValue={cell.value}
-            onChange={onChange}
           />
         </TableCell>
       )
@@ -88,7 +85,6 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
 
 EditableTableRow.propTypes = {
   id: PropTypes.string.isRequired,
-  tableName: PropTypes.string.isRequired,
   editing: PropTypes.bool,
   cells: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -99,7 +95,6 @@ EditableTableRow.propTypes = {
     ]).isRequired,
     type: PropTypes.string.isRequired
   })).isRequired,
-  setEditing: PropTypes.func.isRequired,
   saveTableRow: PropTypes.func.isRequired
 }
 
