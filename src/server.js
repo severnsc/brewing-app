@@ -125,6 +125,7 @@ app.post('/timer/:id/start', (req, res) => {
     ? startedTimer
     : t
   })
+  console.log("Timer started. Current time is:", startedTimer.currentTime)
   res.send(Object.assign({}, startedTimer, {interval: null}))
 })
 
@@ -138,6 +139,7 @@ app.post('/timer/:id/stop', (req, res) => {
     ? stoppedTimer
     : t
   })
+  console.log("Timer stopped. Current time is:", stoppedTimer.currentTime)
   res.send(stoppedTimer)
 })
 
