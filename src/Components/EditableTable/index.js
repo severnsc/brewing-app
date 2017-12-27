@@ -6,7 +6,7 @@ import RoundButton from '../../Components/RoundButton'
 import styled from 'styled-components'
 import shortid from 'shortid'
 
-const Div = styled.div`
+const Table = styled.table`
   display:flex;
   flex-flow:column;
 `
@@ -15,7 +15,7 @@ const CenteredRoundButton = RoundButton.extend`
   align-self:center;
 `
 
-const EditableTable = ({name, addRow, saveTableRow, columns, tableRows}) => {
+const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRows}) => {
 
   const handleClick = () => {
     const tableRowID = shortid.generate()
@@ -37,17 +37,23 @@ const EditableTable = ({name, addRow, saveTableRow, columns, tableRows}) => {
   }
 
   return(
-    <Div>
+    <Table>
       <EditableTableHeader
         columnNames={columns.map((col) => {return col.name} )}
       />
-      {tableRows.map( tableRow => 
-        {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} saveTableRow={saveTableRow} />}
-      )}
-      <CenteredRoundButton background="#05a905" onClick={handleClick}>
-        &#43;
-      </CenteredRoundButton>
-    </Div>
+      <tbody>
+        {tableRows.map( tableRow => 
+          {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
+        )}
+        <tr>
+          <td>
+            <CenteredRoundButton background="#05a905" onClick={handleClick}>
+              &#43;
+            </CenteredRoundButton>
+          </td>
+        </tr>
+      </tbody>
+    </Table>
   )
 }
 
