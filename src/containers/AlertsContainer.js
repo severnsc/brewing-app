@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
-import { 
+import {
+  toggleTableRowEditing,
   requestCreateAlert,
   requestUpdateAlert,
 } from '../actions/actions'
@@ -29,6 +30,9 @@ const mapDispatchToProps = dispatch => {
   return {
     addRow: tableRow => {
       dispatch(requestCreateAlert(tableRow))
+    },
+    setEditing: id => {
+      dispatch(toggleTableRowEditing(id))
     },
     saveTableRow: cells => {
       dispatch(requestUpdateAlert(cells))
