@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Button from '../../Button/index.js'
+import Button from '../../Button'
+import RoundButton from '../../RoundButton'
 import styled from 'styled-components'
 
 const TableRow = styled.tr`
   display:flex;
   flex-direction:row;
+  position:relative;
 `
 
 const TableCell = styled.td`
@@ -15,6 +17,11 @@ const TableCell = styled.td`
 
 const FlexForm = styled.form`
   display:flex;
+`
+
+const EditButton = RoundButton.extend`
+  color: black;
+  font-size: 1em;
 `
 
 const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
@@ -76,10 +83,14 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
     return(
       <TableRow>
         {tableCells}
-        <TableCell>
-          <Button className="round" onClick={toggleEdit} backgroundColor="#a7a6a6">
+        <TableCell style={{
+          position: "absolute",
+          right: 0,
+          padding:0
+        }}>
+          <EditButton className="round" onClick={toggleEdit} background="#c1c1c1">
             &#9998;
-          </Button>
+          </EditButton>
         </TableCell>
       </TableRow>
     )
