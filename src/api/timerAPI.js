@@ -1,3 +1,7 @@
+const constructURL = (id, path) => {
+  return `http://localhost:3001/timer/${id}/${path}`
+}
+
 export const createRemoteTimer = minutes => {
   return fetch('http://localhost:3001/timers/new', {
     body: JSON.stringify({initialMinutes: minutes}),
@@ -13,7 +17,7 @@ export const createRemoteTimer = minutes => {
 }
 
 export const startRemoteTimer = remoteTimerID => {
-  return fetch(`http://localhost:3001/timer/${remoteTimerID}/start`, {
+  return fetch(constructURL(remoteTimerID, 'start'), {
     headers: {
       "Content-Type": "application/json"
     },
@@ -26,7 +30,7 @@ export const startRemoteTimer = remoteTimerID => {
 }
 
 export const stopRemoteTimer = remoteTimerID => {
-  return fetch(`http://localhost:3001/timer/${remoteTimerID}/stop`, {
+  return fetch(constructURL(remoteTimerID, 'stop'), {
     headers: {
       "Content-Type": "application/json"
     },
@@ -39,7 +43,7 @@ export const stopRemoteTimer = remoteTimerID => {
 }
 
 export const updateRemoteTimer = (remoteTimerID, timerToSend) => {
-  return fetch(`http://localhost:3001/timer/${remoteTimerID}/update`, {
+  return fetch(constructURL(remoteTimerID, 'update'), {
     body: JSON.stringify({timer: timerToSend}),
     headers: {
       "Content-Type": "application/json"
@@ -53,7 +57,7 @@ export const updateRemoteTimer = (remoteTimerID, timerToSend) => {
 }
 
 export const resetRemoteTimer = remoteTimerID => {
-  return fetch(`http://localhost:3001/timer/${remoteTimerID}/reset`, {
+  return fetch(constructURL(remoteTimerID, 'reset'), {
     headers: {
       "Content-Type": "application/json"
     },
