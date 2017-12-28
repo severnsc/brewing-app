@@ -13,6 +13,13 @@ const Table = styled.table`
 
 const CenteredRoundButton = RoundButton.extend`
   align-self:center;
+  font-size:1em;
+  margin-top:5px;
+`
+
+const TableContainer = styled.div`
+  display:flex;
+  flex-flow:column;
 `
 
 const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRows}) => {
@@ -37,23 +44,26 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
   }
 
   return(
-    <Table>
-      <EditableTableHeader
-        columnNames={columns.map((col) => {return col.name} )}
-      />
-      <tbody>
-        {tableRows.map( tableRow => 
-          {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
-        )}
-        <tr>
-          <td>
-            <CenteredRoundButton background="#05a905" onClick={handleClick}>
-              &#43;
-            </CenteredRoundButton>
-          </td>
-        </tr>
-      </tbody>
-    </Table>
+    <TableContainer>
+      <Table>
+        <EditableTableHeader
+          columnNames={columns.map((col) => {return col.name} )}
+        />
+        <tbody>
+          {tableRows.map( tableRow => 
+            {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
+          )}
+          <tr>
+            <td>
+              
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+      <CenteredRoundButton background="#05a905" onClick={handleClick}>
+        &#43;
+      </CenteredRoundButton>
+    </TableContainer>
   )
 }
 
