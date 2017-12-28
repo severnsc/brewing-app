@@ -3,18 +3,32 @@ import TimerFormContainer from '../../containers/TimerFormContainer'
 import TimerContainer from '../../containers/TimerContainer'
 import AlertsContainer from '../../containers/AlertsContainer'
 import PropTypes from 'prop-types'
+import ShadowBox from '../../Components/ShadowBox'
+import FlexDiv from '../../Components/FlexDiv'
 
 const TimerScene = ({timerExists}) => {
 
   if(timerExists){
     return(
-      <div>
-        <TimerContainer />
-        <AlertsContainer />
-      </div>
+      <FlexDiv style={{marginTop: 50 + "px"}}>  
+        <ShadowBox>
+          <TimerContainer />
+        </ShadowBox>
+        <ShadowBox style={{
+          marginTop: 20 + "px",
+          width: 100+ '%',
+          boxSizing: "border-box"
+        }}>
+          <AlertsContainer />
+        </ShadowBox>
+      </FlexDiv>
     )
   }else{
-    return <TimerFormContainer />
+    return(
+      <ShadowBox style={{marginTop: 50 + "px"}}>
+        <TimerFormContainer />
+      </ShadowBox>
+    )
   }
 
 }
