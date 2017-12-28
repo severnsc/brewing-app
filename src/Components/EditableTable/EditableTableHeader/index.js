@@ -11,6 +11,8 @@ const Thead = styled.thead`
 const HeaderRow = styled.tr`
   display: flex;
   flex: 1;
+  border-bottom:1px solid rgb(224, 224, 224);
+  color:#4e4e4e;
 `
 
 const HeaderCell = styled.td`

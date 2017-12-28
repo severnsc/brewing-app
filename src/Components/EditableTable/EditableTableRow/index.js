@@ -8,6 +8,8 @@ const TableRow = styled.tr`
   display:flex;
   flex-direction:row;
   position:relative;
+  border-bottom:1px solid rgb(224, 224, 224);
+  margin-top:5px;
 `
 
 const TableCell = styled.td`
