@@ -72,16 +72,16 @@ app.get('/alert/:id', (req, res) => {
   res.send(alert)
 })
 
-app.post('/alert/:id/edit', (req, res) => {
+app.post('/alert/:id/update', (req, res) => {
   if (req.params.id !== req.body.alert.id) sendStatus(500)
-  const editedAlert = req.body.alert
+  const updatedAlert = req.body.alert
   alertsArray = alertsArray.map(a => {
-    return (a.id === editedAlert.id)
-    ? editedAlert
+    return (a.id === updatedAlert.id)
+    ? updatedAlert
     : a
   })
-  console.log(editedAlert)
-  res.send(editedAlert)
+  console.log(updatedAlert)
+  res.send(updatedAlert)
 })
 
 app.get('/alerts', (req, res) => {
