@@ -5,6 +5,12 @@ import {
   updateRemoteTimer,
   resetRemoteTimer
 } from '../api/timerAPI'
+
+import {
+  createRemoteAlert,
+  updateRemoteAlert
+} from '../api/alertsAPI'
+
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 const TOGGLE_EDIT_TABLE_ROW = "TOGGLE_EDIT_TABLE_ROW"
 const SAVE_TABLE_ROW = "SAVE_TABLE_ROW"
@@ -163,18 +169,7 @@ export const requestCreateAlert = tableRow => {
       activated: false
     }
     dispatch(createAlert(alert))
-    return fetch(`http://localhost:3001/alerts/new`, {
-      body: JSON.stringify({alert}),
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    })
-    .then(
-      res => res.json(),
-      err => console.log("An error occured.", err)
-    )
-    .then(json => console.log(json))
+    return createRemoteAlert(alert).then(json => console.log(json))
   }
 }
 
@@ -191,18 +186,9 @@ export const requestUpdateAlert = cells => {
       activationTime: cells[1].value
     }
     dispatch(updateAlert(updatedAlert))
-    return fetch(`http://localhost:3001/alert/${updatedAlert.id}/edit`, {
-      body: JSON.stringify({alert: updatedAlert}),
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    })
-    .then(
-      res => res.json(),
-      err => console.log("An error occured.", err)
+    return updateRemoteAlert(updatedAlert).then(json => 
+      console.log(json)
     )
-    .then(json => console.log(json))
   }
 }
 
