@@ -1,6 +1,9 @@
 import {
+  createRemoteTimer,
+  startRemoteTimer,
   stopRemoteTimer,
-  updateRemoteTimer
+  updateRemoteTimer,
+  resetRemoteTimer
 } from '../api/timerAPI'
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 const TOGGLE_EDIT_TABLE_ROW = "TOGGLE_EDIT_TABLE_ROW"
@@ -102,18 +105,7 @@ export const updateRemoteTimerCopy = timer => {
 export const requestCreateRemoteTimer = minutes => {
   return dispatch => {
     dispatch(createTimer(minutes))
-    return fetch('http://localhost:3001/timers/new', {
-      body: JSON.stringify({initialMinutes: minutes}),
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    })
-    .then(
-      res => res.json(),
-      err => console.log("An error occured.", err)
-      )
-    .then(timer => {
+    return createRemoteTimer(minutes).then(timer => {
       dispatch(createRemoteTimerCopy(timer))
     })
   }
@@ -122,17 +114,8 @@ export const requestCreateRemoteTimer = minutes => {
 export const requestStartRemoteTimer = time => {
   return (dispatch, getState) => {
     dispatch(startTimer(time))
-    return fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/start`, {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    })
-    .then(
-      res => res.json(),
-      err => console.log("An error occured.", err)
-      )
-    .then(timer => {
+    const remoteTimerID = getState().remoteTimer.id
+    return startRemoteTimer(remoteTimerID).then(timer => {
       dispatch(updateRemoteTimerCopy(timer))
     })
   }
@@ -150,8 +133,8 @@ export const requestStopRemoteTimer = () => {
       msRemaining
     })
     return Promise.all([
-      stopRemoteTimer(remoteTimer), 
-      updateRemoteTimer(remoteTimer, timerToSend)
+      stopRemoteTimer(remoteTimer.id), 
+      updateRemoteTimer(remoteTimer.id, timerToSend)
     ])
     .then(timersArray => {
       dispatch(updateRemoteTimerCopy(timersArray[1]))
@@ -162,17 +145,8 @@ export const requestStopRemoteTimer = () => {
 export const requestResetRemoteTimer = () => {
   return (dispatch, getState) => {
     dispatch(resetTimer())
-    return fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/reset`, {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    })
-    .then(
-      res => res.json(),
-      err => console.log("An error occured.", err)
-      )
-    .then(timer => {
+    const remoteTimerID = getState().remoteTimer.id
+    return resetRemoteTimer(remoteTimerID).then(timer => {
       dispatch(updateRemoteTimerCopy(timer))
     })
   }
