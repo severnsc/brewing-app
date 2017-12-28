@@ -41,6 +41,7 @@ const updateTimer = timerId => {
     updatedTimer = stopTimer(updatedTimer)
     updatedTimer.interval = null
   }
+  console.log(updatedTimer.currentTime)
   timersArray = timersArray.map(t => {
     return (t.id === updatedTimer.id)
     ? updatedTimer
@@ -97,6 +98,19 @@ app.post('/alerts/new', (req, res) => {
 app.get('/timer/:id', (req, res) => {
  const timer = timersArray.filter(timer => timer.id === req.params.id)[0] 
  res.send(timer)
+})
+
+app.post('/timer/:id/update', (req, res) => {
+  const timer = timersArray.filter(timer => timer.id === req.params.id)[0]
+  const updatedTimer = req.body.timer
+  if (timer.id !== updatedTimer.id) sendStatus(500)
+  timersArray = timersArray.map(t => {
+    return (t.id === updatedTimer.id)
+    ? updatedTimer
+    : t
+  })
+  console.log("Timer updated!", updatedTimer)
+  res.send(updatedTimer)
 })
 
 app.post('/timer/:id/start', (req, res) => {
