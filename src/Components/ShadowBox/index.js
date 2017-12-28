@@ -5,4 +5,6 @@ export default styled.div`
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.12);
   background-color: #ffffff;
   padding: 20px;
+  display:flex;
+  flex-flow:column;
 `
