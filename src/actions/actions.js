@@ -1,3 +1,7 @@
+import {
+  stopRemoteTimer,
+  updateRemoteTimer
+} from '../api/timerAPI'
 const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 const TOGGLE_EDIT_TABLE_ROW = "TOGGLE_EDIT_TABLE_ROW"
 const SAVE_TABLE_ROW = "SAVE_TABLE_ROW"
@@ -79,14 +83,14 @@ export const updateTimer = time => {
   }
 }
 
-export const createRemoteTimer = timer => {
+export const createRemoteTimerCopy = timer => {
   return {
     type: CREATE_REMOTE_TIMER,
     timer
   }
 }
 
-export const updateRemoteTimer = timer => {
+export const updateRemoteTimerCopy = timer => {
   return {
     type: UPDATE_REMOTE_TIMER,
     timer
@@ -110,7 +114,7 @@ export const requestCreateRemoteTimer = minutes => {
       err => console.log("An error occured.", err)
       )
     .then(timer => {
-      dispatch(createRemoteTimer(timer))
+      dispatch(createRemoteTimerCopy(timer))
     })
   }
 }
@@ -129,7 +133,7 @@ export const requestStartRemoteTimer = time => {
       err => console.log("An error occured.", err)
       )
     .then(timer => {
-      dispatch(updateRemoteTimer(timer))
+      dispatch(updateRemoteTimerCopy(timer))
     })
   }
 }
@@ -137,18 +141,20 @@ export const requestStartRemoteTimer = time => {
 export const requestStopRemoteTimer = () => {
   return (dispatch, getState) => {
     dispatch(stopTimer())
-    return fetch(`http://localhost:3001/timer/${getState().remoteTimer.id}/stop`, {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
+    const remoteTimer = getState().remoteTimer
+    const timer = getState().timer
+    const currentTime = `${timer.minutes}:${timer.seconds}`
+    const msRemaining = (timer.minutes * 60000) + (timer.seconds * 1000)
+    const timerToSend = Object.assign({}, remoteTimer, {
+      currentTime,
+      msRemaining
     })
-    .then(
-      res => res.json(),
-      err => console.log("An error occured.", err)
-      )
-    .then(timer => {
-      dispatch(updateRemoteTimer(timer))
+    return Promise.all([
+      stopRemoteTimer(remoteTimer), 
+      updateRemoteTimer(remoteTimer, timerToSend)
+    ])
+    .then(timersArray => {
+      dispatch(updateRemoteTimerCopy(timersArray[1]))
     })
   }
 }
@@ -167,7 +173,7 @@ export const requestResetRemoteTimer = () => {
       err => console.log("An error occured.", err)
       )
     .then(timer => {
-      dispatch(updateRemoteTimer(timer))
+      dispatch(updateRemoteTimerCopy(timer))
     })
   }
 }
