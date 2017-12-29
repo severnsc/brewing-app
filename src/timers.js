@@ -28,8 +28,11 @@ const stopTimer = timer => {
 }
 
 const resetTimer = timer => {
+  const startTime = timer.running ? Date.now() : null
   const resetedTimer = Object.assign({}, timer, {
-    currentTime: `${timer.initialMinutes}:00`
+    currentTime: `${timer.initialMinutes}:00`,
+    msRemaining: timer.initialMinutes * 60000,
+    startTime
   })
   return resetedTimer
 }
