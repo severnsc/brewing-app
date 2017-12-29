@@ -22,7 +22,6 @@ const CREATE_TIMER = "CREATE_TIMER"
 const UPDATE_TIMER = "UPDATE_TIMER"
 const CREATE_ALERT = "CREATE_ALERT"
 const UPDATE_ALERT = "UPDATE_ALERT"
-const CREATE_REMOTE_TIMER = "CREATE_REMOTE_TIMER"
 const UPDATE_REMOTE_TIMER = "UPDATE_REMOTE_TIMER"
 
 export const addTableRow = tableRow => {
@@ -102,13 +101,6 @@ export const updateTimer = time => {
   }
 }
 
-export const createRemoteTimerCopy = timer => {
-  return {
-    type: CREATE_REMOTE_TIMER,
-    timer
-  }
-}
-
 export const updateRemoteTimerCopy = timer => {
   return {
     type: UPDATE_REMOTE_TIMER,
@@ -122,7 +114,7 @@ export const requestCreateRemoteTimer = minutes => {
   return dispatch => {
     dispatch(createTimer(minutes))
     return createRemoteTimer(minutes).then(timer => {
-      dispatch(createRemoteTimerCopy(timer))
+      dispatch(updateRemoteTimerCopy(timer))
     })
   }
 }

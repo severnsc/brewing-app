@@ -133,9 +133,6 @@ export const remoteTimer = (state = {}, action) => {
 
   switch(action.type){
 
-    case 'CREATE_REMOTE_TIMER':
-      return action.timer
-
     case 'UPDATE_REMOTE_TIMER':
       return action.timer
 
