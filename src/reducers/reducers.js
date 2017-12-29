@@ -17,7 +17,7 @@ export const tableRows = (state = [], action) => {
 
     case 'SAVE_TABLE_ROW':
       return state.map((tableRow) => {
-        return (tableRow.id === action.cells[0].tableRowID)
+        return (tableRow.id === action.id)
         ? {...tableRow, cells: action.cells}
         : tableRow
       })

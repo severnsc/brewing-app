@@ -34,7 +34,7 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, buttons
     for(let i=0;i<e.target.length - 1;i++){
       newCells.push({...cells[i], value: e.target[i].value})
     }
-    saveTableRow(newCells)
+    saveTableRow(id, newCells)
   }
 
   const toggleEdit = () => {

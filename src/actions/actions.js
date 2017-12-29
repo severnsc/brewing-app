@@ -39,9 +39,10 @@ export const toggleTableRowEditing = id => {
   }
 }
 
-export const saveTableRow = cells => {
+export const saveTableRow = (id, cells) => {
   return {
     type: SAVE_TABLE_ROW,
+    id,
     cells
   }
 }
@@ -182,12 +183,12 @@ export const requestCreateAlert = tableRow => {
   }
 }
 
-export const requestUpdateAlert = cells => {
+export const requestUpdateAlert = (id, cells) => {
   return (dispatch, getState) => {
-    dispatch(toggleTableRowEditing(cells[0].tableRowID))
-    dispatch(saveTableRow(cells))
+    dispatch(toggleTableRowEditing(id))
+    dispatch(saveTableRow(id, cells))
     const alert = getState().alerts.filter(
-      alert => alert.id === cells[0].tableRowID
+      alert => alert.id === id
     )[0]
     const updatedAlert = {
       ...alert,

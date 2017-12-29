@@ -35,8 +35,8 @@ const mapDispatchToProps = dispatch => {
     setEditing: id => {
       dispatch(toggleTableRowEditing(id))
     },
-    saveTableRow: cells => {
-      dispatch(requestUpdateAlert(cells))
+    saveTableRow: (id, cells) => {
+      dispatch(requestUpdateAlert(id, cells))
     },
     toggleButtonVisibility: (id, bool) => {
       dispatch(toggleButtonVisibility(id, bool))
