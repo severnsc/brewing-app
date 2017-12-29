@@ -26,7 +26,7 @@ const EditButton = RoundButton.extend`
   font-size: 1em;
 `
 
-const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
+const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, buttonsVisible, toggleButtonVisibility}) => {
 
   const saveRow = (e) => {
     e.preventDefault()
@@ -40,6 +40,8 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
   const toggleEdit = () => {
     setEditing(id)
   }
+
+  const opacity = buttonsVisible ? 1 : 0
     
   if(editing){
     
@@ -83,14 +85,14 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
     })
 
     return(
-      <TableRow>
+      <TableRow onMouseEnter={() => toggleButtonVisibility(id, true)} onMouseLeave={() => toggleButtonVisibility(id, false)}>
         {tableCells}
         <TableCell style={{
           position: "absolute",
           right: 0,
           padding:0
         }}>
-          <EditButton onClick={toggleEdit} background="#c1c1c1">
+          <EditButton style={{opacity}} onClick={toggleEdit} background="#c1c1c1">
             &#9998;
           </EditButton>
         </TableCell>
@@ -114,7 +116,9 @@ EditableTableRow.propTypes = {
     ]).isRequired,
     type: PropTypes.string.isRequired
   })).isRequired,
-  saveTableRow: PropTypes.func.isRequired
+  saveTableRow: PropTypes.func.isRequired,
+  buttonsVisible: PropTypes.bool.isRequired,
+  toggleButtonVisibility: PropTypes.func.isRequired
 }
 
 EditableTableRow.defaultProps = {

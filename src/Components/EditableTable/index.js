@@ -22,7 +22,7 @@ const TableContainer = styled.div`
   flex-flow:column;
 `
 
-const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRows}) => {
+const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRows, toggleButtonVisibility}) => {
 
   const handleClick = () => {
     const tableRowID = shortid.generate()
@@ -38,7 +38,8 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
       id: tableRowID,
       tableName: name,
       editing: true,
-      cells
+      cells,
+      buttonsVisible: false
     }
     addRow(newRow)
   }
@@ -51,7 +52,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
         />
         <tbody>
           {tableRows.map( tableRow => 
-            {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} />}
+            {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow}  buttonsVisible={tableRow.buttonsVisible} toggleButtonVisibility={toggleButtonVisibility} />}
           )}
           <tr>
             <td>
@@ -87,7 +88,8 @@ EditableTable.propTypes = {
         PropTypes.number
       ]).isRequired,
       type: PropTypes.string.isRequired
-    })).isRequired
+    })).isRequired,
+    buttonsVisible: PropTypes.bool.isRequired
   })).isRequired
 }
 

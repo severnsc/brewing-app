@@ -4,6 +4,7 @@ import {
   toggleTableRowEditing,
   requestCreateAlert,
   requestUpdateAlert,
+  toggleButtonVisibility
 } from '../actions/actions'
 
 import { 
@@ -36,6 +37,9 @@ const mapDispatchToProps = dispatch => {
     },
     saveTableRow: cells => {
       dispatch(requestUpdateAlert(cells))
+    },
+    toggleButtonVisibility: (id, bool) => {
+      dispatch(toggleButtonVisibility(id, bool))
     }
   }
 }

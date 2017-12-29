@@ -21,6 +21,13 @@ export const tableRows = (state = [], action) => {
         ? {...tableRow, cells: action.cells}
         : tableRow
       })
+
+    case 'TOGGLE_BUTTON_VISIBILITY':
+      return state.map(tableRow => {
+        return (tableRow.id === action.id)
+        ? {...tableRow, buttonsVisible: action.bool}
+        : tableRow
+      })
     
     default:
       return state
