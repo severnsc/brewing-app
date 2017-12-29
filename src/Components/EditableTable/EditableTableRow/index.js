@@ -90,7 +90,7 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow}) => {
           right: 0,
           padding:0
         }}>
-          <EditButton className="round" onClick={toggleEdit} background="#c1c1c1">
+          <EditButton onClick={toggleEdit} background="#c1c1c1">
             &#9998;
           </EditButton>
         </TableCell>
