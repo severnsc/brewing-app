@@ -35,6 +35,11 @@ export default class Timer extends Component{
     this.props.updateTimer(new Date())
   }
 
+  resetTimer = () => {
+    clearTimeout(this.timeout)
+    this.props.resetTimer()
+  }
+
   handleClick = () => {
     if(this.props.active){
       clearTimeout(this.timeout)
@@ -46,7 +51,7 @@ export default class Timer extends Component{
 
   render(){
 
-    const {active, minutes, seconds, resetTimer} = this.props
+    const {active, minutes, seconds} = this.props
 
     const buttonBackground = active ? 'red' : "#05a905"
 
@@ -61,7 +66,7 @@ export default class Timer extends Component{
           <TimerButton background={buttonBackground} onClick={this.handleClick}>
             {buttonText}
           </TimerButton>
-          <TimerButton background="#a7a6a6" onClick={resetTimer}>
+          <TimerButton background="#a7a6a6" onClick={this.resetTimer}>
             RESET
           </TimerButton>
         </TimerButtonDiv>
