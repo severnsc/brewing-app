@@ -21,6 +21,14 @@ const FlexForm = styled.form`
   display:flex;
 `
 
+const FlexInput = styled.input`
+  flex:1;
+  &:first-child {
+    margin:0 10px 0 0;
+  };
+  margin-left: 15px;
+`
+
 const EditButton = RoundButton.extend`
   color: black;
   font-size: 1em;
@@ -56,7 +64,7 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, deleteT
     
     const tableCells = cells.map((cell) => {
       return(
-        <input
+        <FlexInput
           key={cell.id}
           id={cell.id} 
           type={cell.type} 
@@ -71,6 +79,7 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, deleteT
           <FlexForm onSubmit={saveRow}>
             {tableCells}
             <Button
+              style={{marginLeft: 5 + "px"}}
               onClick={() => {}}
               className="round"
               type="submit"
