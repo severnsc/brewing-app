@@ -22,7 +22,7 @@ const TableContainer = styled.div`
   flex-flow:column;
 `
 
-const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRows, toggleButtonVisibility}) => {
+const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows, toggleButtonVisibility}) => {
 
   const handleClick = () => {
     const tableRowID = shortid.generate()
@@ -52,7 +52,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, columns, tableRo
         />
         <tbody>
           {tableRows.map( tableRow => 
-            {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow}  buttonsVisible={tableRow.buttonsVisible} toggleButtonVisibility={toggleButtonVisibility} />}
+            {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} deleteTableRow={deleteTableRow}  buttonsVisible={tableRow.buttonsVisible} toggleButtonVisibility={toggleButtonVisibility} />}
           )}
           <tr>
             <td>
@@ -72,6 +72,7 @@ EditableTable.propTypes = {
   name: PropTypes.string.isRequired,
   addRow: PropTypes.func.isRequired,
   saveTableRow: PropTypes.func.isRequired,
+  deleteTableRow: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     type: PropTypes.string

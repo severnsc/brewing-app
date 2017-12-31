@@ -26,7 +26,12 @@ const EditButton = RoundButton.extend`
   font-size: 1em;
 `
 
-const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, buttonsVisible, toggleButtonVisibility}) => {
+const DeleteButton = RoundButton.extend`
+  color: white;
+  font-size: 1em;
+`
+
+const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, deleteTableRow, buttonsVisible, toggleButtonVisibility}) => {
 
   const saveRow = (e) => {
     e.preventDefault()
@@ -35,6 +40,10 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, buttons
       newCells.push({...cells[i], value: e.target[i].value})
     }
     saveTableRow(id, newCells)
+  }
+
+  const deleteRow = () => {
+    deleteTableRow(id)
   }
 
   const toggleEdit = () => {
@@ -95,6 +104,9 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, buttons
           <EditButton style={{opacity}} onClick={toggleEdit} background="#c1c1c1">
             &#9998;
           </EditButton>
+          <DeleteButton style={{opacity}} onClick={deleteRow} background="red">
+            X
+          </DeleteButton>
         </TableCell>
       </TableRow>
     )
@@ -107,6 +119,7 @@ EditableTableRow.propTypes = {
   id: PropTypes.string.isRequired,
   editing: PropTypes.bool,
   setEditing: PropTypes.func.isRequired,
+  deleteTableRow: PropTypes.func.isRequired,
   cells: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     tableRowID: PropTypes.string.isRequired,

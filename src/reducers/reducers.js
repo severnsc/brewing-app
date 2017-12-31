@@ -9,18 +9,21 @@ export const tableRows = (state = [], action) => {
       ]
 
     case 'TOGGLE_EDIT_TABLE_ROW':
-      return state.map((tableRow) => {
+      return state.map(tableRow => {
         return (tableRow.id === action.id)
         ? {...tableRow, editing: !tableRow.editing}
         : tableRow
       })
 
     case 'SAVE_TABLE_ROW':
-      return state.map((tableRow) => {
+      return state.map(tableRow => {
         return (tableRow.id === action.id)
         ? {...tableRow, cells: action.cells}
         : tableRow
       })
+
+    case 'DELETE_TABLE_ROW':
+      return state.filter(tableRow => tableRow.id !== action.id)
 
     case 'TOGGLE_BUTTON_VISIBILITY':
       return state.map(tableRow => {
@@ -121,6 +124,9 @@ export const alerts = (state = [], action) => {
         ? action.alert
         : alert
       })
+
+    case 'DELETE_ALERT':
+      return state.filter(alert => alert.id !== action.id)
 
     default:
       return state
