@@ -4,6 +4,7 @@ const sendSMS = require('./lib/Twilio.js')
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const helmet = require('helmet')
 
 const {
   createTimer,
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 app.use(methodOverride());
+app.use(helmet());
 
 let timersArray = []
 let alertsArray = []
