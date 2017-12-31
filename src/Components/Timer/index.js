@@ -28,7 +28,11 @@ export default class Timer extends Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.active) this.timeout = setTimeout(this.updateTimer, 1000)
+    if(nextProps.minutes === nextProps.seconds === 0){
+      this.props.stopTimer()
+    }else if(nextProps.active){
+      this.timeout = setTimeout(this.updateTimer, 1000)
+    }
   }
 
   updateTimer = () => {
