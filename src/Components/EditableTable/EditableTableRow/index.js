@@ -10,6 +10,12 @@ const TableRow = styled.tr`
   position:relative;
   border-bottom:1px solid rgb(224, 224, 224);
   margin-top:5px;
+  &:hover button {
+    opacity: 1
+  }
+  button {
+    opacity: 0
+  }
 `
 
 const TableCell = styled.td`
@@ -19,6 +25,9 @@ const TableCell = styled.td`
 
 const FlexForm = styled.form`
   display:flex;
+  button {
+    opacity: 1;
+  }
 `
 
 const FlexInput = styled.input`
@@ -39,7 +48,7 @@ const DeleteButton = RoundButton.extend`
   font-size: 1em;
 `
 
-const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, deleteTableRow, buttonsVisible, toggleButtonVisibility}) => {
+const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, deleteTableRow}) => {
 
   const saveRow = (e) => {
     e.preventDefault()
@@ -57,8 +66,6 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, deleteT
   const toggleEdit = () => {
     setEditing(id)
   }
-
-  const opacity = buttonsVisible ? 1 : 0
     
   if(editing){
     
@@ -103,17 +110,17 @@ const EditableTableRow = ({id, editing, cells, setEditing, saveTableRow, deleteT
     })
 
     return(
-      <TableRow onMouseEnter={() => toggleButtonVisibility(id, true)} onMouseLeave={() => toggleButtonVisibility(id, false)}>
+      <TableRow>
         {tableCells}
         <TableCell style={{
           position: "absolute",
           right: 0,
           padding:0
         }}>
-          <EditButton style={{opacity}} onClick={toggleEdit} background="#c1c1c1">
+          <EditButton onClick={toggleEdit} background="#c1c1c1">
             &#9998;
           </EditButton>
-          <DeleteButton style={{opacity}} onClick={deleteRow} background="red">
+          <DeleteButton onClick={deleteRow} background="red">
             X
           </DeleteButton>
         </TableCell>

@@ -5,7 +5,6 @@ import {
   requestCreateAlert,
   requestUpdateAlert,
   requestDeleteAlert,
-  toggleButtonVisibility
 } from '../actions/actions'
 
 import { 
@@ -38,9 +37,6 @@ const mapDispatchToProps = dispatch => {
     },
     saveTableRow: (id, cells) => {
       dispatch(requestUpdateAlert(id, cells))
-    },
-    toggleButtonVisibility: (id, bool) => {
-      dispatch(toggleButtonVisibility(id, bool))
     },
     deleteTableRow: id => {
       dispatch(requestDeleteAlert(id))

@@ -22,7 +22,7 @@ const TableContainer = styled.div`
   flex-flow:column;
 `
 
-const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows, toggleButtonVisibility}) => {
+const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows}) => {
 
   const handleClick = () => {
     const tableRowID = shortid.generate()
@@ -52,7 +52,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
         />
         <tbody>
           {tableRows.map( tableRow => 
-            {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} deleteTableRow={deleteTableRow}  buttonsVisible={tableRow.buttonsVisible} toggleButtonVisibility={toggleButtonVisibility} />}
+            {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} deleteTableRow={deleteTableRow} />}
           )}
           <tr>
             <td>
@@ -90,7 +90,6 @@ EditableTable.propTypes = {
       ]).isRequired,
       type: PropTypes.string.isRequired
     })).isRequired,
-    buttonsVisible: PropTypes.bool.isRequired
   })).isRequired
 }
 

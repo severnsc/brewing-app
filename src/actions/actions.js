@@ -16,7 +16,6 @@ const ADD_TABLE_ROW = "ADD_TABLE_ROW"
 const TOGGLE_EDIT_TABLE_ROW = "TOGGLE_EDIT_TABLE_ROW"
 const SAVE_TABLE_ROW = "SAVE_TABLE_ROW"
 const DELETE_TABLE_ROW = "DELETE_TABLE_ROW"
-const TOGGLE_BUTTON_VISIBILITY = "TOGGLE_BUTTON_VISIBILITY"
 const START_TIMER = "START_TIMER"
 const STOP_TIMER = "STOP_TIMER"
 const RESET_TIMER = "RESET_TIMER"
@@ -53,14 +52,6 @@ export const deleteTableRow = id => {
   return {
     type: DELETE_TABLE_ROW,
     id
-  }
-}
-
-export const toggleButtonVisibility = (id, bool) => {
-  return {
-    type: TOGGLE_BUTTON_VISIBILITY,
-    id,
-    bool
   }
 }
 
