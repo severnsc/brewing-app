@@ -25,3 +25,12 @@ export const updateRemoteAlert = alert => {
     err => console.log("An error occured.", err)
   )
 }
+
+export const deleteRemoteAlert = id => {
+  return fetch(`http://localhost:3001/alert/${id}/delete`, {
+    headers: {
+      "Content-Type": "application/json"
+    },
+    method: "DELETE"
+  })
+}
