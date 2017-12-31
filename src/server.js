@@ -84,6 +84,12 @@ app.post('/alert/:id/update', (req, res) => {
   res.send(updatedAlert)
 })
 
+app.delete('/alert/:id/delete', (req, res) => {
+  const alertID = req.params.id
+  alertsArray = alertsArray.filter(alert => alert.id !== alertID)
+  res.sendStatus(200)
+})
+
 app.get('/alerts', (req, res) => {
   res.send(alertsArray)
 })
