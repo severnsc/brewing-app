@@ -75,7 +75,7 @@ EditableTable.propTypes = {
   deleteTableRow: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    type: PropTypes.string
+    type: PropTypes.string.isRequired
   }).isRequired).isRequired,
   tableRows: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
