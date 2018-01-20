@@ -10,7 +10,7 @@ const Nav = (props) => {
       <nav className={navClass}>
         <ul className="navItems">
           <li><Link onClick={props.onClick} to='/timer'><p>Timer</p></Link></li>
-          <li><Link onClick={props.onClick} to='/inventory'><p>inventory</p></Link></li>
+          <li><Link onClick={props.onClick} to='/inventory'><p>Inventory</p></Link></li>
         </ul>
       </nav>
     )
