@@ -3,20 +3,19 @@ import { connect } from 'react-redux'
 import { 
   addTableRow, 
   toggleTableRowEditing, 
-  saveTableRow 
+  saveTableRow,
+  deleteTableRow
 } from '../actions/actions'
 
-import EditableTable from '../Components/EditableTable/index'
+import EditableTable from '../Components/EditableTable'
 
-const getMaltInventory = (tableRows, tableName) => {
-  return tableRows.filter((tableRow) => {
-    return tableRow.tableName === tableName
-  })
+const getInventoryRows = (tableRows, tableName) => {
+  return tableRows.filter(tableRow => tableRow.tableName === tableName)
 }
 
 const mapStateToProps = (state, ownProps) => {
   return{
-    tableRows: getMaltInventory(state.tableRows, ownProps.name),
+    tableRows: getInventoryRows(state.tableRows, ownProps.name),
     columns: ownProps.columns,
     name: ownProps.name
   }
@@ -32,13 +31,16 @@ const mapDispatchToProps = dispatch => {
     },
     saveTableRow: cells => {
       dispatch(saveTableRow(cells))
+    },
+    deleteTableRow: id => {
+      dispatch(deleteTableRow(id))
     }
   }
 }
 
-const InventoryTable = connect(
+const InventoryContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(EditableTable)
 
-export default InventoryTable
+export default InventoryContainer
