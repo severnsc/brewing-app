@@ -22,7 +22,7 @@ const TableContainer = styled.div`
   flex-flow:column;
 `
 
-const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows}) => {
+const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows, order, orderBy}) => {
 
   const handleClick = () => {
     const tableRowID = shortid.generate()
@@ -44,6 +44,33 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
     addRow(newRow)
   }
 
+  let rows = tableRows
+
+  if(orderBy){
+    const index = columns.filter((col, i) => {if(col.name === orderBy) return i})[0]
+    if(order === "asc"){
+      rows = tableRows.concat().sort((a,b) => {
+        if(a.cells[index].value < b.cells[index].value){
+          return -1
+        }else if(a.cells[index].value === b.cells[index].value){
+          return 0
+        }else{
+          return 1
+        }
+      })
+    }else if(order === "desc"){
+      rows = tableRows.concat().sort((a,b) => {
+        if(a.cells[index].value < b.cells[index].value){
+          return 1
+        }else if(a.cells[index].value === b.cells[index].value){
+          return 0
+        }else{
+          return -1
+        }
+      })
+    }
+  }
+
   return(
     <TableContainer>
       <Table>
@@ -51,7 +78,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
           columnNames={columns.map((col) => {return col.name} )}
         />
         <tbody>
-          {tableRows.map( tableRow => 
+          {rows.map(tableRow => 
             {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} deleteTableRow={deleteTableRow} />}
           )}
           <tr>
@@ -90,7 +117,9 @@ EditableTable.propTypes = {
       ]).isRequired,
       type: PropTypes.string.isRequired
     })).isRequired,
-  })).isRequired
+  })).isRequired,
+  order: PropTypes.string,
+  orderBy: PropTypes.string
 }
 
 export default EditableTable
