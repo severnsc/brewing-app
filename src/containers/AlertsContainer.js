@@ -5,6 +5,7 @@ import {
   requestCreateAlert,
   requestUpdateAlert,
   requestDeleteAlert,
+  toggleTableSort
 } from '../actions/actions'
 
 import { 
@@ -12,6 +13,23 @@ import {
 } from '../selectors'
 
 import EditableTable from '../Components/EditableTable'
+
+const getOrderBy = sortedTables => {
+  const sortedAlertsTableArray = sortedTables.filter(sortedTable => sortedTable.tableName === "alerts")
+  return sortedAlertsTableArray.length === 1
+  ? sortedAlertsTableArray[0].orderBy
+  : null
+}
+
+const getOrder = sortedTables => {
+  const sortedAlertsTableArray = sortedTables.filter(sortedTable => sortedTable.tableName === "alerts")
+  console.log(sortedAlertsTableArray.length)
+  if(sortedAlertsTableArray.length === 1){
+    return sortedAlertsTableArray[0].order
+  }else{
+    return null
+  }
+}
 
 const mapStateToProps = state => {
 
@@ -23,7 +41,9 @@ const mapStateToProps = state => {
   return{
     tableRows: getAlertRows(state),
     columns,
-    name: "alerts"
+    name: "alerts",
+    orderBy: getOrderBy(state.sortedTables),
+    order: getOrder(state.sortedTables)
   }
 }
 
@@ -40,6 +60,9 @@ const mapDispatchToProps = dispatch => {
     },
     deleteTableRow: id => {
       dispatch(requestDeleteAlert(id))
+    },
+    onHeaderCellClick: (tableName, columnName) => {
+      dispatch(toggleTableSort(tableName, columnName))
     }
   }
 }

@@ -3,7 +3,8 @@ import {
   timer,
   errorText,
   alerts,
-  remoteTimer
+  remoteTimer,
+  sortedTables
 } from './reducers'
 
 import { combineReducers } from 'redux'
@@ -13,7 +14,8 @@ const brewingApp = combineReducers({
   timer,
   errorText,
   alerts,
-  remoteTimer
+  remoteTimer,
+  sortedTables
 })
 
 export default brewingApp

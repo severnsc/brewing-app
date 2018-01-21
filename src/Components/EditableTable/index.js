@@ -22,7 +22,7 @@ const TableContainer = styled.div`
   flex-flow:column;
 `
 
-const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows, orderBy, order}) => {
+const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows, orderBy, order, onHeaderCellClick}) => {
 
   const handleClick = () => {
     const tableRowID = shortid.generate()
@@ -42,6 +42,10 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
       buttonsVisible: false
     }
     addRow(newRow)
+  }
+
+  const headerCellClick = columnName => {
+    onHeaderCellClick(name, columnName)
   }
 
   let rows = tableRows
@@ -76,6 +80,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
       <Table>
         <EditableTableHeader
           columnNames={columns.map((col) => {return col.name} )}
+          onClick={headerCellClick}
         />
         <tbody>
           {rows.map(tableRow => 
@@ -98,6 +103,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
 EditableTable.propTypes = {
   name: PropTypes.string.isRequired,
   addRow: PropTypes.func.isRequired,
+  setEditing: PropTypes.func.isRequired,
   saveTableRow: PropTypes.func.isRequired,
   deleteTableRow: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape({
@@ -119,7 +125,8 @@ EditableTable.propTypes = {
     })).isRequired,
   })).isRequired,
   orderBy: PropTypes.string,
-  order: PropTypes.string
+  order: PropTypes.string,
+  onHeaderCellClick: PropTypes.func.isRequired
 }
 
 export default EditableTable

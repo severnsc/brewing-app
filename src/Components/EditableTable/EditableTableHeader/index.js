@@ -19,12 +19,12 @@ const HeaderCell = styled.td`
   flex:1;
 `
 
-const EditableTableHeader = ({columnNames}) => {
+const EditableTableHeader = ({columnNames, onClick}) => {
 
   return(
     <Thead>
       <HeaderRow>
-        {columnNames.map( columnName => {return <HeaderCell key={columnName}>{columnName}</HeaderCell>})}
+        {columnNames.map( columnName => {return <HeaderCell key={columnName} onClick={() => onClick(columnName)}>{columnName}</HeaderCell>})}
       </HeaderRow>
     </Thead>
   )
@@ -32,7 +32,8 @@ const EditableTableHeader = ({columnNames}) => {
 }
 
 EditableTableHeader.propTypes = {
-  columnNames: PropTypes.arrayOf(PropTypes.string).isRequired
+  columnNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default EditableTableHeader
