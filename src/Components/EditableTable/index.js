@@ -44,6 +44,36 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
     addRow(newRow)
   }
 
+<<<<<<< Updated upstream
+=======
+  let rows = tableRows
+
+  if(orderBy){
+    const index = columns.findIndex(col => col.name === orderBy)
+    if(order === "asc"){
+      rows = tableRows.concat().sort((a,b) => {
+        if(a.cells[index].value < b.cells[index].value){
+          return -1
+        }else if(a.cells[index].value === b.cells[index].value){
+          return 0
+        }else{
+          return 1
+        }
+      })
+    }else if(order === "desc"){
+      rows = tableRows.concat().sort((a,b) => {
+        if(a.cells[index].value < b.cells[index].value){
+          return 1
+        }else if(a.cells[index].value === b.cells[index].value){
+          return 0
+        }else{
+          return -1
+        }
+      })
+    }
+  }
+
+>>>>>>> Stashed changes
   return(
     <TableContainer>
       <Table>
