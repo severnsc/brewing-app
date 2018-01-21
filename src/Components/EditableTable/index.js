@@ -44,8 +44,6 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
     addRow(newRow)
   }
 
-<<<<<<< Updated upstream
-=======
   let rows = tableRows
 
   if(orderBy){
@@ -73,7 +71,6 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
     }
   }
 
->>>>>>> Stashed changes
   return(
     <TableContainer>
       <Table>
@@ -81,7 +78,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
           columnNames={columns.map((col) => {return col.name} )}
         />
         <tbody>
-          {tableRows.map( tableRow => 
+          {rows.map(tableRow => 
             {return <EditableTableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} editing={tableRow.editing} setEditing={setEditing} saveTableRow={saveTableRow} deleteTableRow={deleteTableRow} />}
           )}
           <tr>
