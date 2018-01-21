@@ -22,7 +22,7 @@ const TableContainer = styled.div`
   flex-flow:column;
 `
 
-const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows}) => {
+const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows, orderBy, order}) => {
 
   const handleClick = () => {
     const tableRowID = shortid.generate()
@@ -117,7 +117,9 @@ EditableTable.propTypes = {
       ]).isRequired,
       type: PropTypes.string.isRequired
     })).isRequired,
-  })).isRequired
+  })).isRequired,
+  orderBy: PropTypes.string,
+  order: PropTypes.string
 }
 
 export default EditableTable
