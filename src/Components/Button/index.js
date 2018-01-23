@@ -5,4 +5,5 @@ export default styled.button`
   border: none;
   color: white;
   background: ${props => props.background};
+  cursor: pointer;
 `

@@ -7,4 +7,5 @@ export default styled.button`
   color:white;
   border:none;
   background: ${props => props.background};
+  cursor: pointer;
 `
