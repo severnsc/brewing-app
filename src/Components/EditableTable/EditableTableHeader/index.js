@@ -45,7 +45,7 @@ const EditableTableHeader = ({columnNames, onClick, order, orderBy}) => {
 EditableTableHeader.propTypes = {
   columnNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClick: PropTypes.func.isRequired,
-  order: PropTypes.string,
+  order: PropTypes.oneOf(['asc', 'desc']),
   orderBy: PropTypes.string
 }
 

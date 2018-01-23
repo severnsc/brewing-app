@@ -127,7 +127,7 @@ EditableTable.propTypes = {
     })).isRequired,
   })).isRequired,
   orderBy: PropTypes.string,
-  order: PropTypes.string,
+  order: PropTypes.oneOf(['asc', 'desc']),
   onHeaderCellClick: PropTypes.func.isRequired
 }
 
