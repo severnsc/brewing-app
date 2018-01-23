@@ -81,6 +81,8 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
         <EditableTableHeader
           columnNames={columns.map((col) => {return col.name} )}
           onClick={headerCellClick}
+          order={order}
+          orderBy={orderBy}
         />
         <tbody>
           {rows.map(tableRow => 
