@@ -17,14 +17,25 @@ const HeaderRow = styled.tr`
 
 const HeaderCell = styled.td`
   flex:1;
+  cursor:pointer;
 `
 
-const EditableTableHeader = ({columnNames}) => {
+const EditableTableHeader = ({columnNames, onClick, order, orderBy}) => {
+
+  let arrowStyle
+  if(order === 'asc'){
+    arrowStyle = {
+      transform: 'rotate(' + 180 + 'deg)',
+      display: 'inline-block'
+    }
+  }else if(order === 'desc'){
+    arrowStyle = {display: 'inline'}
+  }
 
   return(
     <Thead>
       <HeaderRow>
-        {columnNames.map( columnName => {return <HeaderCell key={columnName}>{columnName}</HeaderCell>})}
+        {columnNames.map( columnName => {return <HeaderCell key={columnName} onClick={() => onClick(columnName)}>{columnName}{columnName === orderBy ? <span style={arrowStyle}>▾</span> : ''}</HeaderCell>})}
       </HeaderRow>
     </Thead>
   )
@@ -32,7 +43,10 @@ const EditableTableHeader = ({columnNames}) => {
 }
 
 EditableTableHeader.propTypes = {
-  columnNames: PropTypes.arrayOf(PropTypes.string).isRequired
+  columnNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func.isRequired,
+  order: PropTypes.oneOf(['asc', 'desc']),
+  orderBy: PropTypes.string
 }
 
 export default EditableTableHeader

@@ -146,8 +146,6 @@ EditableTableRow.propTypes = {
     type: PropTypes.string.isRequired
   })).isRequired,
   saveTableRow: PropTypes.func.isRequired,
-  buttonsVisible: PropTypes.bool.isRequired,
-  toggleButtonVisibility: PropTypes.func.isRequired
 }
 
 EditableTableRow.defaultProps = {

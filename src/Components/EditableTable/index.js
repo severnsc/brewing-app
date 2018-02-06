@@ -21,8 +21,7 @@ const TableContainer = styled.div`
   display:flex;
   flex-flow:column;
 `
-
-const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows, order, orderBy}) => {
+const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows, orderBy, order, onHeaderCellClick}) => {
 
   const handleClick = () => {
     const tableRowID = shortid.generate()
@@ -44,10 +43,14 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
     addRow(newRow)
   }
 
+  const headerCellClick = columnName => {
+    onHeaderCellClick(name, columnName)
+  }
+
   let rows = tableRows
 
   if(orderBy){
-    const index = columns.filter((col, i) => {if(col.name === orderBy) return i})[0]
+    const index = columns.findIndex(col => col.name === orderBy)
     if(order === "asc"){
       rows = tableRows.concat().sort((a,b) => {
         if(a.cells[index].value < b.cells[index].value){
@@ -76,6 +79,9 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
       <Table>
         <EditableTableHeader
           columnNames={columns.map((col) => {return col.name} )}
+          onClick={headerCellClick}
+          order={order}
+          orderBy={orderBy}
         />
         <tbody>
           {rows.map(tableRow => 
@@ -98,6 +104,7 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
 EditableTable.propTypes = {
   name: PropTypes.string.isRequired,
   addRow: PropTypes.func.isRequired,
+  setEditing: PropTypes.func.isRequired,
   saveTableRow: PropTypes.func.isRequired,
   deleteTableRow: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape({
@@ -118,8 +125,9 @@ EditableTable.propTypes = {
       type: PropTypes.string.isRequired
     })).isRequired,
   })).isRequired,
-  order: PropTypes.string,
-  orderBy: PropTypes.string
+  orderBy: PropTypes.string,
+  order: PropTypes.oneOf(['asc', 'desc']),
+  onHeaderCellClick: PropTypes.func.isRequired
 }
 
 export default EditableTable

@@ -31,6 +31,39 @@ export const tableRows = (state = [], action) => {
   }
 }
 
+export const sortedTables = (state = [], action) => {
+
+  switch(action.type){
+
+    case 'TOGGLE_TABLE_SORT':
+      if(state.findIndex(sortedTable => sortedTable.tableName === action.tableName) === -1){
+        return [
+          ...state,
+          {
+            tableName: action.tableName,
+            orderBy: action.columnName,
+            order: "asc"
+          }
+        ]
+      }else{
+        return state.map(sortedTable => {
+          if(sortedTable.tableName === action.tableName){
+            return sortedTable.orderBy === action.columnName
+            ? {...sortedTable, order: sortedTable.order === "asc" ? "desc" : "asc"}
+            : {...sortedTable, orderBy: action.columnName, order: "asc"}
+          }else{
+            return sortedTable
+          }
+        })
+      }
+
+    default:
+      return state
+
+  }
+
+}
+
 export const timer = (state = {}, action) => {
 
   switch(action.type){

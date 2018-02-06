@@ -25,6 +25,7 @@ const CREATE_ALERT = "CREATE_ALERT"
 const UPDATE_ALERT = "UPDATE_ALERT"
 const DELETE_ALERT = "DELETE_ALERT"
 const UPDATE_REMOTE_TIMER = "UPDATE_REMOTE_TIMER"
+const TOGGLE_TABLE_SORT = "TOGGLE_TABLE_SORT"
 
 export const addTableRow = tableRow => {
   return {
@@ -113,6 +114,14 @@ export const updateRemoteTimerCopy = timer => {
   return {
     type: UPDATE_REMOTE_TIMER,
     timer
+  }
+}
+
+export const toggleTableSort = (tableName, columnName) => {
+  return {
+    type: TOGGLE_TABLE_SORT,
+    tableName,
+    columnName
   }
 }
 
