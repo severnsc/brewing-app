@@ -127,6 +127,13 @@ export const toggleTableSort = (tableName, columnName) => {
 
 //Async actions
 
+export const saveInventoryTableRow = (id, cells) => {
+  return dispatch => {
+    dispatch(toggleTableRowEditing(id))
+    dispatch(saveTableRow(id, cells))
+  }
+}
+
 export const requestCreateRemoteTimer = minutes => {
   return dispatch => {
     dispatch(createTimer(minutes))

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { 
   addTableRow, 
   toggleTableRowEditing, 
-  saveTableRow,
+  saveInventoryTableRow,
   deleteTableRow
 } from '../actions/actions'
 
@@ -29,8 +29,8 @@ const mapDispatchToProps = dispatch => {
     setEditing: id => {
       dispatch(toggleTableRowEditing(id))
     },
-    saveTableRow: cells => {
-      dispatch(saveTableRow(cells))
+    saveTableRow: (id, cells) => {
+      dispatch(saveInventoryTableRow(id, cells))
     },
     deleteTableRow: id => {
       dispatch(deleteTableRow(id))
