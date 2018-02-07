@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import './App.css'
 import TimerSceneContainer from './containers/TimerSceneContainer'
 import InventoryScene from './Scenes/InventoryScene'
+import MaltInventoryScene from './Scenes/MaltInventoryScene'
 import Home from './Scenes/Home.js'
 import PropTypes from 'prop-types'
 
@@ -15,7 +16,8 @@ const Main = (props) => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path='/timer' component={TimerSceneContainer} />
-        <Route path='/inventory' component={InventoryScene} />
+        <Route exact path='/inventory' component={InventoryScene} />
+        <Route path='/inventory/malt' component={MaltInventoryScene} />
       </Switch>
     </main>
   )
