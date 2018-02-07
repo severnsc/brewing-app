@@ -13,7 +13,7 @@ const InventoryDiv = FlexDiv.extend`
   margin-top: 50px;
 `
 
-const InventoryScene = props => {
+const InventoryScene = () => {
 
   const maltColumns = [
     {name: "Malt Name", type: "text"},
