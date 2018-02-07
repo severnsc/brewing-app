@@ -37,7 +37,8 @@ const mapStateToProps = (state, ownProps) => {
     columns: ownProps.columns,
     name: ownProps.name,
     orderBy: getOrderBy(state.sortedTables, ownProps.name),
-    order: getOrder(state.sortedTables, ownProps.name)
+    order: getOrder(state.sortedTables, ownProps.name),
+    displayLimit: ownProps.displayLimit || false
   }
 }
 

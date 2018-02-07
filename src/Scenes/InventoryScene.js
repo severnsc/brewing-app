@@ -33,13 +33,13 @@ const InventoryScene = () => {
   return(
     <InventoryDiv>
       <InventoryBox>
-        <InventoryContainer name="malt" columns={maltColumns} />
+        <InventoryContainer name="malt" columns={maltColumns} displayLimit={5} />
       </InventoryBox>
       <InventoryBox>
-        <InventoryContainer name="yeast" columns={yeastColumns} />
+        <InventoryContainer name="yeast" columns={yeastColumns} displayLimit={5} />
       </InventoryBox>
       <InventoryBox>
-        <InventoryContainer name="hops" columns={hopColumns} />
+        <InventoryContainer name="hops" columns={hopColumns} displayLimit={5} />
       </InventoryBox>
     </InventoryDiv>
   )

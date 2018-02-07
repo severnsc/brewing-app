@@ -21,7 +21,7 @@ const TableContainer = styled.div`
   display:flex;
   flex-flow:column;
 `
-const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows, orderBy, order, onHeaderCellClick}) => {
+const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, columns, tableRows, orderBy, order, onHeaderCellClick, displayLimit}) => {
 
   const handleClick = () => {
     const tableRowID = shortid.generate()
@@ -73,6 +73,8 @@ const EditableTable = ({name, addRow, setEditing, saveTableRow, deleteTableRow, 
       })
     }
   }
+
+  if(displayLimit) rows = rows.slice(0, displayLimit)
 
   return(
     <TableContainer>
@@ -127,7 +129,8 @@ EditableTable.propTypes = {
   })).isRequired,
   orderBy: PropTypes.string,
   order: PropTypes.oneOf(['asc', 'desc']),
-  onHeaderCellClick: PropTypes.func.isRequired
+  onHeaderCellClick: PropTypes.func.isRequired,
+  displayLimit: PropTypes.number
 }
 
 export default EditableTable
