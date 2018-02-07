@@ -16,9 +16,14 @@ export const tableRows = (state = [], action) => {
       })
 
     case 'SAVE_TABLE_ROW':
+      const newCells = action.cells.map(cell => {
+        return (cell.type === "number")
+        ? {...cell, value: parseInt(cell.value, 10)}
+        : cell
+      })
       return state.map(tableRow => {
         return (tableRow.id === action.id)
-        ? {...tableRow, cells: action.cells}
+        ? {...tableRow, cells: newCells}
         : tableRow
       })
 
