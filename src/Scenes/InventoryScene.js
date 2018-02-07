@@ -34,12 +34,15 @@ const InventoryScene = () => {
     <InventoryDiv>
       <InventoryBox>
         <InventoryContainer name="malt" columns={maltColumns} displayLimit={5} />
+        <a href="/inventory/malt">View Full Table</a>
       </InventoryBox>
       <InventoryBox>
         <InventoryContainer name="yeast" columns={yeastColumns} displayLimit={5} />
+        <a href="/inventory/yeast">View Full Table</a>
       </InventoryBox>
       <InventoryBox>
         <InventoryContainer name="hops" columns={hopColumns} displayLimit={5} />
+        <a href="/inventory/hops">View Full Table</a>
       </InventoryBox>
     </InventoryDiv>
   )
