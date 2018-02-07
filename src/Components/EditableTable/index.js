@@ -130,7 +130,10 @@ EditableTable.propTypes = {
   orderBy: PropTypes.string,
   order: PropTypes.oneOf(['asc', 'desc']),
   onHeaderCellClick: PropTypes.func.isRequired,
-  displayLimit: PropTypes.number
+  displayLimit: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.bool
+  ])
 }
 
 export default EditableTable
