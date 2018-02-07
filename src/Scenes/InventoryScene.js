@@ -3,6 +3,16 @@ import InventoryContainer from '../containers/InventoryContainer'
 import ShadowBox from '../Components/ShadowBox'
 import FlexDiv from '../Components/FlexDiv'
 
+const InventoryBox = ShadowBox.extend`
+  width:100%;
+  margin:10px;
+`
+
+const InventoryDiv = FlexDiv.extend`
+  width:50%;
+  margin-top: 50px;
+`
+
 const InventoryScene = props => {
 
   const maltColumns = [
@@ -21,17 +31,17 @@ const InventoryScene = props => {
   ]
 
   return(
-    <FlexDiv>
-      <ShadowBox>
+    <InventoryDiv>
+      <InventoryBox>
         <InventoryContainer name="malt" columns={maltColumns} />
-      </ShadowBox>
-      <ShadowBox>
+      </InventoryBox>
+      <InventoryBox>
         <InventoryContainer name="yeast" columns={yeastColumns} />
-      </ShadowBox>
-      <ShadowBox>
+      </InventoryBox>
+      <InventoryBox>
         <InventoryContainer name="hops" columns={hopColumns} />
-      </ShadowBox>
-    </FlexDiv>
+      </InventoryBox>
+    </InventoryDiv>
   )
 }
 
