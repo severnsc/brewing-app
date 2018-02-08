@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import TableHeader from './TableHeader'
 import TableRow from './TableRow'
+import TableHeader from './TableHeader'
 import styled from 'styled-components'
 
 const FlexTable = styled.table`
@@ -12,9 +12,10 @@ const FlexTable = styled.table`
 const TableContainer = styled.div`
   display:flex;
   flex-flow:column;
+  width:100%;
 `
 
-const Table = ({name, columns, tableRows, orderBy, order, onHeaderCellClick, displayLimit}) => {
+const Table = ({name, render, columns, tableRows, orderBy, order, onHeaderCellClick, displayLimit}) => {
 
   const headerCellClick = columnName => {
     onHeaderCellClick(name, columnName)
@@ -59,14 +60,7 @@ const Table = ({name, columns, tableRows, orderBy, order, onHeaderCellClick, dis
           orderBy={orderBy}
         />
         <tbody>
-          {rows.map(tableRow => 
-            {return <TableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} />}
-          )}
-          <tr>
-            <td>
-              
-            </td>
-          </tr>
+          {render(rows)}
         </tbody>
       </FlexTable>
     </TableContainer>
@@ -76,6 +70,7 @@ const Table = ({name, columns, tableRows, orderBy, order, onHeaderCellClick, dis
 
 Table.propTypes = {
   name: PropTypes.string.isRequired,
+  render: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired
@@ -101,6 +96,10 @@ Table.propTypes = {
     PropTypes.number,
     PropTypes.bool
   ])
+}
+
+Table.defaultProps = {
+  render: rows => rows.map(tableRow => <TableRow key={tableRow.id} id={tableRow.id} cells={tableRow.cells} />)
 }
 
 export default Table

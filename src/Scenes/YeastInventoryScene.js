@@ -1,5 +1,5 @@
 import React from 'react'
-import InventoryContainer from '../containers/InventoryContainer'
+import EditableInventoryContainer from '../containers/EditableInventoryContainer'
 import ShadowBox from '../Components/ShadowBox'
 
 const YeastInventoryBox = ShadowBox.extend`
@@ -16,7 +16,7 @@ const YeastInventoryScene = () => {
 
   return(
     <YeastInventoryBox>
-      <InventoryContainer name="yeast" columns={columns} />
+      <EditableInventoryContainer name="yeast" columns={columns} />
     </YeastInventoryBox>
   )
 }

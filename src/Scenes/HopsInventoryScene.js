@@ -1,5 +1,5 @@
 import React from 'react'
-import InventoryContainer from '../containers/InventoryContainer'
+import EditableInventoryContainer from '../containers/EditableInventoryContainer'
 import ShadowBox from '../Components/ShadowBox'
 
 const HopsInventoryBox = ShadowBox.extend`
@@ -16,7 +16,7 @@ const HopsInventoryScene = () => {
 
   return(
     <HopsInventoryBox>
-      <InventoryContainer name="hops" columns={columns} />
+      <EditableInventoryContainer name="hops" columns={columns} />
     </HopsInventoryBox>
   )
 }
