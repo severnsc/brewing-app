@@ -1,8 +1,14 @@
 import { connect } from 'react-redux'
 
-import {toggleTableSort} from '../actions/actions'
+import { 
+  addTableRow, 
+  toggleTableRowEditing, 
+  saveInventoryTableRow,
+  deleteTableRow,
+  toggleTableSort
+} from '../actions/actions'
 
-import Table from '../Components/Table'
+import EditableTable from '../Components/EditableTable'
 
 const getOrderBy = (sortedTables, name) => {
   const sortedAlertsTableArray = sortedTables.filter(sortedTable => sortedTable.tableName === name)
@@ -38,6 +44,18 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    addRow: tableRow => {
+      dispatch(addTableRow(tableRow))
+    },
+    setEditing: id => {
+      dispatch(toggleTableRowEditing(id))
+    },
+    saveTableRow: (id, cells) => {
+      dispatch(saveInventoryTableRow(id, cells))
+    },
+    deleteTableRow: id => {
+      dispatch(deleteTableRow(id))
+    },
     onHeaderCellClick: (tableName, columnName) => {
       dispatch(toggleTableSort(tableName, columnName))
     }
@@ -47,6 +65,6 @@ const mapDispatchToProps = dispatch => {
 const InventoryContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Table)
+)(EditableTable)
 
 export default InventoryContainer
