@@ -1,0 +1,39 @@
+{
+  "name": "brewing-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^15.6.2",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.1.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "remote-redux-devtools": "^0.5.12",
+    "reselect": "^3.0.1",
+    "shortid": "^2.2.8",
+    "styled-components": "^2.2.4"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.10"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "mocha test",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:3001",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/severnsc/brewing-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/severnsc/brewing-app/issues"
+  },
+  "homepage": "https://github.com/severnsc/brewing-app#readme"
+}
