@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "node server.js",
+    "server": "node src/server.js",
     "client": "node start-client.js",
     "test": "mocha test"
   },
