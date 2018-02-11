@@ -16,7 +16,9 @@
     "twilio": "^3.7.0"
   },
   "scripts": {
-    "start": "node src/server.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js",
     "test": "mocha test"
   },
   "proxy": "http://localhost:3001",
