@@ -12,26 +12,12 @@
     "method-override": "^2.3.10",
     "mocha": "^4.0.1",
     "nodemon": "^1.11.0",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.1",
-    "react-redux": "^5.0.6",
-    "react-router-dom": "^4.1.2",
-    "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "remote-redux-devtools": "^0.5.12",
-    "reselect": "^3.0.1",
     "shortid": "^2.2.8",
-    "styled-components": "^2.2.4",
     "twilio": "^3.7.0"
   },
-  "devDependencies": {
-    "react-scripts": "1.0.10"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "mocha test",
-    "eject": "react-scripts eject"
+    "start": "node server.js",
+    "test": "mocha test"
   },
   "proxy": "http://localhost:3001",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",

@@ -20,6 +20,10 @@ app.use(bodyParser.json())
 app.use(methodOverride());
 app.use(helmet());
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
 let timersArray = []
 let alertsArray = []
 
@@ -67,7 +71,10 @@ const allowCrossDomain = (req, res, next) => {
       next();
     }
 };
-app.use(allowCrossDomain);
+
+if (process.env.NODE_ENV === 'dev') {
+  app.use(allowCrossDomain);
+}
 
 app.get('/alert/:id', (req, res) => {
   const alert = alertsArray.filter(alert => alert.id === req.params.id)[0]
