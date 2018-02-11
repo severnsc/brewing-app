@@ -16,7 +16,7 @@
     "twilio": "^3.7.0"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node src/server.js",
     "test": "mocha test"
   },
   "proxy": "http://localhost:3001",
