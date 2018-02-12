@@ -35,5 +35,5 @@
   "bugs": {
     "url": "https://github.com/severnsc/brewing-app/issues"
   },
-  "homepage": "https://github.com/severnsc/brewing-app#readme"
+  "homepage": "/src/client/build"
 }
