@@ -1,5 +1,5 @@
 export const createRemoteAlert = alert => {
-  return fetch(`http://localhost:3001/alerts/new`, {
+  return fetch(`/alerts/new`, {
     body: JSON.stringify({alert}),
     headers: {
       "Content-Type": "application/json"
@@ -13,7 +13,7 @@ export const createRemoteAlert = alert => {
 }
 
 export const updateRemoteAlert = alert => {
-  return fetch(`http://localhost:3001/alert/${alert.id}/update`, {
+  return fetch(`/alert/${alert.id}/update`, {
     body: JSON.stringify({alert}),
     headers: {
       "Content-Type": "application/json"
@@ -27,7 +27,7 @@ export const updateRemoteAlert = alert => {
 }
 
 export const deleteRemoteAlert = id => {
-  return fetch(`http://localhost:3001/alert/${id}/delete`, {
+  return fetch(`/alert/${id}/delete`, {
     headers: {
       "Content-Type": "application/json"
     },

@@ -1,9 +1,9 @@
 const constructURL = (id, path) => {
-  return `http://localhost:3001/timer/${id}/${path}`
+  return `/timer/${id}/${path}`
 }
 
 export const createRemoteTimer = minutes => {
-  return fetch('http://localhost:3001/timers/new', {
+  return fetch('/timers/new', {
     body: JSON.stringify({initialMinutes: minutes}),
     headers: {
       "Content-Type": "application/json"
