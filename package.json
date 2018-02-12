@@ -17,6 +17,7 @@
     "twilio": "^3.7.0"
   },
   "scripts": {
+    "install": "cd src/client && yarn run build && cd ../..",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node src/server.js",
     "client": "node start-client.js",
