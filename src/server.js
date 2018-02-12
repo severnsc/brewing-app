@@ -178,5 +178,5 @@ app.post('/timers/new', (req, res) => {
 })
 
 app.listen(process.env.PORT, () => {
-  console.log('Example app listening on port ' + process.env.PORT)
+  console.log('Example app listening on port ' + process.env.PORT + 'env:' + process.env.NODE_ENV)
 })
